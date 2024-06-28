@@ -1,19 +1,19 @@
 using System.Collections.Generic;
 using OSC.NET;
 using TuioNet.Tuio11;
-using TuioSimulator.Networking;
+using TuioSimulator.Tuio.Common;
 
-namespace TuioSimulator.Tuio
+namespace TuioSimulator.Tuio.Tuio11
 {
     public class Tuio11Manager : ITuioManager
     {
-        private readonly TuioRepository<Tuio11Cursor> _cursorRepository;
-        private readonly TuioRepository<Tuio11Object> _objectRepository;
-        private readonly TuioRepository<Tuio11Blob> _blobRepository;
+        private readonly Tuio11Repository<Tuio11Cursor> _cursorRepository;
+        private readonly Tuio11Repository<Tuio11Object> _objectRepository;
+        private readonly Tuio11Repository<Tuio11Blob> _blobRepository;
         
         private readonly IList<Tuio11Cursor> _cursors = new List<Tuio11Cursor>();
         private readonly IList<Tuio11Object> _objects = new List<Tuio11Object>();
-        private IList<Tuio11Blob> _blobs = new List<Tuio11Blob>();
+        private readonly IList<Tuio11Blob> _blobs = new List<Tuio11Blob>();
         
         private OSCBundle _frameBundle;
         private int _frameId = 0;
@@ -52,9 +52,9 @@ namespace TuioSimulator.Tuio
         
         public Tuio11Manager(string sourceName)
         {
-            _cursorRepository = new TuioRepository<Tuio11Cursor>(sourceName, "/tuio/2Dcur");
-            _objectRepository = new TuioRepository<Tuio11Object>(sourceName, "/tuio/2Dobj");
-            _blobRepository = new TuioRepository<Tuio11Blob>(sourceName, "/tuio/2Dblb");
+            _cursorRepository = new Tuio11Repository<Tuio11Cursor>(sourceName, "/tuio/2Dcur");
+            _objectRepository = new Tuio11Repository<Tuio11Object>(sourceName, "/tuio/2Dobj");
+            _blobRepository = new Tuio11Repository<Tuio11Blob>(sourceName, "/tuio/2Dblb");
         }
         
         

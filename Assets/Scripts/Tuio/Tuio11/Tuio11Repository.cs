@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using OSC.NET;
-using TuioNet.Tuio11;
+using TuioNet.Common;
 
-namespace TuioSimulator.Tuio
+namespace TuioSimulator.Tuio.Tuio11
 {
-    public class TuioRepository<T> where T: ITuio11Entity
+    public class Tuio11Repository<T> where T: ITuioEntity
     {
         private IEnumerable<T> _entities;
 
@@ -16,7 +15,7 @@ namespace TuioSimulator.Tuio
         
         private int _frameId = 0;
 
-        public TuioRepository(string sourceName, string tuioAddress)
+        public Tuio11Repository(string sourceName, string tuioAddress)
         {
             _sourceName = sourceName;
             _tuioAddress = tuioAddress;
@@ -72,10 +71,9 @@ namespace TuioSimulator.Tuio
             bundle.Append(AliveMessage);
             foreach (var entity in _entities)
             {
-                bundle.Append(entity.SetMessage);
+                bundle.Append(entity.OscMessage);
             }
             bundle.Append(FseqMessage);
-            var str = Encoding.UTF8.GetString(bundle.BinaryData);
             return bundle;
         }
     }

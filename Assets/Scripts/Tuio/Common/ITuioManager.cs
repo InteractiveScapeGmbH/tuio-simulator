@@ -1,7 +1,6 @@
 using OSC.NET;
-using TuioSimulator.Networking;
 
-namespace TuioSimulator.Tuio
+namespace TuioSimulator.Tuio.Common
 {
     public interface ITuioManager
     {

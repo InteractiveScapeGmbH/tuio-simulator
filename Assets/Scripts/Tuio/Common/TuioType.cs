@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TuioSimulator.Tuio
+namespace TuioSimulator.Tuio.Common
 {
     internal enum TuioType
     {

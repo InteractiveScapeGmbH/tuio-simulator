@@ -1,9 +1,10 @@
 using TuioNet.Common;
 using TuioNet.Tuio11;
+using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using Utils;
 
-namespace TuioSimulator.Tuio
+namespace TuioSimulator.Tuio.Tuio11
 {
     public class Tuio11CursorBehaviour : MonoBehaviour
     {
@@ -19,7 +20,7 @@ namespace TuioSimulator.Tuio
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        private void Init(Tuio11Manager tuioManager)
+        public void Init(Tuio11Manager tuioManager)
         {
             _manager = tuioManager;
             _time = TuioTime.GetSystemTime();

@@ -1,13 +1,14 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
 using System.Text;
 using TuioNet.Tuio11;
 using TuioSimulator.Networking;
+using TuioSimulator.Tuio.Tuio11;
+using TuioSimulator.Tuio.Tuio20;
 using UnityEngine;
 
-namespace TuioSimulator.Tuio
+namespace TuioSimulator.Tuio.Common
 {
     public class TuioTransmitter : MonoBehaviour
     {
@@ -38,7 +39,7 @@ namespace TuioSimulator.Tuio
             _manager = _tuioType switch
             {
                 TuioType.Tuio => new Tuio11Manager(_sourceName),
-                TuioType.Tuio2 => new Tuio20Manager(),
+                TuioType.Tuio2 => new Tuio20Manager(_sourceName),
                 _ => _manager
             };
         }
