@@ -82,7 +82,6 @@ namespace TuioSimulator.Tuio.Tuio11
 
         public OSCBundle UpdateBundle(OSCBundle bundle)
         {
-            if (_entities == null || !_entities.Any()) return bundle;
             bundle.Append(SourceMessage);
             bundle.Append(AliveMessage);
             foreach (var entity in _entities)
