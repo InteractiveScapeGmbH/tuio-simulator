@@ -1,0 +1,14 @@
+{
+    "name": "TuioSimulator.UI",
+    "rootNamespace": "TuioSimulator",
+    "references": ["GUID:940fdaa2f523a4a248397a6b8464981a"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
