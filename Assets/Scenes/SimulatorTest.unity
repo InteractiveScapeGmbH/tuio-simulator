@@ -444,7 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transmitter: {fileID: 136587243}
   _cursorPrefab: {fileID: 5275917905756838280, guid: a08e26a16fd6a4d4685a206e7872dff8, type: 3}
-  _objectPrefab: {fileID: 0}
+  _objectPrefab: {fileID: 3526605613493734537, guid: a07e4e963c8734897a770e481aa75ccc, type: 3}
 --- !u!114 &716274596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -641,11 +641,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4719308139192715521, guid: 07d7d2646b10541eb9d18c72097bc6ea, type: 3}
       propertyPath: _port
-      value: 3343
+      value: 3333
       objectReference: {fileID: 0}
     - target: {fileID: 4719308139192715521, guid: 07d7d2646b10541eb9d18c72097bc6ea, type: 3}
       propertyPath: _tuioType
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5844930554466552732, guid: 07d7d2646b10541eb9d18c72097bc6ea, type: 3}
       propertyPath: m_Enabled
