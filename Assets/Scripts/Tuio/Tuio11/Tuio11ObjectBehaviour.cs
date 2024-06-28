@@ -27,11 +27,12 @@ namespace TuioSimulator.Tuio.Tuio11
                 var position = _rectTransform.anchoredPosition;
                 position.x /= Screen.width;
                 position.y /= Screen.height;
+                position.y = 1f - position.y;
                 return position;
             }
         }
 
-        private float Angle => _rectTransform.eulerAngles.z * Mathf.Deg2Rad;
+        private float Angle => -_rectTransform.eulerAngles.z * Mathf.Deg2Rad;
         
         private void Awake()
         {

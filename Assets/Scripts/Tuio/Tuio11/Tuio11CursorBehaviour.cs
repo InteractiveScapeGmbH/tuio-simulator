@@ -34,6 +34,7 @@ namespace TuioSimulator.Tuio.Tuio11
             var position = _rectTransform.anchoredPosition;
             position.x /= Screen.width;
             position.y /= Screen.height;
+            position.y = 1f - position.y;
             
             var velocity = position - _lastPosition;
             _cursor.Update(_time, position.FromUnity(), velocity.FromUnity(), velocity.magnitude);
