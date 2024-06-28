@@ -1,7 +1,10 @@
 {
     "name": "TuioSimulator.Tuio",
     "rootNamespace": "TuioSimulator",
-    "references": [],
+    "references": [
+        "GUID:300d971905de748469eb9d3723e2480a",
+        "GUID:b560623cd92a64f42b92abbb7fe4be38"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

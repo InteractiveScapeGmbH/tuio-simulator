@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
@@ -8,7 +9,8 @@ namespace TuioSimulator.Networking
     {
         [SerializeField] private ConnectionType _connectionType = ConnectionType.Websocket;
         [SerializeField] private int _port = 9000;
-
+        [SerializeField] private string _sourceName = "TuioSimulator";
+        
         private ITuioServer _server;
 
         private void Awake()

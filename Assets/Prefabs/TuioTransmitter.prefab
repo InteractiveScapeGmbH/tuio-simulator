@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2669464216124907762}
-  - component: {fileID: 3135572282363629206}
+  - component: {fileID: 4719308139192715521}
   m_Layer: 0
-  m_Name: Server
+  m_Name: TuioTransmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3135572282363629206
+--- !u!114 &4719308139192715521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,8 +41,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4069048202439809687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3adba5e0968b442c59aaa59e84c7fa33, type: 3}
+  m_Script: {fileID: 11500000, guid: fe3d0ae6e9c946ba9b47d53605ab2f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _tuioType: 0
   _connectionType: 1
   _port: 9000
+  _sourceName: TuioSimulator
