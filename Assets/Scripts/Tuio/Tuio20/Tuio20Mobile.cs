@@ -1,3 +1,4 @@
+using System;
 using TuioNet.Common;
 using TuioNet.Tuio20;
 using TuioSimulator.Tuio.Common;
@@ -18,6 +19,8 @@ namespace TuioSimulator.Tuio.Tuio20
         private float _lastAngle;
         private int _componentId;
         private float Angle => -_rectTransform.eulerAngles.z * Mathf.Deg2Rad;
+
+        private string _data;
 
         private Vector2 Size
         {
@@ -43,7 +46,8 @@ namespace TuioSimulator.Tuio.Tuio20
             var time = TuioTime.GetSystemTime();
             var container = new Tuio20Object(time, _manager.CurrentSessionId);
             _lastAngle = Angle;
-            _symbol = new Tuio20Symbol(time, container, 0, componentId, "sxm", "unknown");
+            _data = Guid.NewGuid().ToString();
+            _symbol = new Tuio20Symbol(time, container, 0, componentId, "sxm", _data);
             _bounds = new Tuio20Bounds(time, container, GetNormalizedPosition().FromUnity(), Angle, Size.FromUnity(),
                 Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(_symbol);
@@ -65,7 +69,7 @@ namespace TuioSimulator.Tuio.Tuio20
 
             var position = GetNormalizedPosition();
             var velocity = position - _lastPosition;
-            _symbol.Update(time, 0, _componentId, "sxm", "unknown");
+            _symbol.Update(time, 0, _componentId, "sxm", _data);
             _bounds.Update(time, position.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
                 Angle - _lastAngle, velocity.magnitude, 0);
             _lastPosition = position;
