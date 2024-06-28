@@ -2,12 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using OSC.NET;
 using TuioNet.Common;
+using TuioNet.Tuio11;
 
 namespace TuioSimulator.Tuio.Tuio11
 {
-    public class Tuio11Repository<T> where T: ITuioEntity
+    public class Tuio11Repository
     {
-        private IEnumerable<T> _entities;
+        private IList<ITuioEntity> _entities;
 
         private readonly string _sourceName;
 
@@ -19,12 +20,22 @@ namespace TuioSimulator.Tuio.Tuio11
         {
             _sourceName = sourceName;
             _tuioAddress = tuioAddress;
+            _entities = new List<ITuioEntity>();
         }
 
-        public void Update(int frameId, IEnumerable<T> activeEntities)
+        public void Update(int frameId)
         {
             _frameId = frameId;
-            _entities = activeEntities;
+        }
+
+        public void Add(ITuioEntity entity)
+        {
+            _entities.Add(entity);
+        }
+
+        public void Remove(ITuioEntity entity)
+        {
+            _entities.Remove(entity);
         }
         
         private OSCMessage SourceMessage
@@ -62,6 +73,11 @@ namespace TuioSimulator.Tuio.Tuio11
                 message.Append(_frameId);
                 return message;
             }
+        }
+
+        public void Clear()
+        {
+            _entities.Clear();
         }
 
         public OSCBundle UpdateBundle(OSCBundle bundle)

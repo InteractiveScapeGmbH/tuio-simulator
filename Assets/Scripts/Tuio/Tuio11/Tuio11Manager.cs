@@ -7,13 +7,9 @@ namespace TuioSimulator.Tuio.Tuio11
 {
     public class Tuio11Manager : ITuioManager
     {
-        private readonly Tuio11Repository<Tuio11Cursor> _cursorRepository;
-        private readonly Tuio11Repository<Tuio11Object> _objectRepository;
-        private readonly Tuio11Repository<Tuio11Blob> _blobRepository;
-        
-        private readonly IList<Tuio11Cursor> _cursors = new List<Tuio11Cursor>();
-        private readonly IList<Tuio11Object> _objects = new List<Tuio11Object>();
-        private readonly IList<Tuio11Blob> _blobs = new List<Tuio11Blob>();
+        private readonly Tuio11Repository _cursorRepository;
+        private readonly Tuio11Repository _objectRepository;
+        private readonly Tuio11Repository _blobRepository;
         
         private OSCBundle _frameBundle;
         private int _frameId = 0;
@@ -30,47 +26,47 @@ namespace TuioSimulator.Tuio.Tuio11
 
         public void AddCursor(Tuio11Cursor tuioCursor)
         {
-            _cursors.Add(tuioCursor);
+            _cursorRepository.Add(tuioCursor);
             CurrentSessionId++;
         }
 
         public void RemoveCursor(Tuio11Cursor tuio11Cursor)
         {
-            _cursors.Remove(tuio11Cursor);
+            _cursorRepository.Remove(tuio11Cursor);
         }
 
         public void AddObject(Tuio11Object tuioObject)
         {
-            _objects.Add(tuioObject);
+            _objectRepository.Add(tuioObject);
             CurrentSessionId++;
         }
 
         public void RemoveObject(Tuio11Object tuioObject)
         {
-            _objects.Remove(tuioObject);
+            _objectRepository.Remove(tuioObject);
         }
         
         public Tuio11Manager(string sourceName)
         {
-            _cursorRepository = new Tuio11Repository<Tuio11Cursor>(sourceName, "/tuio/2Dcur");
-            _objectRepository = new Tuio11Repository<Tuio11Object>(sourceName, "/tuio/2Dobj");
-            _blobRepository = new Tuio11Repository<Tuio11Blob>(sourceName, "/tuio/2Dblb");
+            _cursorRepository = new Tuio11Repository(sourceName, "/tuio/2Dcur");
+            _objectRepository = new Tuio11Repository(sourceName, "/tuio/2Dobj");
+            _blobRepository = new Tuio11Repository(sourceName, "/tuio/2Dblb");
         }
         
         
         public void Update()
         {
             _frameId += 1;
-            _cursorRepository.Update(_frameId, _cursors);
-            _objectRepository.Update(_frameId, _objects);
-            _blobRepository.Update(_frameId, _blobs);
+            _cursorRepository.Update(_frameId);
+            _objectRepository.Update(_frameId);
+            _blobRepository.Update(_frameId);
         }
 
         public void Quit()
         {
-            _cursors.Clear();
-            _objects.Clear();
-            _blobs.Clear();
+            _cursorRepository.Clear();
+            _objectRepository.Clear();
+            _blobRepository.Clear();
             Update();
         }
 
