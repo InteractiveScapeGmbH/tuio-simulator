@@ -211,7 +211,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -384,6 +384,10 @@ GameObject:
   - component: {fileID: 716274593}
   - component: {fileID: 716274594}
   - component: {fileID: 716274595}
+  - component: {fileID: 716274598}
+  - component: {fileID: 716274597}
+  - component: {fileID: 716274596}
+  - component: {fileID: 716274599}
   m_Layer: 5
   m_Name: TuioSpawner
   m_TagString: Untagged
@@ -441,6 +445,70 @@ MonoBehaviour:
   _transmitter: {fileID: 136587243}
   _cursorPrefab: {fileID: 5275917905756838280, guid: a08e26a16fd6a4d4685a206e7872dff8, type: 3}
   _objectPrefab: {fileID: 0}
+--- !u!114 &716274596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716274592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a882b0925aeb44192aff95d50bc970c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &716274597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716274592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.2735849, g: 0.2735849, b: 0.2735849, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &716274598
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716274592}
+  m_CullTransparentMesh: 1
+--- !u!114 &716274599
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716274592}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b03efb0c417416ba43c2d323b514060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _background: {fileID: 716274596}
+  _defaultMenu: {fileID: 0}
 --- !u!1 &1462822542
 GameObject:
   m_ObjectHideFlags: 0

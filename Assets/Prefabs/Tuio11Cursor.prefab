@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3207821699298726844}
   - component: {fileID: 1736962568279966128}
   - component: {fileID: 5275917905756838280}
+  - component: {fileID: 3782274806833020627}
   m_Layer: 5
   m_Name: Tuio11Cursor
   m_TagString: Untagged
@@ -86,5 +87,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8347b6c593b420684a7a56831f152e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3782274806833020627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9046869553694179896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7e3445de83c415d80abf569903763d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
