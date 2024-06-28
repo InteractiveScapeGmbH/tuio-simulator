@@ -6,5 +6,6 @@ namespace TuioSimulator.Tuio.Common
     {
         public OSCBundle FrameBundle { get; }
         public void Update();
+        public void Quit();
     }
 }

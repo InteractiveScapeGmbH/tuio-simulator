@@ -55,8 +55,6 @@ namespace TuioSimulator.Tuio.Common
             while (Application.isPlaying)
             {
                 _manager.Update();
-                var sent = _manager.FrameBundle.BinaryData;
-                var str = Encoding.ASCII.GetString(sent);
                 _server.Send(_manager.FrameBundle.BinaryData);
                 yield return new WaitForSeconds(Interval);
             }
@@ -64,6 +62,8 @@ namespace TuioSimulator.Tuio.Common
 
         private void OnDestroy()
         {
+            _manager.Quit();
+            _server.Send(_manager.FrameBundle.BinaryData);
             _server.Stop();
         }
     }

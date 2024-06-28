@@ -68,7 +68,6 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public OSCBundle UpdateBundle(OSCBundle bundle)
         {
-            if (_entities == null || !_entities.Any()) return bundle;
             bundle.Append(FrameMessage);
             foreach (var entity in _entities)
             {
@@ -76,6 +75,11 @@ namespace TuioSimulator.Tuio.Tuio20
             }
             bundle.Append(AliveMessage);
             return bundle;
+        }
+
+        public void Clear()
+        {
+            _entities.Clear();
         }
     }
 }

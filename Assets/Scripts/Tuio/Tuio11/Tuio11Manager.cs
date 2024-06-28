@@ -65,7 +65,15 @@ namespace TuioSimulator.Tuio.Tuio11
             _objectRepository.Update(_frameId, _objects);
             _blobRepository.Update(_frameId, _blobs);
         }
-        
+
+        public void Quit()
+        {
+            _cursors.Clear();
+            _objects.Clear();
+            _blobs.Clear();
+            Update();
+        }
+
         private void UpdateFrameBundle()
         {
             _frameBundle = new OSCBundle();
