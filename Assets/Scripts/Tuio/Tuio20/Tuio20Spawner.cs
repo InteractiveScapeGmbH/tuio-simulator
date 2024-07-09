@@ -1,3 +1,7 @@
+using System;
+using System.Collections.Generic;
+using TuioNet.Tuio20;
+using TuioSimulation.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
 
@@ -9,20 +13,74 @@ namespace TuioSimulator.Tuio.Tuio20
         [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
         [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
         [SerializeField] private Tuio20Mobile _mobilePrefab;
+        [SerializeField] private MouseClicker _mouseClicker;
 
-        [ContextMenu("Spawn Cursor")]
-        public void SpawnCursor()
+        private Tuio20Manager _manager;
+        private Tuio20PointerBehaviour _pointer;
+
+        private Dictionary<uint, Tuio20TokenBehaviour> _tokens = new();
+
+        private void Start()
         {
-            var cursor = Instantiate(_pointerPrefab, transform);
-            cursor.Init((Tuio20Manager)_transmitter.Manager);
+            _manager = (Tuio20Manager)_transmitter.Manager;
         }
 
-        [ContextMenu("Spawn Token")]
-        public void SpawnToken()
+        private void OnEnable()
+        {
+            _mouseClicker.OnLeftDown += AddPointer;
+            _mouseClicker.OnLeftUp += RemovePointer;
+
+            _mouseClicker.OnLeftDoubleClick += AddToken;
+        }
+
+        private void OnDisable()
+        {
+            _mouseClicker.OnLeftDown -= AddPointer;
+            _mouseClicker.OnLeftUp -= RemovePointer;
+
+            _mouseClicker.OnLeftDoubleClick -= AddToken;
+        }
+
+        private void AddToken(Vector2 position)
         {
             var token = Instantiate(_tokenPrefab, transform);
-            token.Init((Tuio20Manager)_transmitter.Manager, 20);
+            token.Init(_manager, 2, position);
+            _tokens.Add(token.Token.SessionId, token);
         }
+
+
+        private void AddPointer(Vector2 position)
+        {
+            _pointer = Instantiate(_pointerPrefab, transform);
+            _pointer.Init(_manager, position);
+            _mouseClicker.OnLeftMove += MovePointer;
+            
+        }
+        
+        private void MovePointer(Vector2 position)
+        {
+            _pointer.Position = position;
+        }
+
+        private void RemovePointer(Vector2 position)
+        {
+            Destroy(_pointer.gameObject);
+            _mouseClicker.OnLeftMove -= MovePointer;
+        }
+
+        // [ContextMenu("Spawn Cursor")]
+        // public void SpawnCursor()
+        // {
+        //     var cursor = Instantiate(_pointerPrefab, transform);
+        //     cursor.Init((Tuio20Manager)_transmitter.Manager);
+        // }
+
+        // [ContextMenu("Spawn Token")]
+        // public void SpawnToken()
+        // {
+        //     var token = Instantiate(_tokenPrefab, transform);
+        //     token.Init((Tuio20Manager)_transmitter.Manager, 20);
+        // }
 
         [ContextMenu("Spawn Phone")]
         public void SpawnMobile()

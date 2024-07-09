@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8582143932291696385}
   - component: {fileID: 5393946288656459209}
   - component: {fileID: 5637548757236478680}
+  - component: {fileID: 2394663266628834200}
   m_Layer: 5
   m_Name: Tuio20Token
   m_TagString: Untagged
@@ -90,6 +91,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1be2ffc08aa4d92a05be7fe1ea8eeb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _clicker: {fileID: 2394663266628834200}
+  _drager: {fileID: 5637548757236478680}
 --- !u!114 &5393946288656459209
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -112,5 +115,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7e3445de83c415d80abf569903763d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2394663266628834200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455389530455387905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a882b0925aeb44192aff95d50bc970c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
