@@ -14,7 +14,7 @@ namespace TuioSimulator.Tuio.Tuio11
 
         private readonly string _tuioAddress;
         
-        private int _frameId = 0;
+        private uint _frameId = 0;
 
         public Tuio11Repository(string sourceName, string tuioAddress)
         {
@@ -23,7 +23,7 @@ namespace TuioSimulator.Tuio.Tuio11
             _entities = new List<ITuioEntity>();
         }
 
-        public void Update(int frameId)
+        public void Update(uint frameId)
         {
             _frameId = frameId;
         }

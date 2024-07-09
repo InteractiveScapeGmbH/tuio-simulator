@@ -11,8 +11,8 @@ namespace TuioSimulator.Tuio.Tuio20
         private readonly Tuio20Repository _repository;
         
         private OSCBundle _frameBundle;
-        private int _frameId = 0;
-        public int CurrentSessionId { get; private set; } = 0;
+        private uint _frameId = 0;
+        public uint CurrentSessionId { get; private set; } = 0;
 
         public Tuio20Manager(string sourceName)
         {

@@ -28,7 +28,7 @@ namespace TuioSimulator.Tuio.Tuio20
         public void SpawnMobile()
         {
             var mobile = Instantiate(_mobilePrefab, transform);
-            mobile.Init((Tuio20Manager)_transmitter.Manager,-1);
+            mobile.Init((Tuio20Manager)_transmitter.Manager,0);
         }
     }
 }

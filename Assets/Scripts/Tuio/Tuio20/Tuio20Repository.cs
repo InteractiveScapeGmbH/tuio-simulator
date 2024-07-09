@@ -13,9 +13,9 @@ namespace TuioSimulator.Tuio.Tuio20
 
         private readonly string _sourceName;
 
-        private int _screenResolution = 36;
+        private uint _screenResolution = 36;
         
-        private int _frameId = 1;
+        private uint _frameId = 1;
         private TuioTime _time;
 
         public Tuio20Repository(string sourceName, Vector2 screenResolution)
@@ -24,7 +24,7 @@ namespace TuioSimulator.Tuio.Tuio20
             _entities = new List<ITuioEntity>();
         }
 
-        public void Update(int frameId)
+        public void Update(uint frameId)
         {
             _frameId = frameId;
             _time = TuioTime.GetSystemTime();

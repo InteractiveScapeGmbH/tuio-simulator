@@ -12,9 +12,9 @@ namespace TuioSimulator.Tuio.Tuio11
         private readonly Tuio11Repository _blobRepository;
         
         private OSCBundle _frameBundle;
-        private int _frameId = 0;
+        private uint _frameId = 0;
 
-        public int CurrentSessionId { get; private set; } = 0;
+        public uint CurrentSessionId { get; private set; } = 0;
         public OSCBundle FrameBundle
         {
             get

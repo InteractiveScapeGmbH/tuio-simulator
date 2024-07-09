@@ -18,7 +18,7 @@ namespace TuioSimulator.Tuio.Tuio11
         
         
         
-        private int _symbolId;
+        private uint _symbolId;
 
         private Vector2 NormalizedPosition
         {
@@ -39,7 +39,7 @@ namespace TuioSimulator.Tuio.Tuio11
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        public void Init(Tuio11Manager tuioManager, int symbolId)
+        public void Init(Tuio11Manager tuioManager, uint symbolId)
         {
             _manager = tuioManager;
             _symbolId = symbolId;

@@ -16,14 +16,14 @@ namespace TuioSimulator.Tuio.Tuio20
 
         private Vector2 _lastPosition;
         private float _lastAngle;
-        private int _componentId;
+        private uint _componentId;
         private float Angle => -_rectTransform.eulerAngles.z * Mathf.Deg2Rad;
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        public void Init(Tuio20Manager tuioManager, int componentId)
+        public void Init(Tuio20Manager tuioManager, uint componentId)
         {
             _manager = tuioManager;
             _componentId = componentId;
