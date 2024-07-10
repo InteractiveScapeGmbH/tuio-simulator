@@ -1,19 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
-using System.Text;
+using TuioNet.Common;
+using TuioNet.Server;
 using TuioNet.Tuio11;
-using TuioSimulator.Networking;
-using TuioSimulator.Tuio.Tuio11;
-using TuioSimulator.Tuio.Tuio20;
 using UnityEngine;
+using Utils;
 
 namespace TuioSimulator.Tuio.Common
 {
     public class TuioTransmitter : MonoBehaviour
     {
         [SerializeField] private TuioType _tuioType = TuioType.Tuio;
-        [SerializeField] private ConnectionType _connectionType = ConnectionType.Websocket;
+        [SerializeField] private TuioConnectionType _connectionType = TuioConnectionType.Websocket;
         [SerializeField] private int _port = 3333;
         [SerializeField] private string _sourceName = "TuioSimulator";
 
@@ -25,29 +25,46 @@ namespace TuioSimulator.Tuio.Common
         private ITuioManager _manager;
         public ITuioManager Manager => _manager;
 
+        private bool _isInitialized;
+
         private const float Interval = 1f / 60f;
 
-        private void Awake()
+        private void Init()
         {
+            var resolution = new Vector2(Screen.width, Screen.height);
             _server = _connectionType switch
             {
-                ConnectionType.Websocket => new TuioWebsocketServer(),
-                ConnectionType.Udp => new TuioUdpServer(),
+                TuioConnectionType.Websocket => new WebsocketServer(Debug.Log),
+                TuioConnectionType.UDP => new UdpServer(),
                 _ => _server
             };
 
             _manager = _tuioType switch
             {
                 TuioType.Tuio => new Tuio11Manager(_sourceName),
-                TuioType.Tuio2 => new Tuio20Manager(_sourceName),
+                TuioType.Tuio2 => new Tuio20Manager(_sourceName, resolution.FromUnity()),
                 _ => _manager
             };
         }
 
-        private void Start()
+        public void Open(TuioType tuioType, TuioConnectionType connectionType, int port, string sourceName)
         {
-            _server.Start(IPAddress.Loopback, _port);
-            StartCoroutine(Send());
+            _port = port;
+            _tuioType = tuioType;
+            _connectionType = connectionType;
+            _sourceName = sourceName;
+            if(_isInitialized) return;
+            try
+            {
+                Init();
+                _server.Start(IPAddress.Loopback, _port);
+                StartCoroutine(Send());
+                _isInitialized = true;
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError($"Could not start server: {exception.Message}");
+            }
         }
         
         private IEnumerator Send()
@@ -62,6 +79,7 @@ namespace TuioSimulator.Tuio.Common
 
         private void OnDestroy()
         {
+            if (!_isInitialized) return;
             _manager.Quit();
             _server.Send(_manager.FrameBundle.BinaryData);
             _server.Stop();

@@ -1,5 +1,6 @@
 using System;
 using TuioNet.Common;
+using TuioNet.Server;
 using TuioNet.Tuio20;
 using TuioSimulation.Input;
 using UnityEngine;
@@ -21,18 +22,10 @@ namespace TuioSimulator.Tuio.Tuio20
         private float _lastAngle;
         private uint _componentId;
         private float Angle => -_rectTransform.eulerAngles.z * Mathf.Deg2Rad;
-        
-        private Vector2 _normalizedPosition;
 
-        public Vector2 NormalizedPosition
-        {
-            get
-            {
-                _normalizedPosition.x = _position.x / Screen.width;
-                _normalizedPosition.y = _position.y / Screen.height;
-                return _normalizedPosition;
-            }
-        }
+        private RectTransform _parent;
+        
+        public Vector2 NormalizedPosition { get; private set; }
 
         private Vector2 _position;
         public Vector2 Position
@@ -40,8 +33,12 @@ namespace TuioSimulator.Tuio.Tuio20
             get => _position;
             set
             {
-                _position = value;
-                _rectTransform.anchoredPosition = _position;
+                if(RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, value, Camera.main, out var localPoint))
+                {
+                    _position = localPoint;
+                    _rectTransform.anchoredPosition = localPoint;
+                    NormalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
+                }
             }    
         }
         private void Awake()
@@ -73,6 +70,7 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 position)
         {
+            _parent = transform.parent as RectTransform;
             _manager = tuioManager;
             _componentId = componentId;
             _time = TuioTime.GetSystemTime();

@@ -1,4 +1,5 @@
 using TuioNet.Common;
+using TuioNet.Server;
 using TuioNet.Tuio20;
 using UnityEngine;
 using Utils;
@@ -14,17 +15,9 @@ namespace TuioSimulator.Tuio.Tuio20
         private Vector2 _lastPosition;
         private RectTransform _rectTransform;
 
-        private Vector2 _normalizedPosition;
+        private RectTransform _parent;
 
-        public Vector2 NormalizedPosition
-        {
-            get
-            {
-                _normalizedPosition.x = _position.x / Screen.width;
-                _normalizedPosition.y = _position.y / Screen.height;
-                return _normalizedPosition;
-            }
-        }
+        public Vector2 NormalizedPosition { get; private set; }
 
         private Vector2 _position;
         public Vector2 Position
@@ -32,8 +25,12 @@ namespace TuioSimulator.Tuio.Tuio20
             get => _position;
             set
             {
-                _position = value;
-                _rectTransform.anchoredPosition = _position;
+                if(RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, value, Camera.main, out var localPoint))
+                {
+                    _position = localPoint;
+                    _rectTransform.anchoredPosition = localPoint;
+                    NormalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
+                }
             }    
         }
 
@@ -44,6 +41,7 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public void Init(Tuio20Manager tuioManager, Vector2 position)
         {
+            _parent = transform.parent as RectTransform;
             _manager = tuioManager;
             _time = TuioTime.GetSystemTime();
             var container = new Tuio20Object(_time, _manager.CurrentSessionId);

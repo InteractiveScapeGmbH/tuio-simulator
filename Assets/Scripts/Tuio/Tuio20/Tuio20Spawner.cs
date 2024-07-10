@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using TuioNet.Tuio20;
+using TuioNet.Server;
 using TuioSimulation.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
@@ -16,14 +14,21 @@ namespace TuioSimulator.Tuio.Tuio20
         [SerializeField] private MouseClicker _mouseClicker;
 
         private Tuio20Manager _manager;
+
+        private Tuio20Manager Manager
+        {
+            get
+            {
+                if (_manager == null)
+                {
+                    _manager = (Tuio20Manager)_transmitter.Manager;
+                }
+
+                return _manager;
+            }
+        }
         private Tuio20PointerBehaviour _pointer;
 
-        private Dictionary<uint, Tuio20TokenBehaviour> _tokens = new();
-
-        private void Start()
-        {
-            _manager = (Tuio20Manager)_transmitter.Manager;
-        }
 
         private void OnEnable()
         {
@@ -44,15 +49,14 @@ namespace TuioSimulator.Tuio.Tuio20
         private void AddToken(Vector2 position)
         {
             var token = Instantiate(_tokenPrefab, transform);
-            token.Init(_manager, 2, position);
-            _tokens.Add(token.Token.SessionId, token);
+            token.Init(Manager, 2, position);
         }
 
 
         private void AddPointer(Vector2 position)
         {
             _pointer = Instantiate(_pointerPrefab, transform);
-            _pointer.Init(_manager, position);
+            _pointer.Init(Manager, position);
             _mouseClicker.OnLeftMove += MovePointer;
             
         }

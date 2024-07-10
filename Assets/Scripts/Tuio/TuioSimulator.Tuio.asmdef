@@ -2,7 +2,6 @@
     "name": "TuioSimulator.Tuio",
     "rootNamespace": "TuioSimulator",
     "references": [
-        "GUID:300d971905de748469eb9d3723e2480a",
         "GUID:b560623cd92a64f42b92abbb7fe4be38",
         "GUID:940fdaa2f523a4a248397a6b8464981a"
     ],
@@ -11,7 +10,8 @@
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
-        "TuioNet.dll"
+        "TuioNet.dll",
+        "websocket-sharp.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],
