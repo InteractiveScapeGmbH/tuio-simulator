@@ -1849,7 +1849,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716274592}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ecc9c781ad5442c2973e8ea902880d63, type: 3}
   m_Name: 
@@ -3833,6 +3833,7 @@ GameObject:
   - component: {fileID: 1734353866}
   - component: {fileID: 1734353865}
   - component: {fileID: 1734353867}
+  - component: {fileID: 1734353868}
   m_Layer: 5
   m_Name: Tuio Entity Settings
   m_TagString: Untagged
@@ -3917,6 +3918,18 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!114 &1734353868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1734353863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 847a077af7f7eec46a4e447926535395, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1759336984
 GameObject:
   m_ObjectHideFlags: 0
