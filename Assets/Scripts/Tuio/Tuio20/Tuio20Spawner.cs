@@ -8,6 +8,7 @@ namespace TuioSimulator.Tuio.Tuio20
     public class Tuio20Spawner : MonoBehaviour
     {
         [SerializeField] private TuioTransmitter _transmitter;
+        [SerializeField] private ScreenConfig _screenConfig;
         [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
         [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
         [SerializeField] private Tuio20Mobile _mobilePrefab;

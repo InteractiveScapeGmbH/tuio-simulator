@@ -13,6 +13,8 @@ namespace TuioSimulator.Tuio.Tuio20
     {
         [SerializeField] private MouseClicker _clicker;
         [SerializeField] private MouseDrager _drager;
+        [SerializeField] private GameObject _selection;
+        [SerializeField] private GameObject _lift;
         public Tuio20Token Token { get; private set; }
         private TuioTime _time;
         private Tuio20Manager _manager;
@@ -26,6 +28,30 @@ namespace TuioSimulator.Tuio.Tuio20
         private RectTransform _parent;
         
         public Vector2 NormalizedPosition { get; private set; }
+
+        private bool _selected;
+
+        public bool Selected
+        {
+            get => _selected;
+            private set
+            {
+                _selected = value;
+                _selection.SetActive(_selected);
+            }
+        }
+
+        private bool _grounded = true;
+
+        public bool Grounded
+        {
+            get => _grounded;
+            private set
+            {
+                _grounded = value;
+                _lift.SetActive(!_grounded);
+            }
+        }
 
         private Vector2 _position;
         public Vector2 Position
@@ -49,13 +75,27 @@ namespace TuioSimulator.Tuio.Tuio20
         private void OnEnable()
         {
             _drager.OnMove += Move;
+            _clicker.OnLeftClick += ToggleSelection;
             _clicker.OnMiddleClick += DestroyToken;
+            _clicker.OnRightClick += ToggleGrounded;
         }
 
         private void OnDisable()
         {
             _drager.OnMove -= Move;
+            _clicker.OnLeftClick -= ToggleSelection;
             _clicker.OnMiddleClick -= DestroyToken;
+            _clicker.OnRightClick -= ToggleGrounded;
+        }
+
+        private void ToggleGrounded(Vector2 obj)
+        {
+            Grounded = !Grounded;
+        }
+
+        private void ToggleSelection(Vector2 obj)
+        {
+            Selected = !Selected;
         }
 
         private void Move(PointerEventData eventData)

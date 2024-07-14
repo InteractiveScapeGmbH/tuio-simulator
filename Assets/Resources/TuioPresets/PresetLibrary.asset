@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0cff82e82b0435db8ca1f1617da63fd, type: 3}
+  m_Name: PresetLibrary
+  m_EditorClassIdentifier: 
+  TokenPresets:
+  - {fileID: 11400000, guid: 7674b56cb7bbe441fb197bf826666e35, type: 2}
+  - {fileID: 11400000, guid: 9b4ed311f6ace4a6484d1b4343659cc8, type: 2}
+  - {fileID: 11400000, guid: a868d9149d9164969b4046dcc206a4c3, type: 2}
+  PhonePresets:
+  - {fileID: 11400000, guid: 84dcd4cbb79074b36b2faccbdd913d52, type: 2}
+  - {fileID: 11400000, guid: 8f48621ab4a934ef1be5cf0ecc801dcd, type: 2}
+  - {fileID: 11400000, guid: 230c7ee126d1544fb93bc7904bc2134e, type: 2}
+  - {fileID: 11400000, guid: 7e5ec08480a524777beff33574978996, type: 2}
+  - {fileID: 11400000, guid: fa0ea8d650bdc45b197ca9857373ec3d, type: 2}

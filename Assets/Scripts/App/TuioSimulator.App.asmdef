@@ -1,13 +1,7 @@
 {
-    "name": "TuioSimulator.UI",
+    "name": "TuioSimulator.App",
     "rootNamespace": "TuioSimulator",
-    "references": [
-        "GUID:940fdaa2f523a4a248397a6b8464981a",
-        "GUID:247df2bb1ddb844a7858dc6064c45f0f",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:6f0786a5bbd4d44b992c72105d6500fe",
-        "GUID:80e5b4dcc028d464bad6a2e36e393126"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

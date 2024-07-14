@@ -44,7 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe3d0ae6e9c946ba9b47d53605ab2f65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tuioType: 0
-  _connectionType: 1
-  _port: 9000
-  _sourceName: TuioSimulator
+  <ServerConfig>k__BackingField: {fileID: 11400000, guid: c45331f46fe2044ea9bbff705f77a8a3, type: 2}

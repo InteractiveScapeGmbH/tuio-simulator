@@ -55,7 +55,7 @@ namespace TuioSimulation.Input
         IEnumerator SingleClick(Vector2 position)
         {
             float time = 0f;
-            while (time < 0.5f)
+            while (time < 0.1f)
             {
                 time += Time.deltaTime;
                 yield return null;
