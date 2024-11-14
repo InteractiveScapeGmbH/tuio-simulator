@@ -4,6 +4,8 @@ using TMPro;
 using TuioNet.Common;
 using TuioSimulator.App;
 using TuioSimulator.Tuio.Common;
+using TuioSimulator.Tuio.Tuio11;
+using TuioSimulator.Tuio.Tuio20;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +20,9 @@ namespace TuioSimulator.UI
         [SerializeField] private TMP_InputField _portField;
         [SerializeField] private TMP_InputField _sourceNameField;
         [SerializeField] private Button _playButton;
+        [SerializeField] private Tuio20Spawner _tuio20Spawner;
+        [SerializeField] private Tuio11Spawner _tuio11Spawner;
+        
         
         private void Start()
         {
@@ -53,6 +58,18 @@ namespace TuioSimulator.UI
                 _serverConfig.Port = port;
                 _serverConfig.Source = _sourceNameField.text;
                 _sceneLoader.LoadScene("SimulatorMain");
+            }
+
+            switch (tuioType)
+            {
+                case TuioType.Tuio:
+                    var spawner11 = Instantiate(_tuio11Spawner, transform.parent);
+                    spawner11.SetManager(_tuioTransmitter.Manager);
+                    break;
+                case TuioType.Tuio2:
+                    var spawner20 = Instantiate(_tuio20Spawner, transform.parent);
+                    spawner20.SetManager(_tuioTransmitter.Manager);
+                    break;
             }
         }
 

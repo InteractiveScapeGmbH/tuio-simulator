@@ -9,42 +9,58 @@ namespace TuioSimulator.Tuio.Tuio11
 {
     public class Tuio11CursorBehaviour : MonoBehaviour
     {
-        private TuioTransmitter _transmitter;
-        private Tuio11Cursor _cursor;
+        private Tuio11Manager _manager;
+        public Tuio11Cursor Cursor { get; private set; }
         private TuioTime _time;
         private Vector2 _lastPosition;
-        private Tuio11Manager _manager;
         private RectTransform _rectTransform;
+        private RectTransform _parent;
+        
+        public Vector2 NormalizedPosition { get; private set; }
+        private Vector2 _position;
+
+        public Vector2 Position
+        {
+            get => _position;
+            set
+            {
+                if(RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, value, Camera.main, out var localPoint))
+                {
+                    _position = localPoint;
+                    _rectTransform.anchoredPosition = localPoint;
+                    var normalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
+                    normalizedPosition.y = 1.0f - normalizedPosition.y;
+                    NormalizedPosition = normalizedPosition;
+                }
+            }    
+        }
 
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        public void Init(Tuio11Manager tuioManager)
+        public void Init(Tuio11Manager tuioManager, Vector2 startPosition)
         {
+            _parent = transform.parent as RectTransform;
             _manager = tuioManager;
             _time = TuioTime.GetSystemTime();
-            _cursor = new Tuio11Cursor(_time, _manager.CurrentSessionId, 0, Vector2.zero.FromUnity(), Vector2.zero.FromUnity(), 0f);
-            _manager.AddCursor(_cursor);
+            Position = startPosition;
+            Cursor = new Tuio11Cursor(_time, _manager.CurrentSessionId, 0, NormalizedPosition.FromUnity(), Vector2.zero.FromUnity(), 0f);
+            _manager.AddCursor(Cursor);
         }
 
         private void Update()
         {
             _time = TuioTime.GetSystemTime();
-            var position = _rectTransform.anchoredPosition;
-            position.x /= Screen.width;
-            position.y /= Screen.height;
-            position.y = 1f - position.y;
-            
-            var velocity = position - _lastPosition;
-            _cursor.Update(_time, position.FromUnity(), velocity.FromUnity(), velocity.magnitude);
-            _lastPosition = position;
+            var velocity = NormalizedPosition - _lastPosition;
+            Cursor.Update(_time, NormalizedPosition.FromUnity(), velocity.FromUnity(), velocity.magnitude);
+            _lastPosition = NormalizedPosition;
         }
 
         private void OnDestroy()
         {
-            _manager.RemoveCursor(_cursor);
+            _manager.RemoveCursor(Cursor);
         }
     }
 }

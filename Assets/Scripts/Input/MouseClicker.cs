@@ -11,6 +11,7 @@ namespace TuioSimulation.Input
         public event Action<Vector2> OnLeftDoubleClick;
         public event Action<Vector2> OnMiddleClick;
         public event Action<Vector2> OnRightClick;
+        public event Action<Vector2> OnRightDoubleClick;
         
         public event Action<Vector2> OnLeftDown;
         public event Action<Vector2> OnMiddleDown;
@@ -35,7 +36,7 @@ namespace TuioSimulation.Input
                     if (eventData.clickCount == 1)
                     {
                         _potentialSingleClick = true;
-                        StartCoroutine(SingleClick(eventData.position));
+                        StartCoroutine(SingleClick(eventData.position, OnLeftClick));
                     }else if (eventData.clickCount == 2)
                     {
                         _potentialSingleClick = false;
@@ -47,12 +48,21 @@ namespace TuioSimulation.Input
                     OnMiddleClick?.Invoke(eventData.position);;
                     break;
                 case PointerEventData.InputButton.Right:
-                    OnRightClick?.Invoke(eventData.position);
+                    if (eventData.clickCount == 1)
+                    {
+                        _potentialSingleClick = true;
+                        StartCoroutine(SingleClick(eventData.position, OnRightClick));
+                    }else if (eventData.clickCount == 2)
+                    {
+                        _potentialSingleClick = false;
+                        print("double click");
+                        OnRightDoubleClick?.Invoke(eventData.position);
+                    }
                     break;
             }
         }
 
-        IEnumerator SingleClick(Vector2 position)
+        IEnumerator SingleClick(Vector2 position, Action<Vector2> onclick)
         {
             float time = 0f;
             while (time < 0.1f)
@@ -64,7 +74,7 @@ namespace TuioSimulation.Input
             if (_potentialSingleClick)
             {
                 print("single click");
-                OnLeftClick?.Invoke(position);
+                onclick?.Invoke(position);
             }
         }
 

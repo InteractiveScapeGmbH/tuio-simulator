@@ -29,7 +29,9 @@ namespace TuioSimulator.Tuio.Tuio20
                 {
                     _position = localPoint;
                     _rectTransform.anchoredPosition = localPoint;
-                    NormalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
+                    var normalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
+                    normalizedPosition.y = 1.0f - normalizedPosition.y;
+                    NormalizedPosition = normalizedPosition;
                 }
             }    
         }
@@ -39,13 +41,13 @@ namespace TuioSimulator.Tuio.Tuio20
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        public void Init(Tuio20Manager tuioManager, Vector2 position)
+        public void Init(Tuio20Manager tuioManager, Vector2 startPosition)
         {
             _parent = transform.parent as RectTransform;
             _manager = tuioManager;
             _time = TuioTime.GetSystemTime();
             var container = new Tuio20Object(_time, _manager.CurrentSessionId);
-            Position = position;
+            Position = startPosition;
             Pointer = new Tuio20Pointer(_time, container, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(Pointer);
         }

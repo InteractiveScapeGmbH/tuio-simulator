@@ -7,27 +7,26 @@ namespace TuioSimulator.Tuio.Tuio20
 {
     public class Tuio20Spawner : MonoBehaviour
     {
-        [SerializeField] private TuioTransmitter _transmitter;
-        [SerializeField] private ScreenConfig _screenConfig;
+        // [SerializeField] private TuioTransmitter _transmitter;
         [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
         [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
         [SerializeField] private Tuio20Mobile _mobilePrefab;
         [SerializeField] private MouseClicker _mouseClicker;
 
         private Tuio20Manager _manager;
-
-        private Tuio20Manager Manager
-        {
-            get
-            {
-                if (_manager == null)
-                {
-                    _manager = (Tuio20Manager)_transmitter.Manager;
-                }
-
-                return _manager;
-            }
-        }
+        //
+        // private Tuio20Manager Manager
+        // {
+        //     get
+        //     {
+        //         if (_manager == null)
+        //         {
+        //             _manager = (Tuio20Manager)_transmitter.Manager;
+        //         }
+        //
+        //         return _manager;
+        //     }
+        // }
         private Tuio20PointerBehaviour _pointer;
 
 
@@ -37,6 +36,7 @@ namespace TuioSimulator.Tuio.Tuio20
             _mouseClicker.OnLeftUp += RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick += AddToken;
+            _mouseClicker.OnRightDoubleClick += AddMobile;
         }
 
         private void OnDisable()
@@ -45,19 +45,31 @@ namespace TuioSimulator.Tuio.Tuio20
             _mouseClicker.OnLeftUp -= RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick -= AddToken;
+            _mouseClicker.OnRightDoubleClick -= AddMobile;
+        }
+
+        private void AddMobile(Vector2 position)
+        {
+            var mobile = Instantiate(_mobilePrefab, transform);
+            mobile.Init(_manager, 1, position);
+        }
+
+        public void SetManager(ITuioManager manager)
+        {
+            _manager = (Tuio20Manager)manager;
         }
 
         private void AddToken(Vector2 position)
         {
             var token = Instantiate(_tokenPrefab, transform);
-            token.Init(Manager, 2, position);
+            token.Init(_manager, 2, position);
         }
 
 
         private void AddPointer(Vector2 position)
         {
             _pointer = Instantiate(_pointerPrefab, transform);
-            _pointer.Init(Manager, position);
+            _pointer.Init(_manager, position);
             _mouseClicker.OnLeftMove += MovePointer;
             
         }
@@ -91,7 +103,7 @@ namespace TuioSimulator.Tuio.Tuio20
         public void SpawnMobile()
         {
             var mobile = Instantiate(_mobilePrefab, transform);
-            mobile.Init((Tuio20Manager)_transmitter.Manager,0);
+            mobile.Init(_manager,0, Vector2.zero);
         }
     }
 }
