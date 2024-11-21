@@ -7,7 +7,7 @@ using Utils;
 
 namespace TuioSimulator.Tuio.Tuio11
 {
-    public class Tuio11CursorBehaviour : MonoBehaviour
+    public class Tuio11CursorBehaviour : DebugTuio
     {
         private Tuio11Manager _manager;
         public Tuio11Cursor Cursor { get; private set; }
@@ -61,6 +61,11 @@ namespace TuioSimulator.Tuio.Tuio11
         private void OnDestroy()
         {
             _manager.RemoveCursor(Cursor);
+        }
+
+        public override string DebugText()
+        {
+            return Cursor.DebugText;
         }
     }
 }

@@ -14,9 +14,6 @@ GameObject:
   - component: {fileID: 4091801414771975094}
   - component: {fileID: 9219466534894981659}
   - component: {fileID: 598484079591087541}
-  - component: {fileID: 1739085575033681032}
-  - component: {fileID: 3757169614974905247}
-  - component: {fileID: 5627538815482098371}
   m_Layer: 5
   m_Name: Tuio11Spawner
   m_TagString: Untagged
@@ -38,10 +35,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 960.00006, y: -540}
-  m_SizeDelta: {x: 1520.0001, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1522063138653758791
 MonoBehaviour:
@@ -55,10 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d25853800d1481593594eef4c36820, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _transmitter: {fileID: 0}
   _cursorPrefab: {fileID: 5275917905756838280, guid: a08e26a16fd6a4d4685a206e7872dff8, type: 3}
   _objectPrefab: {fileID: 3526605613493734537, guid: a07e4e963c8734897a770e481aa75ccc, type: 3}
   _mouseClicker: {fileID: 9219466534894981659}
+  _currentId: {fileID: 11400000, guid: e8b4054019900a749ad7d72e110d2509, type: 2}
 --- !u!222 &962931224687135918
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -123,50 +120,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _background: {fileID: 9219466534894981659}
   _defaultMenu: {fileID: 0}
---- !u!114 &1739085575033681032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915094414313977378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86710e43de46f6f4bac7c8e50813a599, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AspectMode: 1
-  m_AspectRatio: 1.7777778
---- !u!114 &3757169614974905247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915094414313977378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreLayout: 0
-  m_MinWidth: -1
-  m_MinHeight: -1
-  m_PreferredWidth: -1
-  m_PreferredHeight: -1
-  m_FlexibleWidth: 1
-  m_FlexibleHeight: -1
-  m_LayoutPriority: 1
---- !u!114 &5627538815482098371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6915094414313977378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowMaskGraphic: 1

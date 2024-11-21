@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace TuioSimulation.Input
+namespace TuioSimulator.Input
 {
     public class MouseClicker : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IPointerMoveHandler
     {
@@ -27,7 +27,8 @@ namespace TuioSimulation.Input
         public event Action<Vector2> OnRightMove;
 
         private bool _potentialSingleClick = false;
-        
+
+
         public void OnPointerClick(PointerEventData eventData)
         {
             switch (eventData.button)

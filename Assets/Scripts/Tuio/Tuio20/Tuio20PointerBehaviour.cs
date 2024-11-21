@@ -1,12 +1,13 @@
 using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio20;
+using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using Utils;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
-    public class Tuio20PointerBehaviour : MonoBehaviour
+    public class Tuio20PointerBehaviour : DebugTuio
     {
         private Tuio20Manager _manager;
         public Tuio20Pointer Pointer { get; private set; }
@@ -63,6 +64,11 @@ namespace TuioSimulator.Tuio.Tuio20
         private void OnDestroy()
         {
             _manager.RemoveEntity(Pointer);
+        }
+
+        public override string DebugText()
+        {
+            return Pointer.DebugText;
         }
     }
 }

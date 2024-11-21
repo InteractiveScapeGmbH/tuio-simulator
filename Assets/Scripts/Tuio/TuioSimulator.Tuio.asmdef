@@ -3,7 +3,8 @@
     "rootNamespace": "TuioSimulator",
     "references": [
         "GUID:b560623cd92a64f42b92abbb7fe4be38",
-        "GUID:940fdaa2f523a4a248397a6b8464981a"
+        "GUID:940fdaa2f523a4a248397a6b8464981a",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

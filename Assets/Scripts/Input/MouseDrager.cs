@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace TuioSimulation.Input
+namespace TuioSimulator.Input
 {
     public class MouseDrager : MonoBehaviour, IDragHandler
     {

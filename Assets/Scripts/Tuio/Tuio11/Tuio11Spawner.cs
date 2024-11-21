@@ -1,6 +1,6 @@
 using System;
 using TuioNet.Server;
-using TuioSimulation.Input;
+using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
 
@@ -8,25 +8,13 @@ namespace TuioSimulator.Tuio.Tuio11
 {
     public class Tuio11Spawner : MonoBehaviour
     {
-        // [SerializeField] private TuioTransmitter _transmitter;
         [SerializeField] private Tuio11CursorBehaviour _cursorPrefab;
         [SerializeField] private Tuio11ObjectBehaviour _objectPrefab;
         [SerializeField] private MouseClicker _mouseClicker;
+        [SerializeField] private CurrentIdSO _currentId;
 
         private Tuio11Manager _manager;
 
-        // private Tuio11Manager Manager
-        // {
-        //     get
-        //     {
-        //         if (_manager == null)
-        //         {
-        //             _manager = (Tuio11Manager)_transmitter.Manager;
-        //         }
-        //
-        //         return _manager;
-        //     }
-        // }
 
         private Tuio11CursorBehaviour _cursor;
 
@@ -72,22 +60,7 @@ namespace TuioSimulator.Tuio.Tuio11
         private void AddToken(Vector2 position)
         {
             var token = Instantiate(_objectPrefab, transform);
-            token.Init(_manager, 2, position);
+            token.Init(_manager, _currentId.CurrentId, position);
         }
-        
-
-        // [ContextMenu("Spawn Cursor")]
-        // public void SpawnCursor()
-        // {
-        //     var cursor = Instantiate(_cursorPrefab, transform);
-        //     cursor.Init((Tuio11Manager)_transmitter.Manager);
-        // }
-        //
-        // [ContextMenu("Spawn Object")]
-        // public void SpawnObject()
-        // {
-        //     var tuioObject = Instantiate(_objectPrefab, transform);
-        //     tuioObject.Init((Tuio11Manager)_transmitter.Manager, 5);
-        // }
     }
 }

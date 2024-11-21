@@ -2,14 +2,15 @@ using System;
 using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio20;
-using TuioSimulation.Input;
+using TuioSimulator.Input;
+using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
-    public class Tuio20TokenBehaviour : MonoBehaviour
+    public class Tuio20TokenBehaviour : DebugTuio
     {
         [SerializeField] private MouseClicker _clicker;
         [SerializeField] private MouseDrager _drager;
@@ -138,6 +139,11 @@ namespace TuioSimulator.Tuio.Tuio20
         private void OnDestroy()
         {
             _manager.RemoveEntity(Token);
+        }
+
+        public override string DebugText()
+        {
+            return Token.DebugText;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace TuioSimulator.UI
         [SerializeField] private TMP_InputField _portField;
         [SerializeField] private TMP_InputField _sourceNameField;
         [SerializeField] private Button _playButton;
+        [SerializeField] private RectTransform _tuioSpawner;
         [SerializeField] private Tuio20Spawner _tuio20Spawner;
         [SerializeField] private Tuio11Spawner _tuio11Spawner;
         
@@ -63,11 +64,11 @@ namespace TuioSimulator.UI
             switch (tuioType)
             {
                 case TuioType.Tuio:
-                    var spawner11 = Instantiate(_tuio11Spawner, transform.parent);
+                    var spawner11 = Instantiate(_tuio11Spawner, _tuioSpawner);
                     spawner11.SetManager(_tuioTransmitter.Manager);
                     break;
                 case TuioType.Tuio2:
-                    var spawner20 = Instantiate(_tuio20Spawner, transform.parent);
+                    var spawner20 = Instantiate(_tuio20Spawner, _tuioSpawner);
                     spawner20.SetManager(_tuioTransmitter.Manager);
                     break;
             }

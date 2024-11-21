@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace TuioSimulation.Input
+namespace TuioSimulator.Input
 {
     public class MouseScroller : MonoBehaviour, IScrollHandler
     {        

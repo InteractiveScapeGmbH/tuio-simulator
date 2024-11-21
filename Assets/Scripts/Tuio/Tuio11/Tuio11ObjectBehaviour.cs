@@ -1,14 +1,15 @@
 using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio11;
-using TuioSimulation.Input;
+using TuioSimulator.Input;
+using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
 
 namespace TuioSimulator.Tuio.Tuio11
 {
-    public class Tuio11ObjectBehaviour : MonoBehaviour
+    public class Tuio11ObjectBehaviour : DebugTuio
     {
         [SerializeField] private MouseClicker _clicker;
         [SerializeField] private MouseDrager _drager;
@@ -98,6 +99,11 @@ namespace TuioSimulator.Tuio.Tuio11
         private void OnDestroy()
         {
             _manager.RemoveObject(TuioObject);
+        }
+
+        public override string DebugText()
+        {
+            return TuioObject.DebugText;
         }
     }
 }

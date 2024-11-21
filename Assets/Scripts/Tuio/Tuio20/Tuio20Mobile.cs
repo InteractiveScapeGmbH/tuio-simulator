@@ -2,7 +2,7 @@ using System;
 using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio20;
-using TuioSimulation.Input;
+using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,7 +10,7 @@ using Utils;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
-    public class Tuio20Mobile : MonoBehaviour
+    public class Tuio20Mobile : DebugTuio
     {
         [SerializeField] private MouseClicker _clicker;
         [SerializeField] private MouseDrager _drager;
@@ -122,6 +122,11 @@ namespace TuioSimulator.Tuio.Tuio20
         {
             _manager.RemoveEntity(_symbol);
             _manager.RemoveEntity(_bounds);
+        }
+
+        public override string DebugText()
+        {
+            return $"{_symbol.Data}\n{_bounds.DebugText}";
         }
     }
 }
