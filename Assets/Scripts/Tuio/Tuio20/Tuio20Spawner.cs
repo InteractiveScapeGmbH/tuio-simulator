@@ -1,13 +1,14 @@
+using System.Collections.Generic;
 using TuioNet.Server;
 using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
     public class Tuio20Spawner : MonoBehaviour
     {
-        // [SerializeField] private TuioTransmitter _transmitter;
         [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
         [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
         [SerializeField] private Tuio20Mobile _mobilePrefab;
@@ -16,14 +17,16 @@ namespace TuioSimulator.Tuio.Tuio20
 
         private Tuio20Manager _manager;
         private Tuio20PointerBehaviour _pointer;
+
+        private Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
         
         private void OnEnable()
         {
             _mouseClicker.OnLeftDown += AddPointer;
             _mouseClicker.OnLeftUp += RemovePointer;
 
-            // _mouseClicker.OnLeftDoubleClick += AddToken;
-            // _mouseClicker.OnRightDoubleClick += AddMobile;
+            _mouseClicker.OnLeftDoubleClick += AddToken;
+            _mouseClicker.OnRightDoubleClick += AddMobile;
         }
 
         private void OnDisable()
@@ -31,8 +34,8 @@ namespace TuioSimulator.Tuio.Tuio20
             _mouseClicker.OnLeftDown -= AddPointer;
             _mouseClicker.OnLeftUp -= RemovePointer;
 
-            // _mouseClicker.OnLeftDoubleClick -= AddToken;
-            // _mouseClicker.OnRightDoubleClick -= AddMobile;
+            _mouseClicker.OnLeftDoubleClick -= AddToken;
+            _mouseClicker.OnRightDoubleClick -= AddMobile;
         }
 
         private void AddMobile(Vector2 position)
@@ -53,22 +56,27 @@ namespace TuioSimulator.Tuio.Tuio20
         }
 
 
-        private void AddPointer(Vector2 position)
+        private void AddPointer(PointerEventData pointerEventData)
         {
-            _pointer = Instantiate(_pointerPrefab, transform);
-            _pointer.Init(_manager, position);
-            _mouseClicker.OnLeftMove += MovePointer;
+            if (pointerEventData.pointerId != 2)
+            {
+                var pointer = Instantiate(_pointerPrefab, transform);
+                pointer.Init(_manager, pointerEventData);
+                _activePointers[pointerEventData.pointerId] = pointer;
+            }
         }
         
-        private void MovePointer(Vector2 position)
-        {
-            _pointer.Position = position;
-        }
+        // private void MovePointer(PointerEventData pointerEventData)
+        // {
+        //     _pointer.Position = pointerEventData.position;
+        // }
 
-        private void RemovePointer(Vector2 position)
+        private void RemovePointer(PointerEventData pointerEventData)
         {
-            Destroy(_pointer.gameObject);
-            _mouseClicker.OnLeftMove -= MovePointer;
+            if (_activePointers.Remove(pointerEventData.pointerId, out var pointerBehaviour))
+            {
+                Destroy(pointerBehaviour.gameObject);
+            }
         }
 
         public void SpawnMobile()

@@ -20,16 +20,16 @@ namespace TuioSimulator.Tuio.Tuio11
 
         private void OnEnable()
         {
-            _mouseClicker.OnLeftDown += AddPointer;
-            _mouseClicker.OnLeftUp += RemovePointer;
+            // _mouseClicker.OnLeftDown += AddPointer;
+            // _mouseClicker.OnLeftUp += RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick += AddToken;
         }
         
         private void OnDisable()
         {
-            _mouseClicker.OnLeftDown -= AddPointer;
-            _mouseClicker.OnLeftUp -= RemovePointer;
+            // _mouseClicker.OnLeftDown -= AddPointer;
+            // _mouseClicker.OnLeftUp -= RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick -= AddToken;
         }
@@ -43,7 +43,7 @@ namespace TuioSimulator.Tuio.Tuio11
         {
             _cursor = Instantiate(_cursorPrefab, transform);
             _cursor.Init(_manager, position);
-            _mouseClicker.OnLeftMove += MovePointer;
+            // _mouseClicker.OnLeftMove += MovePointer;
         }
         
         private void MovePointer(Vector2 position)
@@ -54,7 +54,7 @@ namespace TuioSimulator.Tuio.Tuio11
         private void RemovePointer(Vector2 position)
         {
             Destroy(_cursor.gameObject);
-            _mouseClicker.OnLeftMove -= MovePointer;
+            // _mouseClicker.OnLeftMove -= MovePointer;
         }
         
         private void AddToken(Vector2 position)

@@ -6,15 +6,20 @@ using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio11;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utils;
 
 namespace TuioSimulator.Tuio.Common
 {
     public class TuioTransmitter : MonoBehaviour
     {
-        [field:SerializeField] public ServerConfig ServerConfig { get; set; }
-        [SerializeField] private bool _openOnStart = false;
+        [SerializeField] private TuioType _tuioType = TuioType.Tuio;
+        [SerializeField] private TuioConnectionType _connectionType = TuioConnectionType.Websocket;
+        [SerializeField] private int _port = 3333;
+        [SerializeField] private string _sourceName = "TuioSimulator";
+
+        private IEnumerable<Tuio11Cursor> _cursors;
+        private IEnumerable<Tuio11Object> _objects;
+        private IEnumerable<Tuio11Blob> _blobs;
 
         private ITuioServer _server;
         private ITuioManager _manager;
@@ -27,35 +32,32 @@ namespace TuioSimulator.Tuio.Common
         private void Init()
         {
             var resolution = new Vector2(Screen.width, Screen.height);
-            _server = ServerConfig.ConnectionType switch
+            _server = _connectionType switch
             {
                 TuioConnectionType.Websocket => new WebsocketServer(Debug.Log),
                 TuioConnectionType.UDP => new UdpServer(),
                 _ => _server
             };
 
-            _manager = ServerConfig.TuioVersion switch
+            _manager = _tuioType switch
             {
-                TuioVersion.Tuio11 => new Tuio11Manager(ServerConfig.Source),
-                TuioVersion.Tuio20 => new Tuio20Manager(ServerConfig.Source, resolution.FromUnity()),
+                TuioType.Tuio => new Tuio11Manager(_sourceName),
+                TuioType.Tuio2 => new Tuio20Manager(_sourceName, resolution.FromUnity()),
                 _ => _manager
             };
         }
 
-        private void Start()
+        public void Open(TuioType tuioType, TuioConnectionType connectionType, int port, string sourceName)
         {
-            Init();
-            if(_openOnStart)
-                Open();
-        }
-
-        [ContextMenu("Start Simulator")]
-        public void Open()
-        {
+            _port = port;
+            _tuioType = tuioType;
+            _connectionType = connectionType;
+            _sourceName = sourceName;
             if(_isInitialized) return;
             try
             {
-                _server.Start(IPAddress.Loopback, ServerConfig.Port);
+                Init();
+                _server.Start(IPAddress.Loopback, _port);
                 StartCoroutine(Send());
                 _isInitialized = true;
             }
@@ -70,6 +72,7 @@ namespace TuioSimulator.Tuio.Common
             while (Application.isPlaying)
             {
                 _manager.Update();
+                print(_manager.FrameBundle.Print());
                 _server.Send(_manager.FrameBundle.BinaryData);
                 yield return new WaitForSeconds(Interval);
             }

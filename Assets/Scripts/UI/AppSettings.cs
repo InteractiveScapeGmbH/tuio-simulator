@@ -13,8 +13,9 @@ namespace TuioSimulator.UI
 {
     public class AppSettings : MonoBehaviour
     {
+        [SerializeField] private TuioTransmitter _tuioTransmitter;
         [SerializeField] private ServerConfig _serverConfig;
-        [SerializeField] private SceneLoader _sceneLoader;
+        // [SerializeField] private SceneLoader _sceneLoader;
         [SerializeField] private TMP_Dropdown _tuioVersion;
         [SerializeField] private TMP_Dropdown _connectionType;
         [SerializeField] private TMP_InputField _portField;
@@ -48,7 +49,7 @@ namespace TuioSimulator.UI
         private void StartSimulator()
         {
             var isPortValid = int.TryParse(_portField.text, out var port);
-            var isTypeValid = Enum.TryParse<TuioVersion>(_tuioVersion.options[_tuioVersion.value].text, out var tuioType);
+            var isTypeValid = Enum.TryParse<TuioType>(_tuioVersion.options[_tuioVersion.value].text, out var tuioType);
             var isConnectionValid =
                 Enum.TryParse<TuioConnectionType>(_connectionType.options[_connectionType.value].text, out var connectionType);
 
@@ -58,8 +59,10 @@ namespace TuioSimulator.UI
                 _serverConfig.ConnectionType = connectionType;
                 _serverConfig.Port = port;
                 _serverConfig.Source = _sourceNameField.text;
-                _sceneLoader.LoadScene("SimulatorMain");
+                // _sceneLoader.LoadScene("SimulatorMain");
             }
+            
+            _tuioTransmitter.Open(tuioType, connectionType, port, _sourceNameField.text);
 
             switch (tuioType)
             {

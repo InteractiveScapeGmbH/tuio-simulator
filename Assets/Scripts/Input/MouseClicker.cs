@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -13,21 +14,20 @@ namespace TuioSimulator.Input
         public event Action<Vector2> OnRightClick;
         public event Action<Vector2> OnRightDoubleClick;
         
-        public event Action<Vector2> OnLeftDown;
-        public event Action<Vector2> OnMiddleDown;
-        public event Action<Vector2> OnRightDown;
+        public event Action<PointerEventData> OnLeftDown;
+        public event Action<PointerEventData> OnMiddleDown;
+        public event Action<PointerEventData> OnRightDown;
         
-        public event Action<Vector2> OnLeftUp;
-        public event Action<Vector2> OnMiddleUp;
-        public event Action<Vector2> OnRightUp;
+        public event Action<PointerEventData> OnLeftUp;
+        public event Action<PointerEventData> OnMiddleUp;
+        public event Action<PointerEventData> OnRightUp;
 
-        public event Action<Vector2> OnLeftMove;
-        public event Action<Vector2> OnMiddleMove;
+        public event Action<PointerEventData> OnLeftMove;
+        public event Action<PointerEventData> OnMiddleMove;
 
-        public event Action<Vector2> OnRightMove;
+        public event Action<PointerEventData> OnRightMove;
 
         private bool _potentialSingleClick = false;
-
 
         public void OnPointerClick(PointerEventData eventData)
         {
@@ -41,7 +41,6 @@ namespace TuioSimulator.Input
                     }else if (eventData.clickCount == 2)
                     {
                         _potentialSingleClick = false;
-                        print("double click");
                         OnLeftDoubleClick?.Invoke(eventData.position);
                     }
                     break;
@@ -56,7 +55,6 @@ namespace TuioSimulator.Input
                     }else if (eventData.clickCount == 2)
                     {
                         _potentialSingleClick = false;
-                        print("double click");
                         OnRightDoubleClick?.Invoke(eventData.position);
                     }
                     break;
@@ -74,24 +72,22 @@ namespace TuioSimulator.Input
 
             if (_potentialSingleClick)
             {
-                print("single click");
                 onclick?.Invoke(position);
             }
         }
-
 
         public void OnPointerDown(PointerEventData eventData)
         {
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    OnLeftDown?.Invoke(eventData.position);
+                    OnLeftDown?.Invoke(eventData);
                     break;
                 case PointerEventData.InputButton.Middle:
-                    OnMiddleDown?.Invoke(eventData.position);;
+                    OnMiddleDown?.Invoke(eventData);;
                     break;
                 case PointerEventData.InputButton.Right:
-                    OnRightDown?.Invoke(eventData.position);
+                    OnRightDown?.Invoke(eventData);
                     break;
             }
         }
@@ -101,29 +97,30 @@ namespace TuioSimulator.Input
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    OnLeftUp?.Invoke(eventData.position);
+                    OnLeftUp?.Invoke(eventData);
                     break;
                 case PointerEventData.InputButton.Middle:
-                    OnMiddleUp?.Invoke(eventData.position);;
+                    OnMiddleUp?.Invoke(eventData);;
                     break;
                 case PointerEventData.InputButton.Right:
-                    OnRightUp?.Invoke(eventData.position);
+                    OnRightUp?.Invoke(eventData);
                     break;
             }
         }
 
         public void OnPointerMove(PointerEventData eventData)
         {
+            
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    OnLeftMove?.Invoke(eventData.position);
+                    OnLeftMove?.Invoke(eventData);
                     break;
                 case PointerEventData.InputButton.Middle:
-                    OnMiddleMove?.Invoke(eventData.position);;
+                    OnMiddleMove?.Invoke(eventData);
                     break;
                 case PointerEventData.InputButton.Right:
-                    OnRightMove?.Invoke(eventData.position);
+                    OnRightMove?.Invoke(eventData);
                     break;
             }
         }

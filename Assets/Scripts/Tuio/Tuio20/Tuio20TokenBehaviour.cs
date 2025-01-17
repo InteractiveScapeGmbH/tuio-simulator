@@ -6,7 +6,9 @@ using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
@@ -14,8 +16,7 @@ namespace TuioSimulator.Tuio.Tuio20
     {
         [SerializeField] private MouseClicker _clicker;
         [SerializeField] private MouseDrager _drager;
-        [SerializeField] private GameObject _selection;
-        [SerializeField] private GameObject _lift;
+        [SerializeField] private TuioUI _ui;
         public Tuio20Token Token { get; private set; }
         private TuioTime _time;
         private Tuio20Manager _manager;
@@ -38,7 +39,7 @@ namespace TuioSimulator.Tuio.Tuio20
             private set
             {
                 _selected = value;
-                _selection.SetActive(_selected);
+                // _selection.SetActive(_selected);
             }
         }
 
@@ -50,11 +51,12 @@ namespace TuioSimulator.Tuio.Tuio20
             private set
             {
                 _grounded = value;
-                _lift.SetActive(!_grounded);
+                _ui.SetGrounded(_grounded);
             }
         }
 
         private Vector2 _position;
+
         public Vector2 Position
         {
             get => _position;
@@ -75,10 +77,15 @@ namespace TuioSimulator.Tuio.Tuio20
             _rectTransform = GetComponent<RectTransform>();
         }
 
+        private void Start()
+        {
+           
+        }
+
         private void OnEnable()
         {
             _drager.OnMove += Move;
-            _clicker.OnLeftClick += ToggleSelection;
+            // _clicker.OnLeftClick += ToggleSelection;
             _clicker.OnMiddleClick += DestroyToken;
             _clicker.OnRightClick += ToggleGrounded;
         }
@@ -86,7 +93,7 @@ namespace TuioSimulator.Tuio.Tuio20
         private void OnDisable()
         {
             _drager.OnMove -= Move;
-            _clicker.OnLeftClick -= ToggleSelection;
+            // _clicker.OnLeftClick -= ToggleSelection;
             _clicker.OnMiddleClick -= DestroyToken;
             _clicker.OnRightClick -= ToggleGrounded;
         }

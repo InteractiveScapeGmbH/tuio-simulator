@@ -13,6 +13,8 @@ namespace TuioSimulator.Tuio.Tuio11
     {
         [SerializeField] private MouseClicker _clicker;
         [SerializeField] private MouseDrager _drager;
+        [SerializeField] private TuioUI _ui;
+
         public Tuio11Object TuioObject { get; private set; }
         private TuioTime _time;
         private Tuio11Manager _manager;

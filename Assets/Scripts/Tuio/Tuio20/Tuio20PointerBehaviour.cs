@@ -3,6 +3,7 @@ using TuioNet.Server;
 using TuioNet.Tuio20;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using Utils;
 
 namespace TuioSimulator.Tuio.Tuio20
@@ -17,6 +18,8 @@ namespace TuioSimulator.Tuio.Tuio20
         private RectTransform _rectTransform;
 
         private RectTransform _parent;
+
+        private PointerEventData _pointerData;
 
         public Vector2 NormalizedPosition { get; private set; }
 
@@ -42,19 +45,21 @@ namespace TuioSimulator.Tuio.Tuio20
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        public void Init(Tuio20Manager tuioManager, Vector2 startPosition)
+        public void Init(Tuio20Manager tuioManager, PointerEventData pointerData)
         {
+            _pointerData = pointerData;
             _parent = transform.parent as RectTransform;
             _manager = tuioManager;
             _time = TuioTime.GetSystemTime();
             var container = new Tuio20Object(_time, _manager.CurrentSessionId);
-            Position = startPosition;
+            Position = pointerData.position;
             Pointer = new Tuio20Pointer(_time, container, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(Pointer);
         }
 
         private void Update()
         {
+            Position = _pointerData.position;
             _time = TuioTime.GetSystemTime();
             var velocity = NormalizedPosition - _lastPosition;
             Pointer.Update(_time, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, velocity.FromUnity(), 0f, 0f, 0f);
