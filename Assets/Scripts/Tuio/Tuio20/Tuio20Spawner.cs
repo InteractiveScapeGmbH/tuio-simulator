@@ -58,12 +58,9 @@ namespace TuioSimulator.Tuio.Tuio20
 
         private void AddPointer(PointerEventData pointerEventData)
         {
-            if (pointerEventData.pointerId != 2)
-            {
-                var pointer = Instantiate(_pointerPrefab, transform);
-                pointer.Init(_manager, pointerEventData);
-                _activePointers[pointerEventData.pointerId] = pointer;
-            }
+            var pointer = Instantiate(_pointerPrefab, transform);
+            pointer.Init(_manager, pointerEventData);
+            _activePointers[pointerEventData.pointerId] = pointer;
         }
         
         // private void MovePointer(PointerEventData pointerEventData)

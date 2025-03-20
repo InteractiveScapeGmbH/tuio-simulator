@@ -3,6 +3,7 @@ using TuioNet.Server;
 using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace TuioSimulator.Tuio.Tuio11
 {
@@ -20,16 +21,16 @@ namespace TuioSimulator.Tuio.Tuio11
 
         private void OnEnable()
         {
-            // _mouseClicker.OnLeftDown += AddPointer;
-            // _mouseClicker.OnLeftUp += RemovePointer;
+            _mouseClicker.OnLeftDown += AddPointer;
+            _mouseClicker.OnLeftUp += RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick += AddToken;
         }
         
         private void OnDisable()
         {
-            // _mouseClicker.OnLeftDown -= AddPointer;
-            // _mouseClicker.OnLeftUp -= RemovePointer;
+            _mouseClicker.OnLeftDown -= AddPointer;
+            _mouseClicker.OnLeftUp -= RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick -= AddToken;
         }
@@ -39,22 +40,22 @@ namespace TuioSimulator.Tuio.Tuio11
             _manager = (Tuio11Manager)manager;
         }
         
-        private void AddPointer(Vector2 position)
+        private void AddPointer(PointerEventData pointerEventData)
         {
             _cursor = Instantiate(_cursorPrefab, transform);
-            _cursor.Init(_manager, position);
-            // _mouseClicker.OnLeftMove += MovePointer;
+            _cursor.Init(_manager, pointerEventData.position);
+            _mouseClicker.OnLeftMove += MovePointer;
         }
         
-        private void MovePointer(Vector2 position)
+        private void MovePointer(PointerEventData pointerEventData)
         {
-            _cursor.Position = position;
+            _cursor.Position = pointerEventData.position;
         }
         
-        private void RemovePointer(Vector2 position)
+        private void RemovePointer(PointerEventData pointerEventData)
         {
             Destroy(_cursor.gameObject);
-            // _mouseClicker.OnLeftMove -= MovePointer;
+            _mouseClicker.OnLeftMove -= MovePointer;
         }
         
         private void AddToken(Vector2 position)
