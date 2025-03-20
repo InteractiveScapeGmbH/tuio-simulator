@@ -24,8 +24,22 @@ namespace TuioSimulator.UI
         [SerializeField] private RectTransform _tuioSpawner;
         [SerializeField] private Tuio20Spawner _tuio20Spawner;
         [SerializeField] private Tuio11Spawner _tuio11Spawner;
+        [SerializeField] private CanvasGroup _configurations;
+
+        private bool _isRunning;
         
+        private Tuio11Spawner _currentTuio11Spawner;
+        private Tuio20Spawner _currentTuio20Spawner;
         
+        public bool IsRunning
+        {
+            get => _isRunning;
+            private set
+            {
+                _isRunning = value;
+                _configurations.interactable = !_isRunning;
+            }
+        }
         private void Start()
         {
             var tuioVersion = (int)_serverConfig.TuioVersion;
@@ -38,12 +52,39 @@ namespace TuioSimulator.UI
 
         private void OnEnable()
         {
-            _playButton.onClick.AddListener(StartSimulator);
+            _playButton.onClick.AddListener(ToggleSimulator);
         }
 
         private void OnDisable()
         {
             _playButton.onClick.RemoveAllListeners();
+        }
+
+        private void ToggleSimulator()
+        {
+            if (!IsRunning)
+            {
+                StartSimulator();
+            }
+            else
+            {
+                StopSimulator();
+            }
+        }
+
+        private void StopSimulator()
+        {
+            switch (_serverConfig.TuioVersion)
+            {
+                case TuioType.Tuio:
+                    Destroy(_currentTuio11Spawner.gameObject);
+                    break;
+                case TuioType.Tuio2:
+                    Destroy(_currentTuio20Spawner.gameObject);
+                    break;
+            }
+            _tuioTransmitter.Close();
+            IsRunning = false;
         }
 
         private void StartSimulator()
@@ -67,14 +108,17 @@ namespace TuioSimulator.UI
             switch (tuioType)
             {
                 case TuioType.Tuio:
-                    var spawner11 = Instantiate(_tuio11Spawner, _tuioSpawner);
-                    spawner11.SetManager(_tuioTransmitter.Manager);
+                    _currentTuio11Spawner = Instantiate(_tuio11Spawner, _tuioSpawner);
+                    _currentTuio11Spawner.SetManager(_tuioTransmitter.Manager);
                     break;
                 case TuioType.Tuio2:
-                    var spawner20 = Instantiate(_tuio20Spawner, _tuioSpawner);
-                    spawner20.SetManager(_tuioTransmitter.Manager);
+                    _currentTuio20Spawner = Instantiate(_tuio20Spawner, _tuioSpawner);
+                    _currentTuio20Spawner.SetManager(_tuioTransmitter.Manager);
                     break;
             }
+
+            
+            IsRunning = true;
         }
 
         private void SetupDropdown(TMP_Dropdown dropdown, Enum configEnum, int defaultValue)

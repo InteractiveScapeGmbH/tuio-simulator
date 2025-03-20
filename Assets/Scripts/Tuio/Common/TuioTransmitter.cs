@@ -60,6 +60,7 @@ namespace TuioSimulator.Tuio.Common
                 _server.Start(IPAddress.Loopback, _port);
                 StartCoroutine(Send());
                 _isInitialized = true;
+                Debug.Log("Tuio Transmitter Initialized");
             }
             catch (Exception exception)
             {
@@ -72,18 +73,25 @@ namespace TuioSimulator.Tuio.Common
             while (Application.isPlaying)
             {
                 _manager.Update();
-                print(_manager.FrameBundle.Print());
+                // print(_manager.FrameBundle.Print());
                 _server.Send(_manager.FrameBundle.BinaryData);
                 yield return new WaitForSeconds(Interval);
             }
         }
 
-        private void OnDestroy()
+        public void Close()
         {
-            if (!_isInitialized) return;
+            _isInitialized = false;
             _manager.Quit();
             _server.Send(_manager.FrameBundle.BinaryData);
             _server.Stop();
+        }
+
+        private void OnDestroy()
+        {
+            if (!_isInitialized) return;
+            Close();
+            
         }
     }
 }
