@@ -20,6 +20,8 @@ namespace TuioSimulator.Tuio.Tuio20
         private RectTransform _parent;
 
         private PointerEventData _pointerData;
+        
+        private float Angle => -_rectTransform.eulerAngles.z * Mathf.Deg2Rad;
 
         public Vector2 NormalizedPosition { get; private set; }
 
@@ -62,7 +64,7 @@ namespace TuioSimulator.Tuio.Tuio20
             Position = _pointerData.position;
             _time = TuioTime.GetSystemTime();
             var velocity = NormalizedPosition - _lastPosition;
-            Pointer.Update(_time, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, velocity.FromUnity(), 0f, 0f, 0f);
+            Pointer.Update(_time, 0, 0, NormalizedPosition.FromUnity(), Angle, 0f, 0f, 0f, velocity.FromUnity(), 0f, 0f, 0f);
             _lastPosition = NormalizedPosition;
         }
 
@@ -73,7 +75,7 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public override string DebugText()
         {
-            return Pointer.DebugText;
+            return Pointer.DebugText + $"\nAngle: {Angle * 180.0 / Mathf.PI:F2}";
         }
     }
 }

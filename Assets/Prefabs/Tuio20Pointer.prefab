@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5167899210655349079}
   - component: {fileID: 6734194978393847266}
   - component: {fileID: 2213228768042255399}
+  - component: {fileID: 3772091670966943063}
   m_Layer: 5
   m_Name: Tuio20Pointer
   m_TagString: Untagged
@@ -104,6 +105,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 930478149560027599}
   _debugTuio: {fileID: 6734194978393847266}
+--- !u!114 &3772091670966943063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3503577927644001730}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df423b904f214731b191d9887f6f9e0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7185890481465487555
 GameObject:
   m_ObjectHideFlags: 0
