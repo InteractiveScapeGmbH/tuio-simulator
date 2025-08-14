@@ -14,6 +14,7 @@ namespace TuioSimulator.Tuio.Tuio20
         [SerializeField] private Tuio20Mobile _mobilePrefab;
         [SerializeField] private MouseClicker _mouseClicker;
         [SerializeField] private CurrentIdSO _currentId;
+        [SerializeField] private Tuio20PointerPreview _pointerPreview;
 
         private Tuio20Manager _manager;
         private Tuio20PointerBehaviour _pointer;
@@ -59,8 +60,9 @@ namespace TuioSimulator.Tuio.Tuio20
         private void AddPointer(PointerEventData pointerEventData)
         {
             var pointer = Instantiate(_pointerPrefab, transform);
-            pointer.Init(_manager, pointerEventData);
+            pointer.Init(_manager, pointerEventData, _pointerPreview.Angle);
             _activePointers[pointerEventData.pointerId] = pointer;
+            _pointerPreview.gameObject.SetActive(false);
         }
         
         // private void MovePointer(PointerEventData pointerEventData)
@@ -73,6 +75,10 @@ namespace TuioSimulator.Tuio.Tuio20
             if (_activePointers.Remove(pointerEventData.pointerId, out var pointerBehaviour))
             {
                 Destroy(pointerBehaviour.gameObject);
+            }
+            if (_activePointers.Count == 0)
+            {
+                _pointerPreview.gameObject.SetActive(true);
             }
         }
 

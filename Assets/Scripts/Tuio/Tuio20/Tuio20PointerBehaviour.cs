@@ -47,15 +47,16 @@ namespace TuioSimulator.Tuio.Tuio20
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        public void Init(Tuio20Manager tuioManager, PointerEventData pointerData)
+        public void Init(Tuio20Manager tuioManager, PointerEventData pointerData, float angle)
         {
             _pointerData = pointerData;
             _parent = transform.parent as RectTransform;
             _manager = tuioManager;
             _time = TuioTime.GetSystemTime();
+            _rectTransform.Rotate(Vector3.back, angle / Mathf.Deg2Rad);
             var container = new Tuio20Object(_time, _manager.CurrentSessionId);
             Position = pointerData.position;
-            Pointer = new Tuio20Pointer(_time, container, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            Pointer = new Tuio20Pointer(_time, container, 0, 0, NormalizedPosition.FromUnity(), angle, 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(Pointer);
         }
 
