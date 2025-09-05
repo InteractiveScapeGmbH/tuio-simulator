@@ -18,7 +18,7 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         private Tuio20PointerBehaviour _pointer;
 
-        private Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
+        private readonly Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
         
         private void OnEnable()
         {
