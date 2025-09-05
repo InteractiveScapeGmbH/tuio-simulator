@@ -6,20 +6,12 @@ using UnityEngine.UI;
 
 namespace TuioSimulator.UI
 {
-    [RequireComponent(typeof(Button))]
     public class PlayButton : MonoBehaviour
     {
         [SerializeField] private TMP_Text _text;
+        [SerializeField] private Button _button;
         [SerializeField] private string _onText;
         [SerializeField] private string _offText;
-        
-        
-        private Button _button;
-
-        private void Awake()
-        {
-            _button = GetComponent<Button>();
-        }
 
         public void UpdateText(bool isOn)
         {
