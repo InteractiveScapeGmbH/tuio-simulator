@@ -12,7 +12,8 @@
     "overrideReferences": true,
     "precompiledReferences": [
         "TuioNet.dll",
-        "websocket-sharp.dll"
+        "websocket-sharp.dll",
+        "TuioNet.Server.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

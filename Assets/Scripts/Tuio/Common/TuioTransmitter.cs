@@ -56,8 +56,8 @@ namespace TuioSimulator.Tuio.Common
             {
                 Init();
                 _server.Start(ipAddress, port);
-                StartCoroutine(Send());
                 _isInitialized = true;
+                StartCoroutine(Send());
                 Debug.Log("Tuio Transmitter Initialized");
             }
             catch (Exception exception)
@@ -68,11 +68,18 @@ namespace TuioSimulator.Tuio.Common
         
         private IEnumerator Send()
         {
-            while (Application.isPlaying)
+            while (_isInitialized)
             {
                 _manager.Update();
                 // print(_manager.FrameBundle.Print());
-                _server.Send(_manager.FrameBundle.BinaryData);
+                try
+                {
+                    _server.Send(_manager.FrameBundle.BinaryData);
+                }
+                catch (Exception exception)
+                {
+                    Debug.LogError($"Could not send data: {exception.Message}");
+                }
                 yield return new WaitForSeconds(Interval);
             }
         }
@@ -81,7 +88,14 @@ namespace TuioSimulator.Tuio.Common
         {
             _isInitialized = false;
             _manager.Quit();
-            _server.Send(_manager.FrameBundle.BinaryData);
+            try
+            {
+                _server.Send(_manager.FrameBundle.BinaryData);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError($"Could not send data: {exception.Message}");
+            }
             _server.Stop();
         }
 
