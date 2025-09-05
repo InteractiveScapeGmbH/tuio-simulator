@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using TMPro;
 using TuioNet.Common;
-using TuioSimulator.App;
 using TuioSimulator.Tuio.Common;
 using TuioSimulator.Tuio.Tuio11;
 using TuioSimulator.Tuio.Tuio20;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TuioSimulator.UI
 {
@@ -18,6 +18,7 @@ namespace TuioSimulator.UI
         // [SerializeField] private SceneLoader _sceneLoader;
         [SerializeField] private TMP_Dropdown _tuioVersion;
         [SerializeField] private TMP_Dropdown _connectionType;
+        [SerializeField] private TMP_Dropdown _ipSelection;
         [SerializeField] private TMP_InputField _portField;
         [SerializeField] private TMP_InputField _sourceNameField;
         [SerializeField] private PlayButton _playButton;
@@ -46,6 +47,7 @@ namespace TuioSimulator.UI
             var connectionType = (int)_serverConfig.ConnectionType;
             SetupDropdown(_tuioVersion, _serverConfig.TuioVersion, tuioVersion);
             SetupDropdown(_connectionType, _serverConfig.ConnectionType, connectionType);
+            SetupIpDropdown(_ipSelection, IpHelper.LocalIpAddresses);
             _portField.text = _serverConfig.Port.ToString();
             _sourceNameField.text = _serverConfig.Source;
         }
@@ -90,21 +92,23 @@ namespace TuioSimulator.UI
 
         private void StartSimulator()
         {
+            var isIpValid = IPAddress.TryParse(_ipSelection.options[_ipSelection.value].text, out var ipAddress);
             var isPortValid = int.TryParse(_portField.text, out var port);
             var isTypeValid = Enum.TryParse<TuioType>(_tuioVersion.options[_tuioVersion.value].text, out var tuioType);
             var isConnectionValid =
                 Enum.TryParse<TuioConnectionType>(_connectionType.options[_connectionType.value].text, out var connectionType);
 
-            if (isPortValid && isTypeValid && isConnectionValid)
+            if (isIpValid && isPortValid && isTypeValid && isConnectionValid)
             {
                 _serverConfig.TuioVersion = tuioType;
                 _serverConfig.ConnectionType = connectionType;
+                _serverConfig.IpAddress = ipAddress.ToString();
                 _serverConfig.Port = port;
                 _serverConfig.Source = _sourceNameField.text;
                 // _sceneLoader.LoadScene("SimulatorMain");
             }
             
-            _tuioTransmitter.Open(tuioType, connectionType, port, _sourceNameField.text);
+            _tuioTransmitter.Open(tuioType, connectionType, ipAddress, port, _sourceNameField.text);
 
             switch (tuioType)
             {
@@ -119,6 +123,13 @@ namespace TuioSimulator.UI
             }
             
             IsRunning = true;
+        }
+
+        private void SetupIpDropdown(TMP_Dropdown dropdown, HashSet<string> availableIps)
+        {
+            dropdown.ClearOptions();
+            var options = availableIps.Select(ip => new TMP_Dropdown.OptionData(ip)).ToList();
+            dropdown.AddOptions(options);
         }
 
         private void SetupDropdown(TMP_Dropdown dropdown, Enum configEnum, int defaultValue)

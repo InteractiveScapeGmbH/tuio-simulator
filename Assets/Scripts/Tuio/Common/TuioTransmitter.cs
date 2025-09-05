@@ -14,7 +14,6 @@ namespace TuioSimulator.Tuio.Common
     {
         [SerializeField] private TuioType _tuioType = TuioType.Tuio;
         [SerializeField] private TuioConnectionType _connectionType = TuioConnectionType.Websocket;
-        [SerializeField] private int _port = 3333;
         [SerializeField] private string _sourceName = "TuioSimulator";
 
         private IEnumerable<Tuio11Cursor> _cursors;
@@ -47,9 +46,8 @@ namespace TuioSimulator.Tuio.Common
             };
         }
 
-        public void Open(TuioType tuioType, TuioConnectionType connectionType, int port, string sourceName)
+        public void Open(TuioType tuioType, TuioConnectionType connectionType, IPAddress ipAddress, int port, string sourceName)
         {
-            _port = port;
             _tuioType = tuioType;
             _connectionType = connectionType;
             _sourceName = sourceName;
@@ -57,7 +55,7 @@ namespace TuioSimulator.Tuio.Common
             try
             {
                 Init();
-                _server.Start(IPAddress.Loopback, _port);
+                _server.Start(ipAddress, port);
                 StartCoroutine(Send());
                 _isInitialized = true;
                 Debug.Log("Tuio Transmitter Initialized");
