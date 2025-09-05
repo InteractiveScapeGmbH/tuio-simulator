@@ -20,7 +20,7 @@ namespace TuioSimulator.UI
         [SerializeField] private TMP_Dropdown _connectionType;
         [SerializeField] private TMP_InputField _portField;
         [SerializeField] private TMP_InputField _sourceNameField;
-        [SerializeField] private Button _playButton;
+        [SerializeField] private PlayButton _playButton;
         [SerializeField] private RectTransform _tuioSpawner;
         [SerializeField] private Tuio20Spawner _tuio20Spawner;
         [SerializeField] private Tuio11Spawner _tuio11Spawner;
@@ -52,12 +52,12 @@ namespace TuioSimulator.UI
 
         private void OnEnable()
         {
-            _playButton.onClick.AddListener(ToggleSimulator);
+            _playButton.AddListener(ToggleSimulator);
         }
 
         private void OnDisable()
         {
-            _playButton.onClick.RemoveAllListeners();
+            _playButton.RemoveAllListeners();
         }
 
         private void ToggleSimulator()
@@ -70,6 +70,7 @@ namespace TuioSimulator.UI
             {
                 StopSimulator();
             }
+            _playButton.UpdateText(IsRunning);
         }
 
         private void StopSimulator()
@@ -116,7 +117,6 @@ namespace TuioSimulator.UI
                     _currentTuio20Spawner.SetManager(_tuioTransmitter.Manager);
                     break;
             }
-
             
             IsRunning = true;
         }
