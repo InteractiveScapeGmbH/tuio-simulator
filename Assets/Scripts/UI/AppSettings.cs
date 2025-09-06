@@ -8,6 +8,8 @@ using TuioSimulator.Tuio.Common;
 using TuioSimulator.Tuio.Tuio11;
 using TuioSimulator.Tuio.Tuio20;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace TuioSimulator.UI
 {
@@ -26,6 +28,9 @@ namespace TuioSimulator.UI
         [SerializeField] private Tuio20Spawner _tuio20Spawner;
         [SerializeField] private Tuio11Spawner _tuio11Spawner;
         [SerializeField] private CanvasGroup _configurations;
+        [SerializeField] private ScreenCapture _screenCapture;
+        [SerializeField] private Toggle _screenCaptureSelection;
+        [SerializeField] private CanvasGroup _background;
 
         private bool _isRunning;
         
@@ -55,11 +60,18 @@ namespace TuioSimulator.UI
         private void OnEnable()
         {
             _playButton.AddListener(ToggleSimulator);
+            _screenCaptureSelection.onValueChanged.AddListener(SelectBackground);
         }
 
         private void OnDisable()
         {
             _playButton.RemoveAllListeners();
+            _screenCaptureSelection.onValueChanged.RemoveAllListeners();
+        }
+
+        private void SelectBackground(bool withScreenCapture)
+        {
+            _screenCapture.gameObject.SetActive(withScreenCapture);
         }
 
         private void ToggleSimulator()
@@ -73,6 +85,8 @@ namespace TuioSimulator.UI
                 StopSimulator();
             }
             _playButton.UpdateText(IsRunning);
+            _screenCapture.ToggleVisibility(IsRunning);
+            _background.alpha = IsRunning ? 1 : 0;
         }
 
         private void StopSimulator()
