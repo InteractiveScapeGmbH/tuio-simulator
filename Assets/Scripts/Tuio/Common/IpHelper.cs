@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using UnityEngine;
 
 namespace TuioSimulator.Tuio.Common
 {
@@ -12,13 +14,21 @@ namespace TuioSimulator.Tuio.Common
             get
             {
                 _localIpAddresses = new HashSet<string> { "127.0.0.1" };
-                var host = Dns.GetHostEntry(Dns.GetHostName());
-                foreach (var ip in host.AddressList)
+                try
                 {
-                    if (ip.AddressFamily == AddressFamily.InterNetwork)
+                    var host = Dns.GetHostEntry(Dns.GetHostName());
+                    foreach (var ip in host.AddressList)
                     {
-                        _localIpAddresses.Add(ip.ToString());
+                        if (ip.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            _localIpAddresses.Add(ip.ToString());
+                        }
                     }
+
+                }
+                catch (Exception e)
+                {
+                    Debug.LogWarning(e);
                 }
                 return _localIpAddresses;
             }
