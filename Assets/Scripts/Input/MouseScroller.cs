@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 namespace TuioSimulator.Input
 {
@@ -14,8 +15,9 @@ namespace TuioSimulator.Input
         
         public void OnScroll(PointerEventData eventData)
         {
-            var scrollDelta = eventData.scrollDelta.y;
-            _rectTransform.Rotate(Vector3.back, scrollDelta);
+            var scrollDelta = eventData.scrollDelta.y * Time.deltaTime;
+            var modifier = Keyboard.current.leftShiftKey.isPressed ? 0.1f : 1f;
+            _rectTransform.Rotate(Vector3.forward, scrollDelta * modifier);
         }
     }
 }

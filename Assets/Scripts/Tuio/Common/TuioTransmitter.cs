@@ -14,7 +14,6 @@ namespace TuioSimulator.Tuio.Common
     {
         [SerializeField] private TuioType _tuioType = TuioType.Tuio;
         [SerializeField] private TuioConnectionType _connectionType = TuioConnectionType.Websocket;
-        [SerializeField] private int _port = 3333;
         [SerializeField] private string _sourceName = "TuioSimulator";
 
         private IEnumerable<Tuio11Cursor> _cursors;
@@ -47,9 +46,8 @@ namespace TuioSimulator.Tuio.Common
             };
         }
 
-        public void Open(TuioType tuioType, TuioConnectionType connectionType, int port, string sourceName)
+        public void Open(TuioType tuioType, TuioConnectionType connectionType, IPAddress ipAddress, int port, string sourceName)
         {
-            _port = port;
             _tuioType = tuioType;
             _connectionType = connectionType;
             _sourceName = sourceName;
@@ -57,9 +55,9 @@ namespace TuioSimulator.Tuio.Common
             try
             {
                 Init();
-                _server.Start(IPAddress.Loopback, _port);
-                StartCoroutine(Send());
+                _server.Start(ipAddress, port);
                 _isInitialized = true;
+                StartCoroutine(Send());
                 Debug.Log("Tuio Transmitter Initialized");
             }
             catch (Exception exception)
@@ -70,11 +68,18 @@ namespace TuioSimulator.Tuio.Common
         
         private IEnumerator Send()
         {
-            while (Application.isPlaying)
+            while (_isInitialized)
             {
                 _manager.Update();
                 // print(_manager.FrameBundle.Print());
-                _server.Send(_manager.FrameBundle.BinaryData);
+                try
+                {
+                    _server.Send(_manager.FrameBundle.BinaryData);
+                }
+                catch (Exception exception)
+                {
+                    Debug.LogError($"Could not send data: {exception.Message}");
+                }
                 yield return new WaitForSeconds(Interval);
             }
         }
@@ -83,7 +88,14 @@ namespace TuioSimulator.Tuio.Common
         {
             _isInitialized = false;
             _manager.Quit();
-            _server.Send(_manager.FrameBundle.BinaryData);
+            try
+            {
+                _server.Send(_manager.FrameBundle.BinaryData);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogError($"Could not send data: {exception.Message}");
+            }
             _server.Stop();
         }
 

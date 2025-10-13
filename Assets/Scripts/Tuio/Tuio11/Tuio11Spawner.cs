@@ -15,8 +15,6 @@ namespace TuioSimulator.Tuio.Tuio11
         [SerializeField] private CurrentIdSO _currentId;
 
         private Tuio11Manager _manager;
-
-
         private Tuio11CursorBehaviour _cursor;
 
         private void OnEnable()
