@@ -56,7 +56,7 @@ namespace TuioSimulator.Tuio.Tuio20
             _rectTransform.Rotate(Vector3.back, angle / Mathf.Deg2Rad);
             var container = new Tuio20Object(_time, _manager.CurrentSessionId);
             Position = pointerData.position;
-            Pointer = new Tuio20Pointer(_time, container, 0, 0, NormalizedPosition.FromUnity(), angle, 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            Pointer = new Tuio20Pointer(_time, container, 0, 0, NormalizedPosition.FromUnity(), PointerOrientationJitter.GetJitteredValue(angle), 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(Pointer);
         }
 
@@ -65,7 +65,7 @@ namespace TuioSimulator.Tuio.Tuio20
             Position = _pointerData.position;
             _time = TuioTime.GetSystemTime();
             var velocity = NormalizedPosition - _lastPosition;
-            Pointer.Update(_time, 0, 0, NormalizedPosition.FromUnity(), Angle, 0f, 0f, 0f, velocity.FromUnity(), 0f, 0f, 0f);
+            Pointer.Update(_time, 0, 0, NormalizedPosition.FromUnity(), PointerOrientationJitter.GetJitteredValue(Angle), 0f, 0f, 0f, velocity.FromUnity(), 0f, 0f, 0f);
             _lastPosition = NormalizedPosition;
         }
 
