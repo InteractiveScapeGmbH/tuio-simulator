@@ -7,7 +7,7 @@ namespace TuioSimulator.Input
     public class MouseScroller : MonoBehaviour, IScrollHandler
     {        
         private RectTransform _rectTransform;
-        private float scrollMultiplier = 10000f;
+        private float scrollMultiplier = 10f;
 
         private void Awake()
         {
@@ -22,7 +22,7 @@ namespace TuioSimulator.Input
             } else {
                 scroll = Mathf.Sign(eventData.scrollDelta.y);
             }
-            var scrollDelta = scroll * scrollMultiplier * Time.deltaTime;
+            var scrollDelta = scroll * scrollMultiplier;
             var modifier = Keyboard.current.leftShiftKey.isPressed ? 0.1f : 1f;
             _rectTransform.Rotate(Vector3.forward, scrollDelta * modifier);
         }
