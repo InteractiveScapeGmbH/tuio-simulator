@@ -22,7 +22,6 @@ namespace TuioSimulator.Tuio.Tuio11
         private RectTransform _rectTransform;
         private Vector2 _lastPosition;
         private float _lastAngle;
-        private uint _componentId;
         private float Angle => -_rectTransform.eulerAngles.z * Mathf.Deg2Rad;
 
         private RectTransform _parent;

@@ -1,4 +1,3 @@
-using System;
 using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio20;
@@ -6,9 +5,7 @@ using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Utils;
-using Random = UnityEngine.Random;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
@@ -39,7 +36,6 @@ namespace TuioSimulator.Tuio.Tuio20
             private set
             {
                 _selected = value;
-                // _selection.SetActive(_selected);
             }
         }
 
@@ -77,15 +73,9 @@ namespace TuioSimulator.Tuio.Tuio20
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        private void Start()
-        {
-           
-        }
-
         private void OnEnable()
         {
             _drager.OnMove += Move;
-            // _clicker.OnLeftClick += ToggleSelection;
             _clicker.OnLeftClick += OnLeftClicked;
             _clicker.OnMiddleClick += OnMiddleClicked;
             _clicker.OnRightClick += ToggleGrounded;
@@ -94,7 +84,6 @@ namespace TuioSimulator.Tuio.Tuio20
         private void OnDisable()
         {
             _drager.OnMove -= Move;
-            // _clicker.OnLeftClick -= ToggleSelecti;
             _clicker.OnLeftClick -= OnLeftClicked;
             _clicker.OnMiddleClick -= OnMiddleClicked;
             _clicker.OnRightClick -= ToggleGrounded;
@@ -103,11 +92,6 @@ namespace TuioSimulator.Tuio.Tuio20
         private void ToggleGrounded(Vector2 obj)
         {
             Grounded = !Grounded;
-        }
-
-        private void ToggleSelection(Vector2 obj)
-        {
-            Selected = !Selected;
         }
 
         private void Move(PointerEventData eventData)
