@@ -86,15 +86,17 @@ namespace TuioSimulator.Tuio.Tuio20
         {
             _drager.OnMove += Move;
             // _clicker.OnLeftClick += ToggleSelection;
-            _clicker.OnMiddleClick += DestroyToken;
+            _clicker.OnLeftClick += OnLeftClicked;
+            _clicker.OnMiddleClick += OnMiddleClicked;
             _clicker.OnRightClick += ToggleGrounded;
         }
 
         private void OnDisable()
         {
             _drager.OnMove -= Move;
-            // _clicker.OnLeftClick -= ToggleSelection;
-            _clicker.OnMiddleClick -= DestroyToken;
+            // _clicker.OnLeftClick -= ToggleSelecti;
+            _clicker.OnLeftClick -= OnLeftClicked;
+            _clicker.OnMiddleClick -= OnMiddleClicked;
             _clicker.OnRightClick -= ToggleGrounded;
         }
 
@@ -113,7 +115,22 @@ namespace TuioSimulator.Tuio.Tuio20
             Position = eventData.position;
         }
 
-        private void DestroyToken(Vector2 position)
+        private void OnLeftClicked(Vector2 vector)
+        {
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+            if (!KeyUtils.IsCommandPressed()) return;
+#else
+            if (!KeyUtils.IsCtrlPressed()) return;
+#endif
+            DestroyToken();
+        }
+
+        private void OnMiddleClicked(Vector2 vector)
+        {
+            DestroyToken();
+        }
+
+        private void DestroyToken()
         {
             Destroy(gameObject);
         }
