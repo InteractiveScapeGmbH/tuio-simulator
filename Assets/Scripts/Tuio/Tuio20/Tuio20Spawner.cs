@@ -13,6 +13,7 @@ namespace TuioSimulator.Tuio.Tuio20
         [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
         [SerializeField] private Tuio20Mobile _mobilePrefab;
         [SerializeField] private MouseClicker _mouseClicker;
+        [SerializeField] private MouseDrager _mouseDrager;
         [SerializeField] private CurrentIdSO _currentId;
 
         private Tuio20Manager _manager;
@@ -27,6 +28,9 @@ namespace TuioSimulator.Tuio.Tuio20
 
             _mouseClicker.OnLeftDoubleClick += AddToken;
             _mouseClicker.OnRightDoubleClick += AddMobile;
+
+            _mouseDrager.OnMove += MovePointer;
+            
         }
 
         private void OnDisable()
@@ -36,6 +40,13 @@ namespace TuioSimulator.Tuio.Tuio20
 
             _mouseClicker.OnLeftDoubleClick -= AddToken;
             _mouseClicker.OnRightDoubleClick -= AddMobile;
+
+            _mouseDrager.OnMove -= MovePointer;
+        }
+
+        private void MovePointer(PointerEventData eventData)
+        {
+            _activePointers[eventData.pointerId].Position = eventData.position;
         }
 
         private void AddMobile(Vector2 position)

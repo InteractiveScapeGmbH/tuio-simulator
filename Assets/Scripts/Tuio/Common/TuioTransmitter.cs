@@ -28,7 +28,7 @@ namespace TuioSimulator.Tuio.Common
         private bool _isInitialized;
 
         private const float Interval = 1f / 60f;
-        private UnityLogger _logger;
+        private readonly UnityLogger _logger = new UnityLogger();
         private void Init()
         {
             var resolution = new Vector2(Screen.width, Screen.height);
@@ -72,7 +72,7 @@ namespace TuioSimulator.Tuio.Common
             while (_isInitialized)
             {
                 _manager.Update();
-                // print(_manager.FrameBundle.Print());
+                // print(_manager.FrameBundle.ToString());
                 try
                 {
                     _server.Send(_manager.FrameBundle.BinaryData);
