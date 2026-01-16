@@ -12,11 +12,11 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         public Tuio20Pointer Pointer { get; private set; }
 
-        public void Init(Tuio20Manager tuioManager, PointerEventData pointerData)
+        public void Init(Tuio20Manager tuioManager, Vector2 startPosition)
         {
             _manager = tuioManager;
             var container = new Tuio20Object(Time, _manager.CurrentSessionId);
-            Position = pointerData.position;
+            Position = startPosition;
             Pointer = new Tuio20Pointer(Time, container, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(Pointer);
         }

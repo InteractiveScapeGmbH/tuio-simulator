@@ -17,8 +17,6 @@ namespace TuioSimulator.Tuio.Tuio20
         [SerializeField] private CurrentIdSO _currentId;
 
         private Tuio20Manager _manager;
-        private Tuio20PointerBehaviour _pointer;
-
         private readonly Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
         
         private void OnEnable()
@@ -70,14 +68,10 @@ namespace TuioSimulator.Tuio.Tuio20
         private void AddPointer(PointerEventData pointerEventData)
         {
             var pointer = Instantiate(_pointerPrefab, transform);
-            pointer.Init(_manager, pointerEventData);
+            pointer.Init(_manager, pointerEventData.position);
             _activePointers[pointerEventData.pointerId] = pointer;
         }
         
-        // private void MovePointer(PointerEventData pointerEventData)
-        // {
-        //     _pointer.Position = pointerEventData.position;
-        // }
 
         private void RemovePointer(PointerEventData pointerEventData)
         {
@@ -85,12 +79,6 @@ namespace TuioSimulator.Tuio.Tuio20
             {
                 Destroy(pointerBehaviour.gameObject);
             }
-        }
-
-        public void SpawnMobile()
-        {
-            var mobile = Instantiate(_mobilePrefab, transform);
-            mobile.Init(_manager,0, Vector2.zero);
         }
     }
 }
