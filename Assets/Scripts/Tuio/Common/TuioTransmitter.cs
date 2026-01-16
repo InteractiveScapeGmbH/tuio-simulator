@@ -5,6 +5,7 @@ using System.Net;
 using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio11;
+using TuioSimulator.Utils;
 using UnityEngine;
 using Utils;
 
@@ -27,13 +28,13 @@ namespace TuioSimulator.Tuio.Common
         private bool _isInitialized;
 
         private const float Interval = 1f / 60f;
-
+        private UnityLogger _logger;
         private void Init()
         {
             var resolution = new Vector2(Screen.width, Screen.height);
             _server = _connectionType switch
             {
-                TuioConnectionType.Websocket => new WebsocketServer(Debug.Log),
+                TuioConnectionType.Websocket => new WebsocketServer(_logger),
                 TuioConnectionType.UDP => new UdpServer(),
                 _ => _server
             };
