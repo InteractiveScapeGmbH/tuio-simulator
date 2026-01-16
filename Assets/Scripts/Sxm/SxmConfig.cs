@@ -8,7 +8,7 @@ namespace TuioSimulator.Sxm
         [field:SerializeField] public string WebAppUrl { get; set; }
         [field:SerializeField] public string RoomId { get; set; }
         [field:SerializeField] public string BrokerUrl { get; set; }
+        [field:SerializeField] public int BrokerPort { get; set; }
 
-        public string Url => $"{WebAppUrl}?r={RoomId}&u={BrokerUrl}";
     }
 }

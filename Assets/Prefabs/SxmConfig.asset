@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bff70e9af3c949d18f842ed6774499bd, type: 3}
   m_Name: SxmConfig
   m_EditorClassIdentifier: TuioSimulator.Sxm::TuioSimulator.Sxm.SxmConfig
-  <WebAppUrl>k__BackingField: 
-  <RoomId>k__BackingField: 
-  <BrokerUrl>k__BackingField: 
+  <WebAppUrl>k__BackingField: https://interactivescapegmbh.github.io/sxmtest.html
+  <RoomId>k__BackingField: tuio-simulator-87654
+  <BrokerUrl>k__BackingField: broker.hivemq.com
+  <BrokerPort>k__BackingField: 8884

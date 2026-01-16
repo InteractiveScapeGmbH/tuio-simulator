@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5207167630017834367}
   - component: {fileID: 6081927323284714284}
   - component: {fileID: 4684603800175192734}
+  - component: {fileID: 3565812970540115635}
   m_Layer: 5
   m_Name: Tuio20Mobile
   m_TagString: Untagged
@@ -42,7 +43,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 200}
+  m_SizeDelta: {x: 200, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7994847694282063302
 CanvasRenderer:
@@ -146,6 +147,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _text: {fileID: 93684968369705919}
   _debugTuio: {fileID: 7530288636868576005}
+--- !u!114 &3565812970540115635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3274783747069356439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 657675941757481f991a3b5ed3eb89c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TuioSimulator.Sxm::TuioSimulator.Sxm.MqttBehaviour
+  _mobile: {fileID: 7530288636868576005}
+  _sxmConfig: {fileID: 11400000, guid: 1c888de5e7e6649ca8cca0604457f3b5, type: 2}
 --- !u!1001 &2523348879279223139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,6 +169,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4899524813045701174}
     m_Modifications:
+    - target: {fileID: 4625754318579429923, guid: 4a61fc1b89e05794a834f690bc48df0c, type: 3}
+      propertyPath: _mobile
+      value: 
+      objectReference: {fileID: 7530288636868576005}
     - target: {fileID: 6003113711675561060, guid: 4a61fc1b89e05794a834f690bc48df0c, type: 3}
       propertyPath: m_Name
       value: QR Image
@@ -184,11 +203,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8795002450087111541, guid: 4a61fc1b89e05794a834f690bc48df0c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 80
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8795002450087111541, guid: 4a61fc1b89e05794a834f690bc48df0c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 80
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 8795002450087111541, guid: 4a61fc1b89e05794a834f690bc48df0c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -322,7 +341,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4641758196210720572, guid: 73ffe934d5cebed4dafb1e3f1b891c17, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 105
+      value: 205
       objectReference: {fileID: 0}
     - target: {fileID: 4641758196210720572, guid: 73ffe934d5cebed4dafb1e3f1b891c17, type: 3}
       propertyPath: m_AnchoredPosition.y

@@ -2,13 +2,19 @@
     "name": "TuioSimulator.Sxm",
     "rootNamespace": "TuioSimulator",
     "references": [
-        "GUID:79ad3ed7050b84dcc8b2c572e8f4fc4c"
+        "GUID:79ad3ed7050b84dcc8b2c572e8f4fc4c",
+        "GUID:b560623cd92a64f42b92abbb7fe4be38",
+        "GUID:247df2bb1ddb844a7858dc6064c45f0f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
-    "overrideReferences": false,
-    "precompiledReferences": [],
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "MQTTnet.dll",
+        "Microsoft.Extensions.Logging.Abstractions.dll",
+        "Newtonsoft.Json.dll"
+    ],
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],

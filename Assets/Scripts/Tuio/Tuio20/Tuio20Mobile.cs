@@ -6,6 +6,7 @@ using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
+using Random = UnityEngine.Random;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
@@ -20,7 +21,10 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         
         private uint _componentId;
-        private string _data = "Unknown";
+        
+        public string UUID { get; private set; }
+
+        public string Data { get; set; } = "Unknown";
 
 
         private Vector2 Size
@@ -57,15 +61,23 @@ namespace TuioSimulator.Tuio.Tuio20
         {
             Destroy(gameObject);
         }
+        
+        private string GenerateShortId(int digits = 6)
+        {
+            int min = (int)Mathf.Pow(10, digits - 1);
+            int max = (int)Mathf.Pow(10, digits) - 1;
+            return Random.Range(min, max + 1).ToString();
+        }
 
         public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition)
         {
+            UUID = GenerateShortId();
             _manager = tuioManager;
             _componentId = componentId;
             var container = new Tuio20Object(Time, _manager.CurrentSessionId);
             Position = startPosition;
             LastAngle = Angle;
-            _symbol = new Tuio20Symbol(Time, container, 0, _componentId, "sxm", _data);
+            _symbol = new Tuio20Symbol(Time, container, 0, _componentId, "sxm", Data);
             _bounds = new Tuio20Bounds(Time, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
                 Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(_symbol);
@@ -74,7 +86,7 @@ namespace TuioSimulator.Tuio.Tuio20
 
         protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
         {
-            _symbol.Update(Time, 0, _componentId, "sxm", _data);
+            _symbol.Update(Time, 0, _componentId, "sxm", Data);
             _bounds.Update(Time, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
                 rotationSpeed, velocity.magnitude, 0);
         }
