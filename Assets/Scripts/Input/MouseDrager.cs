@@ -9,7 +9,10 @@ namespace TuioSimulator.Input
         public event Action<PointerEventData> OnMove;
         public void OnDrag(PointerEventData eventData)
         {
-            OnMove?.Invoke(eventData);
+            if (eventData.button == PointerEventData.InputButton.Left)
+            {
+                OnMove?.Invoke(eventData);
+            }
         }
     }
 }
