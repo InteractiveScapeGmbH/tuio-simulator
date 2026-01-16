@@ -20,7 +20,7 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         
         private uint _componentId;
-        private string _data;
+        private string _data = "Unknown";
 
 
         private Vector2 Size
@@ -65,7 +65,6 @@ namespace TuioSimulator.Tuio.Tuio20
             var container = new Tuio20Object(Time, _manager.CurrentSessionId);
             Position = startPosition;
             LastAngle = Angle;
-            _data = Guid.NewGuid().ToString();
             _symbol = new Tuio20Symbol(Time, container, 0, _componentId, "sxm", _data);
             _bounds = new Tuio20Bounds(Time, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
                 Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
