@@ -1,14 +1,12 @@
-using System;
 using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio20;
 using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
+using TuioSimulator.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 using Utils;
-using Random = UnityEngine.Random;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
@@ -39,7 +37,6 @@ namespace TuioSimulator.Tuio.Tuio20
             private set
             {
                 _selected = value;
-                // _selection.SetActive(_selected);
             }
         }
 
@@ -77,24 +74,19 @@ namespace TuioSimulator.Tuio.Tuio20
             _rectTransform = GetComponent<RectTransform>();
         }
 
-        private void Start()
-        {
-           
-        }
-
         private void OnEnable()
         {
             _drager.OnMove += Move;
-            // _clicker.OnLeftClick += ToggleSelection;
-            _clicker.OnMiddleClick += DestroyToken;
+            _clicker.OnLeftClick += OnLeftClicked;
+            _clicker.OnMiddleClick += OnMiddleClicked;
             _clicker.OnRightClick += ToggleGrounded;
         }
 
         private void OnDisable()
         {
             _drager.OnMove -= Move;
-            // _clicker.OnLeftClick -= ToggleSelection;
-            _clicker.OnMiddleClick -= DestroyToken;
+            _clicker.OnLeftClick -= OnLeftClicked;
+            _clicker.OnMiddleClick -= OnMiddleClicked;
             _clicker.OnRightClick -= ToggleGrounded;
         }
 
@@ -103,17 +95,27 @@ namespace TuioSimulator.Tuio.Tuio20
             Grounded = !Grounded;
         }
 
-        private void ToggleSelection(Vector2 obj)
-        {
-            Selected = !Selected;
-        }
-
         private void Move(PointerEventData eventData)
         {
             Position = eventData.position;
         }
 
-        private void DestroyToken(Vector2 position)
+        private void OnLeftClicked(Vector2 vector)
+        {
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+            if (!KeyUtils.IsCommandPressed()) return;
+#else
+            if (!KeyUtils.IsCtrlPressed()) return;
+#endif
+            DestroyToken();
+        }
+
+        private void OnMiddleClicked(Vector2 vector)
+        {
+            DestroyToken();
+        }
+
+        private void DestroyToken()
         {
             Destroy(gameObject);
         }
