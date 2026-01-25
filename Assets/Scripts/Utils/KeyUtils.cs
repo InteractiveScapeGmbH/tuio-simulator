@@ -1,4 +1,4 @@
-namespace TuioSimulator
+namespace TuioSimulator.Utils
 {
     public static class KeyUtils
     {

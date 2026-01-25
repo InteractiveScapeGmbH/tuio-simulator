@@ -3,6 +3,7 @@ using TuioNet.Server;
 using TuioNet.Tuio20;
 using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
+using TuioSimulator.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utils;
