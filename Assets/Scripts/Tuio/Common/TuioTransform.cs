@@ -9,7 +9,7 @@ namespace TuioSimulator.Tuio.Common
         protected RectTransform RectTransform;
         private Vector2 _lastPosition;
         protected float LastAngle;
-        protected float Angle => (-RectTransform.localEulerAngles.z + 360f) * Mathf.Deg2Rad;
+        protected float Angle => ((-RectTransform.localEulerAngles.z + 360f) % 360f) * Mathf.Deg2Rad;
         protected Vector2 NormalizedPosition;
 
         private RectTransform _parent;
