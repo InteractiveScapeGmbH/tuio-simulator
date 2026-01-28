@@ -75,7 +75,10 @@ namespace TuioSimulator.Tuio.Common
                 // print(_manager.FrameBundle.ToString());
                 try
                 {
-                    _server.Send(_manager.FrameBundle.BinaryData);
+                    foreach (var bundle in _manager.FrameBundles) 
+                    {
+                       _server.Send(bundle.BinaryData);
+                    }
                 }
                 catch (Exception exception)
                 {
@@ -91,7 +94,10 @@ namespace TuioSimulator.Tuio.Common
             _manager.Quit();
             try
             {
-                _server.Send(_manager.FrameBundle.BinaryData);
+                foreach (var bundle in _manager.FrameBundles)
+                {
+                    _server.Send(bundle.BinaryData);
+                }
             }
             catch (Exception exception)
             {
