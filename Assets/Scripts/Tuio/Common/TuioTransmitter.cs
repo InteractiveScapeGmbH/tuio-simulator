@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Net;
 using TuioNet.Common;
 using TuioNet.Server;
-using TuioNet.Tuio11;
 using TuioSimulator.Utils;
 using UnityEngine;
 using Utils;
@@ -16,10 +15,6 @@ namespace TuioSimulator.Tuio.Common
         [SerializeField] private TuioType _tuioType = TuioType.Tuio;
         [SerializeField] private TuioConnectionType _connectionType = TuioConnectionType.Websocket;
         [SerializeField] private string _sourceName = "TuioSimulator";
-
-        private IEnumerable<Tuio11Cursor> _cursors;
-        private IEnumerable<Tuio11Object> _objects;
-        private IEnumerable<Tuio11Blob> _blobs;
 
         private ITuioServer _server;
         private ITuioManager _manager;
