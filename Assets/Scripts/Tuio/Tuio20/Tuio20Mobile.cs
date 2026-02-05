@@ -22,8 +22,6 @@ namespace TuioSimulator.Tuio.Tuio20
         
         private uint _componentId;
         
-        public string UUID { get; private set; }
-
         public string Data { get; set; } = "Unknown";
 
 
@@ -71,7 +69,6 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition)
         {
-            UUID = GenerateShortId();
             _manager = tuioManager;
             _componentId = componentId;
             var container = new Tuio20Object(Time, _manager.CurrentSessionId);

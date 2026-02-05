@@ -20,7 +20,7 @@ namespace TuioSimulator.Tuio.Sxm
 
         private void Start()
         {
-            _mqttClient.Subscribe($"sxm/{_sxmConfig.RoomId}/{_mobile.UUID}/box");
+            _mqttClient.Subscribe($"sxm/{_sxmConfig.RoomId}/box");
             _mqttClient.Connect(OnMessage);
         }
 

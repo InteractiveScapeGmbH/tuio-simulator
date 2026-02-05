@@ -12,7 +12,7 @@ namespace TuioSimulator.Tuio.Sxm
 
         private void Start()
         {
-            _qrImage.Url = $"{_sxmConfig.WebAppUrl}?r={_sxmConfig.RoomId}/{_mobile.UUID}&u={_sxmConfig.BrokerUrl}:{_sxmConfig.BrokerPort}";
+            _qrImage.Url = $"{_sxmConfig.WebAppUrl}?r={_sxmConfig.RoomId}&u={_sxmConfig.BrokerUrl}:{_sxmConfig.BrokerPort}";
         }
     }
 }
