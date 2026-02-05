@@ -6,7 +6,6 @@ namespace TuioSimulator.Tuio.Sxm
 {
     public class SxmUrlGenerator : MonoBehaviour
     {
-        [SerializeField] private Tuio20Mobile _mobile;
         [SerializeField] private QrImage _qrImage;
         [SerializeField] private SxmConfig _sxmConfig;
 
