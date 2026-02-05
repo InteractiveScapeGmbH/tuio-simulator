@@ -1,9 +1,8 @@
-using System;
 using TuioSimulator.QR;
 using TuioSimulator.Tuio.Tuio20;
 using UnityEngine;
 
-namespace TuioSimulator.Sxm
+namespace TuioSimulator.Tuio.Sxm
 {
     public class SxmUrlGenerator : MonoBehaviour
     {

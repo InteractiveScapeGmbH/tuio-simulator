@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using System.Threading.Tasks;
 using MQTTnet.Client;
@@ -6,7 +5,7 @@ using Newtonsoft.Json;
 using TuioSimulator.Tuio.Tuio20;
 using UnityEngine;
 
-namespace TuioSimulator.Sxm
+namespace TuioSimulator.Tuio.Sxm
 {
     public class MqttBehaviour : MonoBehaviour
     {

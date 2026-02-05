@@ -13,13 +13,13 @@ namespace TuioSimulator.Tuio.Common
         [SerializeField] protected TuioConnectionType _connectionType = TuioConnectionType.Websocket;
         [SerializeField] protected string _sourceName = "TuioSimulator";
 
-        private ITuioServer _server;
+        protected ITuioServer _server;
         protected ITuioManager _manager;
         public ITuioManager Manager => _manager;
 
-        private bool _isInitialized;
+        protected bool _isInitialized;
 
-        private const float Interval = 1f / 60f;
+        protected const float Interval = 1f / 60f;
         private readonly UnityLogger _logger = new UnityLogger();
         protected virtual void Init()
         {
@@ -49,24 +49,9 @@ namespace TuioSimulator.Tuio.Common
                 Debug.LogError($"Could not start server: {exception.Message}");
             }
         }
-        
-        private IEnumerator Send()
-        {
-            while (_isInitialized)
-            {
-                _manager.Update();
-                // print(_manager.FrameBundle.ToString());
-                try
-                {
-                    _server.Send(_manager.FrameBundle.BinaryData);
-                }
-                catch (Exception exception)
-                {
-                    Debug.LogError($"Could not send data: {exception.Message}");
-                }
-                yield return new WaitForSeconds(Interval);
-            }
-        }
+
+        protected abstract IEnumerator Send();
+       
 
         public void Close()
         {

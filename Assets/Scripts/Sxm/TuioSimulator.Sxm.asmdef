@@ -13,7 +13,8 @@
     "precompiledReferences": [
         "MQTTnet.dll",
         "Microsoft.Extensions.Logging.Abstractions.dll",
-        "Newtonsoft.Json.dll"
+        "Newtonsoft.Json.dll",
+        "TuioNet.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],
