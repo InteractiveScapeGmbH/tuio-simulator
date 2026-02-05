@@ -1,50 +1,38 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Net;
 using TuioNet.Common;
 using TuioNet.Server;
 using TuioSimulator.Utils;
 using UnityEngine;
-using Utils;
 
 namespace TuioSimulator.Tuio.Common
 {
-    public class TuioTransmitter : MonoBehaviour
+    public abstract class TuioTransmitter : MonoBehaviour
     {
-        [SerializeField] private TuioType _tuioType = TuioType.Tuio;
-        [SerializeField] private TuioConnectionType _connectionType = TuioConnectionType.Websocket;
-        [SerializeField] private string _sourceName = "TuioSimulator";
+        [SerializeField] protected TuioConnectionType _connectionType = TuioConnectionType.Websocket;
+        [SerializeField] protected string _sourceName = "TuioSimulator";
 
         private ITuioServer _server;
-        private ITuioManager _manager;
+        protected ITuioManager _manager;
         public ITuioManager Manager => _manager;
 
         private bool _isInitialized;
 
         private const float Interval = 1f / 60f;
         private readonly UnityLogger _logger = new UnityLogger();
-        private void Init()
+        protected virtual void Init()
         {
-            var resolution = new Vector2(Screen.width, Screen.height);
             _server = _connectionType switch
             {
                 TuioConnectionType.Websocket => new WebsocketServer(_logger),
                 TuioConnectionType.UDP => new UdpServer(),
                 _ => _server
             };
-
-            _manager = _tuioType switch
-            {
-                TuioType.Tuio => new Tuio11Manager(_sourceName),
-                TuioType.Tuio2 => new Tuio20Manager(_sourceName, resolution.FromUnity()),
-                _ => _manager
-            };
         }
 
-        public void Open(TuioType tuioType, TuioConnectionType connectionType, IPAddress ipAddress, int port, string sourceName)
+        public void Open(TuioConnectionType connectionType, IPAddress ipAddress, int port, string sourceName)
         {
-            _tuioType = tuioType;
             _connectionType = connectionType;
             _sourceName = sourceName;
             if(_isInitialized) return;
