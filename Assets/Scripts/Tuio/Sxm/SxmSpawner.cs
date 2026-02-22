@@ -10,7 +10,7 @@ namespace TuioSimulator.Tuio.Sxm
 
         private void Start()
         {
-            _mqttBehaviour.Init(_spawner.AddMobile);
+            _mqttBehaviour.Init(_spawner.AddMobile, _spawner.RemoveMobile);
         }
     }
 }

@@ -31,9 +31,10 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         private readonly Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
         
-        private readonly Queue<MobileData> _mobileQueue = new();
+        private readonly Queue<MobileData> _mobilesToAdd = new();
+        private readonly Queue<string> _mobilesToRemove = new();
 
-        private HashSet<string> ActiveMobiles = new();
+        private Dictionary<string, Tuio20Mobile> _appMobiles = new();
 
         private void OnEnable()
         {
@@ -65,26 +66,45 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public void AddMobile(Vector2 position, string data)
         {
-            _mobileQueue.Enqueue(new MobileData(position, data));
+            _mobilesToAdd.Enqueue(new MobileData(position, data));
+        }
+
+        public void RemoveMobile(string id)
+        {
+            _mobilesToRemove.Enqueue(id);
+        }
+
+        private void DestroyMobile(string id)
+        {
+            if (_appMobiles.Remove(id, out var mobile))
+            {
+                print($"Destroy {id}");
+                Destroy(mobile.gameObject);
+            }
         }
 
         private void Update()
         {
-            while (_mobileQueue.Count > 0)
+            while (_mobilesToRemove.Count > 0)
             {
-                var mobileData = _mobileQueue.Dequeue();
+                DestroyMobile(_mobilesToRemove.Dequeue());
+            }
+            
+            while (_mobilesToAdd.Count > 0)
+            {
+                var mobileData = _mobilesToAdd.Dequeue();
                 SpawnMobileWithData(mobileData.Position, mobileData.Data);
             }
         }
 
         private void SpawnMobileWithData(Vector2 position, string data)
         {
-            if (ActiveMobiles.Contains(data))
+            if (_appMobiles.ContainsKey(data))
                 return;
             var mobile = Instantiate(_mobilePrefab, transform);
-            mobile.Init(_manager, 1, position, ref ActiveMobiles ,data);
+            mobile.Init(_manager, 1, position, ref _appMobiles ,data);
             if (data != null)
-                ActiveMobiles.Add(data);
+                _appMobiles.Add(data, mobile);
         }
 
         private void SpawnMobile(Vector2 position)

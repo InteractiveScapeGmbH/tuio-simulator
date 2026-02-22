@@ -22,7 +22,7 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         
         private uint _componentId;
-        private HashSet<string> _actives;
+        private Dictionary<string, Tuio20Mobile> _actives;
         
         public string Data { get; set; } = "Unknown";
 
@@ -69,7 +69,7 @@ namespace TuioSimulator.Tuio.Tuio20
             return Random.Range(min, max + 1).ToString();
         }
 
-        public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition,  ref HashSet<string> activeMobiles, string data = null)
+        public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition,  ref Dictionary<string, Tuio20Mobile> activeMobiles, string data = null)
         {
             _actives = activeMobiles;
             _manager = tuioManager;
