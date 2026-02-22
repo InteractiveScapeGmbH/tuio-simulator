@@ -26,6 +26,7 @@ namespace TuioSimulator.UI
         [SerializeField] private Tuio20Spawner _tuio20Spawner;
         [SerializeField] private Tuio11Spawner _tuio11Spawner;
         [SerializeField] private CanvasGroup[] _configurationsToDisable;
+        [SerializeField] private CanvasGroup _sxmSettings;
 
         private bool _isRunning;
         
@@ -54,17 +55,19 @@ namespace TuioSimulator.UI
             SetupIpDropdown(_ipSelection, IpHelper.LocalIpAddresses);
             _portField.text = _serverConfig.Port.ToString();
             _sourceNameField.text = _serverConfig.Source;
-            
+            ToggleSxmSettings(_serverConfig.TuioVersion);
         }
 
         private void OnEnable()
         {
             _playButton.AddListener(ToggleSimulator);
+            _tuioVersion.onValueChanged.AddListener(OnTuioVersionChange);
         }
 
         private void OnDisable()
         {
             _playButton.RemoveAllListeners();
+            _tuioVersion.onValueChanged.RemoveAllListeners();
         }
 
         private void ToggleSimulator()
@@ -78,6 +81,27 @@ namespace TuioSimulator.UI
                 StopSimulator();
             }
             _playButton.UpdateText(IsRunning);
+        }
+
+        private void OnTuioVersionChange(int tuioVersion)
+        {
+            Enum.TryParse<TuioType>(_tuioVersion.options[_tuioVersion.value].text, out var tuioType);
+            ToggleSxmSettings(tuioType);
+        }
+        
+        private void ToggleSxmSettings(TuioType tuioType)
+        {
+            switch (tuioType)
+            {
+                case TuioType.Tuio:
+                    _sxmSettings.alpha = 0;
+                    _sxmSettings.interactable = false;
+                    break;
+                case TuioType.Tuio2:
+                    _sxmSettings.alpha = 1;
+                    _sxmSettings.interactable = true;
+                    break;
+            }
         }
 
         private void StopSimulator()
