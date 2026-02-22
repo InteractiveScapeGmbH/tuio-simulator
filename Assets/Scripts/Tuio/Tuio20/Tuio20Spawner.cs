@@ -94,7 +94,7 @@ namespace TuioSimulator.Tuio.Tuio20
 
         private void SpawnMobileWithData(Vector2 position, string data)
         {
-            if (_appMobiles.ContainsKey(data))
+            if (data != null && _appMobiles.ContainsKey(data))
                 return;
             var mobile = Instantiate(_mobilePrefab, transform);
             mobile.Init(_manager, 1, position, ref _appMobiles ,data);
