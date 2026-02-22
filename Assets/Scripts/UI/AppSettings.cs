@@ -54,12 +54,7 @@ namespace TuioSimulator.UI
             SetupIpDropdown(_ipSelection, IpHelper.LocalIpAddresses);
             _portField.text = _serverConfig.Port.ToString();
             _sourceNameField.text = _serverConfig.Source;
-            _tuioTransmitter = _serverConfig.TuioVersion switch
-            {
-                TuioType.Tuio => Instantiate(_tuio11TransmitterPrefab),
-                TuioType.Tuio2 => Instantiate(_tuio20TransmitterPrefab),
-                _ => null
-            };
+            
         }
 
         private void OnEnable()
@@ -116,8 +111,13 @@ namespace TuioSimulator.UI
                 _serverConfig.IpAddress = ipAddress.ToString();
                 _serverConfig.Port = port;
                 _serverConfig.Source = _sourceNameField.text;
-                // _sceneLoader.LoadScene("SimulatorMain");
             }
+            
+            _tuioTransmitter = _serverConfig.TuioVersion switch
+            {
+                TuioType.Tuio => Instantiate(_tuio11TransmitterPrefab),
+                TuioType.Tuio2 => Instantiate(_tuio20TransmitterPrefab),
+            };
             
             _tuioTransmitter.Open(connectionType, ipAddress, port, _sourceNameField.text);
 
