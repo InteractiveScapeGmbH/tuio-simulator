@@ -422,6 +422,7 @@ GameObject:
   - component: {fileID: 4519802879714576875}
   - component: {fileID: 311238532256740976}
   - component: {fileID: 4486888540706049839}
+  - component: {fileID: 1651028520795590961}
   m_Layer: 5
   m_Name: SxmConfig
   m_TagString: Untagged
@@ -517,6 +518,18 @@ MonoBehaviour:
   _brokerPort: {fileID: 5938728464879311487}
   _roomId: {fileID: 2569414891552463793}
   _webAppUrl: {fileID: 3690799294254648549}
+--- !u!225 &1651028520795590961
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2698619584552226957}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3293698488574690744
 GameObject:
   m_ObjectHideFlags: 0

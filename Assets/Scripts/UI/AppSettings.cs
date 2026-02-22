@@ -25,7 +25,7 @@ namespace TuioSimulator.UI
         [SerializeField] private RectTransform _tuioSpawner;
         [SerializeField] private Tuio20Spawner _tuio20Spawner;
         [SerializeField] private Tuio11Spawner _tuio11Spawner;
-        [SerializeField] private CanvasGroup _configurations;
+        [SerializeField] private CanvasGroup[] _configurationsToDisable;
 
         private bool _isRunning;
         
@@ -39,7 +39,10 @@ namespace TuioSimulator.UI
             private set
             {
                 _isRunning = value;
-                _configurations.interactable = !_isRunning;
+                foreach (var config in _configurationsToDisable)
+                {
+                    config.interactable = !_isRunning;
+                }
             }
         }
         private void Start()

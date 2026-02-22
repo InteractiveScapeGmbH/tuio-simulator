@@ -837,7 +837,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -1035.165}
+  m_AnchoredPosition: {x: 100, y: -1034.6758}
   m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &210644971
@@ -3742,7 +3742,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1060.3301, y: -540.3694}
+  m_AnchoredPosition: {x: 1060.3301, y: -540.06366}
   m_SizeDelta: {x: 1719.3401, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &946677467
@@ -4143,7 +4143,9 @@ MonoBehaviour:
   _tuioSpawner: {fileID: 946677466}
   _tuio20Spawner: {fileID: 1293618858591405062, guid: 7e94b4308543c4e4185b77c7f04a2c66, type: 3}
   _tuio11Spawner: {fileID: 1522063138653758791, guid: 2ceac69dfc2cd13418c795bc8c23f752, type: 3}
-  _configurations: {fileID: 1678688202}
+  _configurationsToDisable:
+  - {fileID: 1678688202}
+  - {fileID: 2493747363742159815}
 --- !u!1001 &1100381669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5812,7 +5814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 63.595, y: -916.03625}
+  m_AnchoredPosition: {x: 63.595, y: -915.6694}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1626381479
@@ -6024,7 +6026,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 100, y: -370.57376}
+  m_AnchoredPosition: {x: 100, y: -370.45148}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1678688202
@@ -8052,7 +8054,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2868874466898911232, guid: 1ab4e7b46d4c6456a9002a791ce08f35, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -727.7775
+      value: -727.53296
       objectReference: {fileID: 0}
     - target: {fileID: 2868874466898911232, guid: 1ab4e7b46d4c6456a9002a791ce08f35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8470,6 +8472,11 @@ PrefabInstance:
 --- !u!224 &2493747363742159810 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2868874466898911232, guid: 1ab4e7b46d4c6456a9002a791ce08f35, type: 3}
+  m_PrefabInstance: {fileID: 2493747363742159809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &2493747363742159815 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 1651028520795590961, guid: 1ab4e7b46d4c6456a9002a791ce08f35, type: 3}
   m_PrefabInstance: {fileID: 2493747363742159809}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4806643287969860423
