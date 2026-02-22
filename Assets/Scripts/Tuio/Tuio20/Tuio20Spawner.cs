@@ -5,20 +5,10 @@ using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
-    public struct MobileData
-    {
-        public Vector2 Position;
-        public string Data;
-
-        public MobileData(Vector2 position, string data)
-        {
-            Position = position;
-            Data = data;
-        }
-    }
     public class Tuio20Spawner : MonoBehaviour
     {
         [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
@@ -31,7 +21,7 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         private readonly Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
         
-        private readonly Queue<MobileData> _mobilesToAdd = new();
+        private readonly Queue<string> _mobilesToAdd = new();
         private readonly Queue<string> _mobilesToRemove = new();
 
         private Dictionary<string, Tuio20Mobile> _appMobiles = new();
@@ -64,9 +54,9 @@ namespace TuioSimulator.Tuio.Tuio20
             _activePointers[eventData.pointerId].Position = eventData.position;
         }
 
-        public void AddMobile(Vector2 position, string data)
+        public void AddMobile(string data)
         {
-            _mobilesToAdd.Enqueue(new MobileData(position, data));
+            _mobilesToAdd.Enqueue(data);
         }
 
         public void RemoveMobile(string id)
@@ -92,9 +82,14 @@ namespace TuioSimulator.Tuio.Tuio20
             
             while (_mobilesToAdd.Count > 0)
             {
-                var mobileData = _mobilesToAdd.Dequeue();
-                SpawnMobileWithData(mobileData.Position, mobileData.Data);
+                var randomPosition = SpawnInRadius(100);
+                SpawnMobileWithData(randomPosition, _mobilesToAdd.Dequeue());
             }
+        }
+
+        private Vector2 SpawnInRadius(float radius)
+        {
+            return Random.insideUnitCircle * radius + 0.5f * new Vector2(Screen.width, Screen.height);
         }
 
         private void SpawnMobileWithData(Vector2 position, string data)

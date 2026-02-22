@@ -14,12 +14,12 @@ namespace TuioSimulator.Tuio.Sxm
         [SerializeField] private SxmConfig _sxmConfig;
         private MqttClient _mqttClient;
 
-        private Action<Vector2, string> OnAddMobile;
+        private Action<string> OnAddMobile;
         private Action<string> OnRemoveMobile;
         private readonly HashSet<string> _activeMobiles = new();
         private Random _rng = new();
-
-        public void Init(Action<Vector2, string> onAdd, Action<string> onRemove)
+        
+        public void Init(Action<string> onAdd, Action<string> onRemove)
         {
             OnAddMobile = onAdd;
             OnRemoveMobile = onRemove;
@@ -39,12 +39,10 @@ namespace TuioSimulator.Tuio.Sxm
             if (deviceInfo.DeviceMovement == "stationary" && deviceInfo.DeviceTilt == "horizontal")
             {
                 if (_activeMobiles.Contains(deviceInfo.DeviceId)) return Task.CompletedTask;
-                float x = Mathf.Lerp(400f, 1600, (float)_rng.NextDouble());
-                float y = Mathf.Lerp(200f, 900f, (float)_rng.NextDouble());
                 _activeMobiles.Add(deviceInfo.DeviceId);
-                OnAddMobile.Invoke(new Vector2(x,y), deviceInfo.DeviceId);
+                OnAddMobile.Invoke(deviceInfo.DeviceId);
             }
-            else
+            else if (deviceInfo.DeviceMovement != "stationary" && deviceInfo.DeviceTilt != "horizontal")
             {
                 if (!_activeMobiles.Contains(deviceInfo.DeviceId)) return Task.CompletedTask;
                 _activeMobiles.Remove(deviceInfo.DeviceId);
