@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using TuioNet.Server;
 using TuioSimulator.Input;
@@ -7,6 +8,17 @@ using UnityEngine.EventSystems;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
+    public struct MobileData
+    {
+        public Vector2 Position;
+        public string Data;
+
+        public MobileData(Vector2 position, string data)
+        {
+            Position = position;
+            Data = data;
+        }
+    }
     public class Tuio20Spawner : MonoBehaviour
     {
         [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
@@ -19,13 +31,17 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         private readonly Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
         
+        private readonly Queue<MobileData> _mobileQueue = new();
+
+        private HashSet<string> ActiveMobiles = new();
+
         private void OnEnable()
         {
             _mouseClicker.OnLeftDown += AddPointer;
             _mouseClicker.OnLeftUp += RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick += AddToken;
-            _mouseClicker.OnRightDoubleClick += AddMobile;
+            _mouseClicker.OnRightDoubleClick += SpawnMobile;
 
             _mouseDrager.OnMove += MovePointer;
             
@@ -37,7 +53,7 @@ namespace TuioSimulator.Tuio.Tuio20
             _mouseClicker.OnLeftUp -= RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick -= AddToken;
-            _mouseClicker.OnRightDoubleClick -= AddMobile;
+            _mouseClicker.OnRightDoubleClick -= SpawnMobile;
 
             _mouseDrager.OnMove -= MovePointer;
         }
@@ -47,10 +63,33 @@ namespace TuioSimulator.Tuio.Tuio20
             _activePointers[eventData.pointerId].Position = eventData.position;
         }
 
-        private void AddMobile(Vector2 position)
+        public void AddMobile(Vector2 position, string data)
         {
+            _mobileQueue.Enqueue(new MobileData(position, data));
+        }
+
+        private void Update()
+        {
+            while (_mobileQueue.Count > 0)
+            {
+                var mobileData = _mobileQueue.Dequeue();
+                SpawnMobileWithData(mobileData.Position, mobileData.Data);
+            }
+        }
+
+        private void SpawnMobileWithData(Vector2 position, string data)
+        {
+            if (ActiveMobiles.Contains(data))
+                return;
             var mobile = Instantiate(_mobilePrefab, transform);
-            mobile.Init(_manager, 1, position);
+            mobile.Init(_manager, 1, position, ref ActiveMobiles ,data);
+            if (data != null)
+                ActiveMobiles.Add(data);
+        }
+
+        private void SpawnMobile(Vector2 position)
+        {
+            SpawnMobileWithData(position, null);
         }
 
         public void SetManager(ITuioManager manager)

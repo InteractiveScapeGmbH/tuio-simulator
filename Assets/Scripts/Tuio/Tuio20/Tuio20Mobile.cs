@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TuioNet.Server;
 using TuioNet.Tuio20;
 using TuioSimulator.Input;
@@ -21,9 +22,8 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Manager _manager;
         
         private uint _componentId;
+        private HashSet<string> _actives;
         
-        public string UUID { get; private set; }
-
         public string Data { get; set; } = "Unknown";
 
 
@@ -69,19 +69,25 @@ namespace TuioSimulator.Tuio.Tuio20
             return Random.Range(min, max + 1).ToString();
         }
 
-        public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition)
+        public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition,  ref HashSet<string> activeMobiles, string data = null)
         {
-            UUID = GenerateShortId();
+            _actives = activeMobiles;
             _manager = tuioManager;
             _componentId = componentId;
             var container = new Tuio20Object(Time, _manager.CurrentSessionId);
             Position = startPosition;
             LastAngle = Angle;
+            if (data != null)
+            {
+                Data = data;
+            }
             _symbol = new Tuio20Symbol(Time, container, 0, _componentId, "sxm", Data);
             _bounds = new Tuio20Bounds(Time, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
                 Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            
             _manager.AddEntity(_symbol);
             _manager.AddEntity(_bounds);
+            
         }
 
         protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
@@ -95,6 +101,7 @@ namespace TuioSimulator.Tuio.Tuio20
         {
             _manager.RemoveEntity(_symbol);
             _manager.RemoveEntity(_bounds);
+            _actives?.Remove(Data);
         }
 
         public override string DebugText()

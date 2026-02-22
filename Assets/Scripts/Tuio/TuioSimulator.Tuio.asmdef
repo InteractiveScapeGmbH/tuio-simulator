@@ -4,7 +4,8 @@
     "references": [
         "GUID:b560623cd92a64f42b92abbb7fe4be38",
         "GUID:940fdaa2f523a4a248397a6b8464981a",
-        "GUID:75469ad4d38634e559750d17036d5f7c"
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:79ad3ed7050b84dcc8b2c572e8f4fc4c"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -14,7 +15,9 @@
         "TuioNet.dll",
         "websocket-sharp.dll",
         "TuioNet.Server.dll",
-        "Microsoft.Extensions.Logging.Abstractions.dll"
+        "Microsoft.Extensions.Logging.Abstractions.dll",
+        "MQTTnet.dll",
+        "Newtonsoft.Json.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

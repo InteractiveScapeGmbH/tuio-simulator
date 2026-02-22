@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2669464216124907762}
-  - component: {fileID: 4719308139192715521}
+  - component: {fileID: 5935079720670303694}
   m_Layer: 0
-  m_Name: TuioTransmitter
+  m_Name: Tuio11Transmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4719308139192715521
+--- !u!114 &5935079720670303694
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 4069048202439809687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe3d0ae6e9c946ba9b47d53605ab2f65, type: 3}
+  m_Script: {fileID: 11500000, guid: dd3b58078d2d40739f357b881392f107, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
-  <ServerConfig>k__BackingField: {fileID: 11400000, guid: c45331f46fe2044ea9bbff705f77a8a3, type: 2}
+  m_EditorClassIdentifier: TuioSimulator.Tuio::TuioSimulator.Tuio.Tuio11.Tuio11Transmitter
+  _connectionType: 1
+  _sourceName: TuioSimulator

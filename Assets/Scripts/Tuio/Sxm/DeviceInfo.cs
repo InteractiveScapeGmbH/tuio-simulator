@@ -1,7 +1,6 @@
-using System;
 using Newtonsoft.Json;
 
-namespace TuioSimulator.Sxm
+namespace TuioSimulator.Tuio.Sxm
 {
     public class DeviceInfo
     {

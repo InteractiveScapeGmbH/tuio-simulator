@@ -8,7 +8,7 @@ using MQTTnet.Adapter;
 using MQTTnet.Client;
 using TuioSimulator.Utils;
 
-namespace TuioSimulator.Sxm
+namespace TuioSimulator.Tuio.Sxm
 {
     public class MqttClient
     {

@@ -13,9 +13,9 @@ namespace TuioSimulator.UI
 {
     public class AppSettings : MonoBehaviour
     {
-        [SerializeField] private TuioTransmitter _tuioTransmitter;
+        [SerializeField] private Tuio11Transmitter _tuio11TransmitterPrefab;
+        [SerializeField] private Tuio20Transmitter _tuio20TransmitterPrefab;
         [SerializeField] private ServerConfig _serverConfig;
-        // [SerializeField] private SceneLoader _sceneLoader;
         [SerializeField] private TMP_Dropdown _tuioVersion;
         [SerializeField] private TMP_Dropdown _connectionType;
         [SerializeField] private TMP_Dropdown _ipSelection;
@@ -31,6 +31,7 @@ namespace TuioSimulator.UI
         
         private Tuio11Spawner _currentTuio11Spawner;
         private Tuio20Spawner _currentTuio20Spawner;
+        private TuioTransmitter _tuioTransmitter;
         
         public bool IsRunning
         {
@@ -50,6 +51,12 @@ namespace TuioSimulator.UI
             SetupIpDropdown(_ipSelection, IpHelper.LocalIpAddresses);
             _portField.text = _serverConfig.Port.ToString();
             _sourceNameField.text = _serverConfig.Source;
+            _tuioTransmitter = _serverConfig.TuioVersion switch
+            {
+                TuioType.Tuio => Instantiate(_tuio11TransmitterPrefab),
+                TuioType.Tuio2 => Instantiate(_tuio20TransmitterPrefab),
+                _ => null
+            };
         }
 
         private void OnEnable()
@@ -87,6 +94,7 @@ namespace TuioSimulator.UI
                     break;
             }
             _tuioTransmitter.Close();
+            Destroy(_tuioTransmitter.gameObject);
             IsRunning = false;
         }
 
@@ -108,7 +116,7 @@ namespace TuioSimulator.UI
                 // _sceneLoader.LoadScene("SimulatorMain");
             }
             
-            _tuioTransmitter.Open(tuioType, connectionType, ipAddress, port, _sourceNameField.text);
+            _tuioTransmitter.Open(connectionType, ipAddress, port, _sourceNameField.text);
 
             switch (tuioType)
             {
