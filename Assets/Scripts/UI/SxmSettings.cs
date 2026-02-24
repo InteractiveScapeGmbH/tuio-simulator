@@ -11,14 +11,12 @@ namespace TuioSimulator.UI
         [SerializeField] private TMP_InputField _brokerUrlInput;
         [SerializeField] private TMP_InputField _brokerPort;
         [SerializeField] private TMP_InputField _roomId;
-        [SerializeField] private TMP_InputField _webAppUrl;
 
         private void OnEnable()
         {
             _brokerUrlInput.onValueChanged.AddListener(UpdateBrokerUrl);
             _brokerPort.onValueChanged.AddListener(UpdateBrokerPort);
             _roomId.onValueChanged.AddListener(UpdateRoomId);
-            _webAppUrl.onValueChanged.AddListener(UpdateWebAppUrl);
         }
 
 
@@ -27,7 +25,6 @@ namespace TuioSimulator.UI
             _brokerUrlInput.onValueChanged.RemoveAllListeners();
             _brokerPort.onValueChanged.RemoveAllListeners();
             _roomId.onValueChanged.RemoveAllListeners();
-            _webAppUrl.onValueChanged.RemoveAllListeners();
         }
 
         private void Start()
@@ -35,12 +32,6 @@ namespace TuioSimulator.UI
             _brokerUrlInput.text = _sxmConfig.BrokerUrl;
             _brokerPort.text = _sxmConfig.BrokerPort.ToString();
             _roomId.text = _sxmConfig.RoomId;
-            _webAppUrl.text = _sxmConfig.WebAppUrl;
-        }
-
-        private void UpdateWebAppUrl(string webAppUrl)
-        {
-            _sxmConfig.WebAppUrl = webAppUrl;
         }
 
         private void UpdateRoomId(string roomId)
