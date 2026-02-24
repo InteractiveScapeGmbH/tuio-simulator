@@ -80,7 +80,9 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public override string DebugText()
         {
-            return Token?.DebugText;
+            return  $"s_Id: {Token.SessionId}\n" +
+                    $"Angle: {(Token.Angle * 180f / Mathf.PI):f2}\n" +
+                    $"Position: {Token.Position:f2}";
         }
     }
 }

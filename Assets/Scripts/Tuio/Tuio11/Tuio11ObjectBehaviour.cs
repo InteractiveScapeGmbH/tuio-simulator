@@ -83,7 +83,9 @@ namespace TuioSimulator.Tuio.Tuio11
 
         public override string DebugText()
         {
-            return TuioObject.DebugText;
+            return  $"s_Id: {TuioObject.SessionId}\n" +
+                    $"Angle: {(TuioObject.Angle * 180f / Mathf.PI):f2}\n" +
+                    $"Position: {TuioObject.Position:f2}";
         }
     }
 }

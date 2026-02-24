@@ -33,7 +33,8 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public override string DebugText()
         {
-            return Pointer.DebugText;
+            return $"Id: {Pointer.SessionId}\n" +
+                   $"Position: {Pointer.Position:f2}";
         }
     }
 }

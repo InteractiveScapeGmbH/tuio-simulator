@@ -22,7 +22,10 @@ namespace TuioSimulator.Tuio.Tuio11
                 // print(_manager.FrameBundle.ToString());
                 try
                 {
-                    _server.Send(_manager.FrameBundle.BinaryData);
+                    foreach (var frameBundle in _manager.FrameBundles) 
+                    {
+                        _server.Send(frameBundle.BinaryData);
+                    }
                 }
                 catch (Exception exception)
                 {

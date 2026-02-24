@@ -59,7 +59,10 @@ namespace TuioSimulator.Tuio.Common
             _manager.Quit();
             try
             {
-                _server.Send(_manager.FrameBundle.BinaryData);
+                foreach (var frameBundle in _manager.FrameBundles) 
+                {
+                    _server.Send(frameBundle.BinaryData);
+                }
             }
             catch (Exception exception)
             {

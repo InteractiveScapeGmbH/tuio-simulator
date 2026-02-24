@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Net.Sockets;
 using TuioNet.Server;
 using TuioSimulator.Tuio.Common;
 using TuioSimulator.Tuio.Sxm;
@@ -27,7 +28,10 @@ namespace TuioSimulator.Tuio.Tuio20
                 _manager.Update();
                 try
                 {
-                    _server.Send(_manager.FrameBundle.BinaryData);
+                    foreach (var frameBundle in _manager.FrameBundles)     
+                    {
+                        _server.Send(frameBundle.BinaryData);
+                    }
                     _server.Send(sxmDefMessage.BinaryData);
                 }
                 catch (Exception exception)

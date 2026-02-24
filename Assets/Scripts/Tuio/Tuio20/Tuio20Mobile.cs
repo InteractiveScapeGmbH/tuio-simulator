@@ -106,7 +106,11 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public override string DebugText()
         {
-            return $"{_symbol.Data}\n{_bounds.DebugText}";
+            return $"{_symbol.Data}\n" +
+                   $"s_Id:{_bounds.SessionId}\n" +
+                   $"Angle:{(Angle * 180f / Math.PI):f2}\n" +
+                   $"Position:{_bounds.Position:f2}\n" +
+                   $"Size:{_bounds.Size:f2}";
         }
     }
 }

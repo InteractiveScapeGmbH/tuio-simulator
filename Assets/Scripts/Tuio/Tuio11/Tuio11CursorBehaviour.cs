@@ -31,7 +31,8 @@ namespace TuioSimulator.Tuio.Tuio11
 
         public override string DebugText()
         {
-            return Cursor.DebugText;
+            return $"Id: {Cursor.SessionId}\n" +
+                   $"Position: {Cursor.Position:f2}";
         }
     }
 }
