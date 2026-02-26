@@ -63,13 +63,13 @@ namespace TuioSimulator.Tuio.Tuio20
             _componentId = componentId;
             var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
             Position = startPosition;
-            Token = new Tuio20Token(TuioTime, container, 0, _componentId, _translation.Position.FromUnity(), _rotation.Angle);
+            Token = new Tuio20Token(TuioTime, container, 0, _componentId, Translation.Position.FromUnity(), Rotation.Angle);
             _manager.AddEntity(Token);
         }
 
         protected override void UpdateTuio()
         {
-            Token?.Update(TuioTime, 0, _componentId, _translation.Position.FromUnity(), _rotation.Angle, _translation.Velocity.FromUnity(), _rotation.Speed, _translation.Velocity.magnitude, _rotation.Acceleration);
+            Token?.Update(TuioTime, 0, _componentId, Translation.Position.FromUnity(), Rotation.Angle, Translation.Velocity.FromUnity(), Rotation.Speed, Translation.Velocity.magnitude, Rotation.Acceleration);
         }
 
         private void OnDestroy()

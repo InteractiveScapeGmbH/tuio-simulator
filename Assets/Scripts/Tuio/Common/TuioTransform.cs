@@ -7,16 +7,14 @@ namespace TuioSimulator.Tuio.Common
     public abstract class TuioTransform : DebugTuio
     {
         protected RectTransform RectTransform;
-        private float _angle => (-RectTransform.localEulerAngles.z + 360f) * Mathf.Deg2Rad;
-        // protected Vector2 NormalizedPosition;
+        private float Angle => (-RectTransform.localEulerAngles.z + 360f) * Mathf.Deg2Rad;
 
         private RectTransform _parent;
-        // protected Vector2 _Position;
 
         protected TuioTime TuioTime;
 
-        protected TuioTranslation _translation;
-        protected TuioRotation _rotation;
+        protected readonly TuioTranslation Translation = new();
+        protected readonly TuioRotation Rotation = new();
 
         private Vector2 _position;
         public Vector2 Position
@@ -45,8 +43,8 @@ namespace TuioSimulator.Tuio.Common
         protected void Update()
         {
             TuioTime = TuioTime.GetSystemTime();
-            _translation.Update(_position);
-            _rotation.Update(_angle);
+            Translation.Update(_position);
+            Rotation.Update(Angle);
             UpdateTuio();
         }
     }

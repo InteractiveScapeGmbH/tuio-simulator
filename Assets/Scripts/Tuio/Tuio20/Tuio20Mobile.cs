@@ -74,7 +74,7 @@ namespace TuioSimulator.Tuio.Tuio20
                 Data = data;
             }
             _symbol = new Tuio20Symbol(TuioTime, container, 0, _componentId, Group, Data);
-            _bounds = new Tuio20Bounds(TuioTime, container, _translation.Position.FromUnity(), _rotation.Angle, Size.FromUnity(), Area);
+            _bounds = new Tuio20Bounds(TuioTime, container, Translation.Position.FromUnity(), Rotation.Angle, Size.FromUnity(), Area);
             
             _manager.AddEntity(_symbol);
             _manager.AddEntity(_bounds);
@@ -84,8 +84,8 @@ namespace TuioSimulator.Tuio.Tuio20
         protected override void UpdateTuio()
         {
             _symbol.Update(TuioTime, 0, _componentId, Group, Data);
-            _bounds.Update(TuioTime, _translation.Position.FromUnity(), _rotation.Angle, Size.FromUnity(), Area, _translation.Velocity.FromUnity(),
-                _rotation.Speed, _translation.Acceleration, _rotation.Acceleration);
+            _bounds.Update(TuioTime, Translation.Position.FromUnity(), Rotation.Angle, Size.FromUnity(), Area, Translation.Velocity.FromUnity(),
+                Rotation.Speed, Translation.Acceleration, Rotation.Acceleration);
         }
 
         private void OnDestroy()

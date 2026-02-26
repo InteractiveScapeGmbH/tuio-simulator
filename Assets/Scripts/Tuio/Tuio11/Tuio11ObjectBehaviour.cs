@@ -65,13 +65,13 @@ namespace TuioSimulator.Tuio.Tuio11
             _manager = tuioManager;
             _symbolId = symbolId;
             Position = startPosition;
-            TuioObject = new Tuio11Object(TuioTime, _manager.CurrentSessionId, _symbolId, _translation.Position.FromUnity(), _rotation.Angle);
+            TuioObject = new Tuio11Object(TuioTime, _manager.CurrentSessionId, _symbolId, Translation.Position.FromUnity(), Rotation.Angle);
             _manager.AddObject(TuioObject);
         }
 
         protected override void UpdateTuio()
         {
-            TuioObject.Update(TuioTime, _translation.Position.FromUnity(), _rotation.Angle, _translation.Velocity.FromUnity(), _rotation.Speed, _translation.Speed, _rotation.Acceleration);
+            TuioObject.Update(TuioTime, Translation.Position.FromUnity(), Rotation.Angle, Translation.Velocity.FromUnity(), Rotation.Speed, Translation.Speed, Rotation.Acceleration);
         }
 
         private void OnDestroy()
