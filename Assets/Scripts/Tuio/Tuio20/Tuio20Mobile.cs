@@ -62,13 +62,6 @@ namespace TuioSimulator.Tuio.Tuio20
             Destroy(gameObject);
         }
         
-        private string GenerateShortId(int digits = 6)
-        {
-            int min = (int)Mathf.Pow(10, digits - 1);
-            int max = (int)Mathf.Pow(10, digits) - 1;
-            return Random.Range(min, max + 1).ToString();
-        }
-
         public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition,  ref Dictionary<string, Tuio20Mobile> activeMobiles, string data = null)
         {
             _actives = activeMobiles;
