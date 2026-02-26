@@ -525,6 +525,10 @@ PrefabInstance:
       value: RadialMenu
       objectReference: {fileID: 0}
     - target: {fileID: 8819542499837812385, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
+      propertyPath: _entryCount
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819542499837812385, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
       propertyPath: _entryPrefab
       value: 
       objectReference: {fileID: 2539887803063217621, guid: d12e9c130fc606147814dbff6ad7db35, type: 3}
