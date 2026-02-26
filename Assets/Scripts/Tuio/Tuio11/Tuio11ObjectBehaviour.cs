@@ -20,6 +20,7 @@ namespace TuioSimulator.Tuio.Tuio11
         
         private uint _componentId;
         private uint _symbolId;
+        private float _lastRotationSpeed;
 
         private void OnEnable()
         {
@@ -72,7 +73,9 @@ namespace TuioSimulator.Tuio.Tuio11
 
         protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
         {
-            TuioObject.Update(Time, NormalizedPosition.FromUnity(), Angle, velocity.FromUnity(), rotationSpeed, velocity.magnitude, 0f);
+            var rotationAcceleration = (rotationSpeed - _lastRotationSpeed) / Time.deltaTime;
+            _lastRotationSpeed = rotationSpeed;
+            TuioObject.Update(TuioTime, NormalizedPosition.FromUnity(), Angle, velocity.FromUnity(), rotationSpeed, velocity.magnitude, rotationAcceleration);
         }
 
         private void OnDestroy()
