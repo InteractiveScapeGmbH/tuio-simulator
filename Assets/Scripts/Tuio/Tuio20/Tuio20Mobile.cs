@@ -25,7 +25,7 @@ namespace TuioSimulator.Tuio.Tuio20
         private Dictionary<string, Tuio20Mobile> _actives;
         
         public string Data { get; set; } = "Unknown";
-
+        private const string Group = "device_id";
 
         private Vector2 Size
         {
@@ -81,7 +81,7 @@ namespace TuioSimulator.Tuio.Tuio20
             {
                 Data = data;
             }
-            _symbol = new Tuio20Symbol(Time, container, 0, _componentId, "sxm", Data);
+            _symbol = new Tuio20Symbol(Time, container, 0, _componentId, Group, Data);
             _bounds = new Tuio20Bounds(Time, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
                 Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             
@@ -92,7 +92,7 @@ namespace TuioSimulator.Tuio.Tuio20
 
         protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
         {
-            _symbol.Update(Time, 0, _componentId, "sxm", Data);
+            _symbol.Update(Time, 0, _componentId, Group, Data);
             _bounds.Update(Time, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
                 rotationSpeed, velocity.magnitude, 0);
         }
