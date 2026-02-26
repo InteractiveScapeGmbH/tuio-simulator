@@ -15,8 +15,8 @@ namespace TuioSimulator.Tuio.Common
         protected RectTransform Parent;
         protected Vector2 _Position;
 
-        protected TuioTime Time;
-
+        protected TuioTime TuioTime;
+        
         public Vector2 Position
         {
             get => _Position;
@@ -39,14 +39,14 @@ namespace TuioSimulator.Tuio.Common
         {
             RectTransform = GetComponent<RectTransform>();
             Parent = transform.parent as RectTransform;
-            Time = TuioTime.GetSystemTime();
+            TuioTime = TuioTime.GetSystemTime();
         }
 
         protected void Update()
         {
-            Time = TuioTime.GetSystemTime();
-            var velocity = NormalizedPosition - LastPosition;
-            var rotationSpeed = Angle - LastAngle;
+            TuioTime = TuioTime.GetSystemTime();
+            var velocity = (NormalizedPosition - LastPosition) / Time.deltaTime;
+            var rotationSpeed = (Angle - LastAngle) / Time.deltaTime;
             UpdateTuio(velocity, rotationSpeed);
             LastPosition = NormalizedPosition;
             LastAngle = Angle;

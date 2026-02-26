@@ -66,8 +66,7 @@ namespace TuioSimulator.Tuio.Tuio11
             _symbolId = symbolId;
             Position = startPosition;
             LastAngle = Angle;
-            TuioObject = new Tuio11Object(Time, _manager.CurrentSessionId, _symbolId, NormalizedPosition.FromUnity(),
-                Angle, Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            TuioObject = new Tuio11Object(TuioTime, _manager.CurrentSessionId, _symbolId, NormalizedPosition.FromUnity(), Angle);
             _manager.AddObject(TuioObject);
         }
 

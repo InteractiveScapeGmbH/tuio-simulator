@@ -67,15 +67,15 @@ namespace TuioSimulator.Tuio.Tuio20
             _actives = activeMobiles;
             _manager = tuioManager;
             _componentId = componentId;
-            var container = new Tuio20Object(Time, _manager.CurrentSessionId);
+            var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
             Position = startPosition;
             LastAngle = Angle;
             if (data != null)
             {
                 Data = data;
             }
-            _symbol = new Tuio20Symbol(Time, container, 0, _componentId, Group, Data);
-            _bounds = new Tuio20Bounds(Time, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
+            _symbol = new Tuio20Symbol(TuioTime, container, 0, _componentId, Group, Data);
+            _bounds = new Tuio20Bounds(TuioTime, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
                 Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             
             _manager.AddEntity(_symbol);
@@ -85,8 +85,8 @@ namespace TuioSimulator.Tuio.Tuio20
 
         protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
         {
-            _symbol.Update(Time, 0, _componentId, Group, Data);
-            _bounds.Update(Time, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
+            _symbol.Update(TuioTime, 0, _componentId, Group, Data);
+            _bounds.Update(TuioTime, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
                 rotationSpeed, velocity.magnitude, 0);
         }
 
