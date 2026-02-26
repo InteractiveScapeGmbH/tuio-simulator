@@ -23,7 +23,8 @@ namespace TuioSimulator.Tuio.Tuio20
         
         private uint _componentId;
         private Dictionary<string, Tuio20Mobile> _actives;
-        
+        private float _lastRotationSpeed;
+
         public string Data { get; set; } = "Unknown";
         private const string Group = "device_id";
 
@@ -84,9 +85,11 @@ namespace TuioSimulator.Tuio.Tuio20
 
         protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
         {
+            var rotationAcceleration = (rotationSpeed - _lastRotationSpeed) / Time.deltaTime;
+            _lastRotationSpeed = rotationSpeed;
             _symbol.Update(TuioTime, 0, _componentId, Group, Data);
             _bounds.Update(TuioTime, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
-                rotationSpeed, velocity.magnitude, 0);
+                rotationSpeed, velocity.magnitude, rotationAcceleration);
         }
 
         private void OnDestroy()

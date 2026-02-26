@@ -17,6 +17,8 @@ namespace TuioSimulator.Tuio.Tuio20
         public Tuio20Token Token { get; private set; }
         private Tuio20Manager _manager;
         private uint _componentId;
+        private float _lastRotationSpeed;
+
         private void OnEnable()
         {
             _drager.OnMove += Move;
@@ -69,7 +71,9 @@ namespace TuioSimulator.Tuio.Tuio20
 
         protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
         {
-            Token?.Update(TuioTime, 0, _componentId, NormalizedPosition.FromUnity(), Angle, velocity.FromUnity(), rotationSpeed, velocity.magnitude, 0f);
+            var rotationAcceleration = (rotationSpeed - _lastRotationSpeed) / Time.deltaTime;
+            _lastRotationSpeed = rotationSpeed;
+            Token?.Update(TuioTime, 0, _componentId, NormalizedPosition.FromUnity(), Angle, velocity.FromUnity(), rotationSpeed, velocity.magnitude, rotationAcceleration);
         }
 
         private void OnDestroy()
