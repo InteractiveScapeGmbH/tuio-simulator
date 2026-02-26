@@ -15,13 +15,13 @@ namespace TuioSimulator.Tuio.Tuio11
         {
             _manager = tuioManager;
             Position = startPosition;
-            Cursor = new Tuio11Cursor(TuioTime, _manager.CurrentSessionId, 0, NormalizedPosition.FromUnity());
+            Cursor = new Tuio11Cursor(TuioTime, _manager.CurrentSessionId, 0, _translation.Position.FromUnity());
             _manager.AddCursor(Cursor);
         }
 
-        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
+        protected override void UpdateTuio()
         {
-            Cursor.Update(TuioTime, NormalizedPosition.FromUnity(), velocity.FromUnity(), velocity.magnitude);
+            Cursor.Update(TuioTime, _translation.Position.FromUnity(), _translation.Velocity.FromUnity(), _translation.Speed);
         }
 
         private void OnDestroy()

@@ -20,7 +20,6 @@ namespace TuioSimulator.Tuio.Tuio11
         
         private uint _componentId;
         private uint _symbolId;
-        private float _lastRotationSpeed;
 
         private void OnEnable()
         {
@@ -66,16 +65,13 @@ namespace TuioSimulator.Tuio.Tuio11
             _manager = tuioManager;
             _symbolId = symbolId;
             Position = startPosition;
-            LastAngle = Angle;
-            TuioObject = new Tuio11Object(TuioTime, _manager.CurrentSessionId, _symbolId, NormalizedPosition.FromUnity(), Angle);
+            TuioObject = new Tuio11Object(TuioTime, _manager.CurrentSessionId, _symbolId, _translation.Position.FromUnity(), _rotation.Angle);
             _manager.AddObject(TuioObject);
         }
 
-        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
+        protected override void UpdateTuio()
         {
-            var rotationAcceleration = (rotationSpeed - _lastRotationSpeed) / Time.deltaTime;
-            _lastRotationSpeed = rotationSpeed;
-            TuioObject.Update(TuioTime, NormalizedPosition.FromUnity(), Angle, velocity.FromUnity(), rotationSpeed, velocity.magnitude, rotationAcceleration);
+            TuioObject.Update(TuioTime, _translation.Position.FromUnity(), _rotation.Angle, _translation.Velocity.FromUnity(), _rotation.Speed, _translation.Speed, _rotation.Acceleration);
         }
 
         private void OnDestroy()

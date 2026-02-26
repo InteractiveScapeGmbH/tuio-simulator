@@ -23,7 +23,6 @@ namespace TuioSimulator.Tuio.Tuio20
         
         private uint _componentId;
         private Dictionary<string, Tuio20Mobile> _actives;
-        private float _lastRotationSpeed;
 
         public string Data { get; set; } = "Unknown";
         private const string Group = "device_id";
@@ -70,26 +69,23 @@ namespace TuioSimulator.Tuio.Tuio20
             _componentId = componentId;
             var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
             Position = startPosition;
-            LastAngle = Angle;
             if (data != null)
             {
                 Data = data;
             }
             _symbol = new Tuio20Symbol(TuioTime, container, 0, _componentId, Group, Data);
-            _bounds = new Tuio20Bounds(TuioTime, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area);
+            _bounds = new Tuio20Bounds(TuioTime, container, _translation.Position.FromUnity(), _rotation.Angle, Size.FromUnity(), Area);
             
             _manager.AddEntity(_symbol);
             _manager.AddEntity(_bounds);
             
         }
 
-        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
+        protected override void UpdateTuio()
         {
-            var rotationAcceleration = (rotationSpeed - _lastRotationSpeed) / Time.deltaTime;
-            _lastRotationSpeed = rotationSpeed;
             _symbol.Update(TuioTime, 0, _componentId, Group, Data);
-            _bounds.Update(TuioTime, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
-                rotationSpeed, velocity.magnitude, rotationAcceleration);
+            _bounds.Update(TuioTime, _translation.Position.FromUnity(), _rotation.Angle, Size.FromUnity(), Area, _translation.Velocity.FromUnity(),
+                _rotation.Speed, _translation.Acceleration, _rotation.Acceleration);
         }
 
         private void OnDestroy()
@@ -103,7 +99,7 @@ namespace TuioSimulator.Tuio.Tuio20
         {
             return $"{_symbol.Data}\n" +
                    $"s_Id:{_bounds.SessionId}\n" +
-                   $"Angle:{(Angle * 180f / Math.PI):f2}\n" +
+                   $"Angle:{(_bounds.Angle * 180f / Math.PI):f2}\n" +
                    $"Position:{_bounds.Position:f2}\n" +
                    $"Size:{_bounds.Size:f2}";
         }
