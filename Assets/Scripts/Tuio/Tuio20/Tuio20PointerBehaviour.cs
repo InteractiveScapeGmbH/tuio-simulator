@@ -17,7 +17,7 @@ namespace TuioSimulator.Tuio.Tuio20
             _manager = tuioManager;
             var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
             Position = startPosition;
-            Pointer = new Tuio20Pointer(TuioTime, container, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            Pointer = new Tuio20Pointer(TuioTime, container, 0, 0, NormalizedPosition.FromUnity());
             _manager.AddEntity(Pointer);
         }
 

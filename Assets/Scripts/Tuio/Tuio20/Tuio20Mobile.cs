@@ -75,8 +75,7 @@ namespace TuioSimulator.Tuio.Tuio20
                 Data = data;
             }
             _symbol = new Tuio20Symbol(TuioTime, container, 0, _componentId, Group, Data);
-            _bounds = new Tuio20Bounds(TuioTime, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
-                Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            _bounds = new Tuio20Bounds(TuioTime, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area);
             
             _manager.AddEntity(_symbol);
             _manager.AddEntity(_bounds);

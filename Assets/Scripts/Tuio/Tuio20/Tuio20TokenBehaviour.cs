@@ -63,8 +63,7 @@ namespace TuioSimulator.Tuio.Tuio20
             var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
             Position = startPosition;
             LastAngle = Angle;
-            Token = new Tuio20Token(TuioTime, container, 0, _componentId, NormalizedPosition.FromUnity(), Angle,
-                Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            Token = new Tuio20Token(TuioTime, container, 0, _componentId, NormalizedPosition.FromUnity(), Angle);
             _manager.AddEntity(Token);
         }
 
