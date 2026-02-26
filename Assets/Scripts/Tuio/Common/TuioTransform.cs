@@ -16,18 +16,19 @@ namespace TuioSimulator.Tuio.Common
         protected readonly TuioTranslation Translation = new();
         protected readonly TuioRotation Rotation = new();
 
+        private Camera _camera;
+
         private Vector2 _position;
         public Vector2 Position
         {
             set
             {
-                if(RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, value, Camera.main, out var localPoint))
-                {
-                    RectTransform.anchoredPosition = localPoint;
-                    var normalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
-                    normalizedPosition.y = 1.0f - normalizedPosition.y;
-                    _position = normalizedPosition;
-                }
+                if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, value, _camera, out var localPoint))
+                    return;
+                RectTransform.anchoredPosition = localPoint;
+                var normalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
+                normalizedPosition.y = 1.0f - normalizedPosition.y;
+                _position = normalizedPosition;
             }
         }
 
@@ -35,6 +36,7 @@ namespace TuioSimulator.Tuio.Common
 
         protected void Awake()
         {
+            _camera = Camera.main;
             RectTransform = GetComponent<RectTransform>();
             _parent = transform.parent as RectTransform;
             TuioTime = TuioTime.GetSystemTime();
