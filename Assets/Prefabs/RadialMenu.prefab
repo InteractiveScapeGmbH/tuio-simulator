@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4269066231211715123}
   - component: {fileID: 6193115522024762080}
   - component: {fileID: 8819542499837812385}
+  - component: {fileID: 2617528500539450538}
   m_Layer: 5
   m_Name: RadialMenu
   m_TagString: Untagged
@@ -57,6 +58,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19179d5991c9ce8d680e2fbb3e14c257, type: 3}
   m_Name: 
   m_EditorClassIdentifier: TuioSimulator.UI::TuioSimulator.UI.RadialMenu
-  _entryCount: 5
-  _radius: 300
-  _entryPrefab: {fileID: 3855389500368836094, guid: d12e9c130fc606147814dbff6ad7db35, type: 3}
+  _entryCount: 4
+  _radius: 50
+  _entryPrefab: {fileID: 2539887803063217621, guid: d12e9c130fc606147814dbff6ad7db35, type: 3}
+  _canvasGroup: {fileID: 2617528500539450538}
+--- !u!225 &2617528500539450538
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6160125790680183564}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

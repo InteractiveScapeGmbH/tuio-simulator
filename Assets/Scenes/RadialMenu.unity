@@ -119,46 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &5158840 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6160125790680183564, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
-  m_PrefabInstance: {fileID: 7183728481381822947}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5158841 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4269066231211715123, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
   m_PrefabInstance: {fileID: 7183728481381822947}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5158845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5158840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8113208, g: 0.47071913, b: 0.47071913, a: 0.14117648}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &194529291
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +214,7 @@ GameObject:
   - component: {fileID: 331237508}
   - component: {fileID: 331237507}
   - component: {fileID: 331237506}
+  - component: {fileID: 331237509}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -330,6 +296,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &331237509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331237505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!1 &1726409809
 GameObject:
   m_ObjectHideFlags: 0
@@ -398,8 +408,8 @@ Canvas:
   m_GameObject: {fileID: 1726409809}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 331237507}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -525,8 +535,12 @@ PrefabInstance:
       value: RadialMenu
       objectReference: {fileID: 0}
     - target: {fileID: 8819542499837812385, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
+      propertyPath: _radius
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 8819542499837812385, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
       propertyPath: _entryCount
-      value: 4
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 8819542499837812385, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
       propertyPath: _entryPrefab
@@ -535,10 +549,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6160125790680183564, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5158845}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 112db6f4e337e0f8db3d4fdf6e9001cd, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

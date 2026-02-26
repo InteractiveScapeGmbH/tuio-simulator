@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2090070876174009273}
   - component: {fileID: 6684191033972966551}
-  - component: {fileID: 2898987036500618220}
   - component: {fileID: 2539887803063217621}
+  - component: {fileID: 1120456819012225023}
   m_Layer: 5
   m_Name: MenuEntry
   m_TagString: Untagged
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6684191033972966551
 CanvasRenderer:
@@ -46,7 +46,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3855389500368836094}
   m_CullTransparentMesh: 1
---- !u!114 &2898987036500618220
+--- !u!114 &2539887803063217621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3855389500368836094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d57137fa0f741f983d83be66432b24e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TuioSimulator.UI::TuioSimulator.UI.MenuEntry
+--- !u!114 &1120456819012225023
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,7 +78,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 4fa530825159249f4ba848ab20657181, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,15 +88,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2539887803063217621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3855389500368836094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d57137fa0f741f983d83be66432b24e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: TuioSimulator.UI::TuioSimulator.UI.MenuEntry

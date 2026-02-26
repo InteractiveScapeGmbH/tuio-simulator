@@ -4,15 +4,18 @@ using UnityEngine.EventSystems;
 
 namespace TuioSimulator.UI
 {
-    public class RadialMenu : MonoBehaviour, IPointerMoveHandler
+    public class RadialMenu : MonoBehaviour
     {
         [SerializeField] private int _entryCount;
         [SerializeField] private int _radius;
         [SerializeField] private MenuEntry _entryPrefab;
+        [SerializeField] private CanvasGroup _canvasGroup;
 
         private const float evenOffset = 90f;
         private RectTransform _rectTransform;
         private float _segmentAngle;
+
+        private Camera _camera;
         
 
         private float SegmentAngle()
@@ -23,6 +26,7 @@ namespace TuioSimulator.UI
 
         private void Start()
         {
+            _camera = Camera.main;
             _rectTransform = GetComponent<RectTransform>();
             _segmentAngle = SegmentAngle();
             var angle = _entryCount % 2 == 0 ? evenOffset : 0f;
@@ -36,27 +40,21 @@ namespace TuioSimulator.UI
             }
         }
 
-       
-
-        public void OnPointerMove(PointerEventData eventData)
+        public void Show()
         {
-            var mousePosition = eventData.position;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(_rectTransform, mousePosition, null, out var point);
-            point = point.normalized;
-            var angle = Mathf.Atan2(point.x, point.y) * Mathf.Rad2Deg;
+            _canvasGroup.alpha = 1f;
+        }
 
-            if (_entryCount % 2 == 0)
-            {
-                angle += 90f;
-            }
-            
-            if (angle < 0)
-            {
-                angle += 360f;
-            }
-            var index = Mathf.FloorToInt((angle +(0.5f * _segmentAngle)) % 360f / _segmentAngle);
-            print(index);
+        public void Hide()
+        {
+            _canvasGroup.alpha = 0f;
+        }
 
+        public void SetPosition(Vector2 position)
+        {
+            if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(transform.parent as RectTransform, position, _camera, out var localPoint))
+                return;
+            _rectTransform.anchoredPosition = localPoint;
         }
     }
 }

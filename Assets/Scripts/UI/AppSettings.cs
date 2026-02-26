@@ -27,6 +27,7 @@ namespace TuioSimulator.UI
         [SerializeField] private Tuio11Spawner _tuio11Spawner;
         [SerializeField] private CanvasGroup[] _configurationsToDisable;
         [SerializeField] private CanvasGroup _sxmSettings;
+        [SerializeField] private InputReceiver _inputReceiver;
 
         private bool _isRunning;
         
@@ -156,7 +157,7 @@ namespace TuioSimulator.UI
                     _currentTuio20Spawner.SetManager(_tuioTransmitter.Manager);
                     break;
             }
-            
+            _inputReceiver.Init(_currentTuio20Spawner);
             IsRunning = true;
         }
 
