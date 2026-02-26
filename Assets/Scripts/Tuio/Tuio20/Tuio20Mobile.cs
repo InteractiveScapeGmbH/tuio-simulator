@@ -23,9 +23,9 @@ namespace TuioSimulator.Tuio.Tuio20
         
         private uint _componentId;
         private Dictionary<string, Tuio20Mobile> _actives;
-        
-        public string Data { get; set; } = "Unknown";
 
+        public string Data { get; set; } = "Unknown";
+        private const string Group = "device_id";
 
         private Vector2 Size
         {
@@ -62,39 +62,30 @@ namespace TuioSimulator.Tuio.Tuio20
             Destroy(gameObject);
         }
         
-        private string GenerateShortId(int digits = 6)
-        {
-            int min = (int)Mathf.Pow(10, digits - 1);
-            int max = (int)Mathf.Pow(10, digits) - 1;
-            return Random.Range(min, max + 1).ToString();
-        }
-
         public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition,  ref Dictionary<string, Tuio20Mobile> activeMobiles, string data = null)
         {
             _actives = activeMobiles;
             _manager = tuioManager;
             _componentId = componentId;
-            var container = new Tuio20Object(Time, _manager.CurrentSessionId);
+            var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
             Position = startPosition;
-            LastAngle = Angle;
             if (data != null)
             {
                 Data = data;
             }
-            _symbol = new Tuio20Symbol(Time, container, 0, _componentId, "sxm", Data);
-            _bounds = new Tuio20Bounds(Time, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
-                Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            _symbol = new Tuio20Symbol(TuioTime, container, 0, _componentId, Group, Data);
+            _bounds = new Tuio20Bounds(TuioTime, container, Translation.Position.FromUnity(), Rotation.Angle, Size.FromUnity(), Area);
             
             _manager.AddEntity(_symbol);
             _manager.AddEntity(_bounds);
             
         }
 
-        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
+        protected override void UpdateTuio()
         {
-            _symbol.Update(Time, 0, _componentId, "sxm", Data);
-            _bounds.Update(Time, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
-                rotationSpeed, velocity.magnitude, 0);
+            _symbol.Update(TuioTime, 0, _componentId, Group, Data);
+            _bounds.Update(TuioTime, Translation.Position.FromUnity(), Rotation.Angle, Size.FromUnity(), Area, Translation.Velocity.FromUnity(),
+                Rotation.Speed, Translation.Acceleration, Rotation.Acceleration);
         }
 
         private void OnDestroy()
@@ -108,7 +99,7 @@ namespace TuioSimulator.Tuio.Tuio20
         {
             return $"{_symbol.Data}\n" +
                    $"s_Id:{_bounds.SessionId}\n" +
-                   $"Angle:{(Angle * 180f / Math.PI):f2}\n" +
+                   $"Angle:{(_bounds.Angle * 180f / Math.PI):f2}\n" +
                    $"Position:{_bounds.Position:f2}\n" +
                    $"Size:{_bounds.Size:f2}";
         }

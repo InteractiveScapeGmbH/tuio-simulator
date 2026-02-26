@@ -17,6 +17,7 @@ namespace TuioSimulator.Tuio.Tuio20
         public Tuio20Token Token { get; private set; }
         private Tuio20Manager _manager;
         private uint _componentId;
+
         private void OnEnable()
         {
             _drager.OnMove += Move;
@@ -60,17 +61,15 @@ namespace TuioSimulator.Tuio.Tuio20
         {
             _manager = tuioManager;
             _componentId = componentId;
-            var container = new Tuio20Object(Time, _manager.CurrentSessionId);
+            var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
             Position = startPosition;
-            LastAngle = Angle;
-            Token = new Tuio20Token(Time, container, 0, _componentId, NormalizedPosition.FromUnity(), Angle,
-                Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            Token = new Tuio20Token(TuioTime, container, 0, _componentId, Translation.Position.FromUnity(), Rotation.Angle);
             _manager.AddEntity(Token);
         }
 
-        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
+        protected override void UpdateTuio()
         {
-            Token?.Update(Time, 0, _componentId, NormalizedPosition.FromUnity(), Angle, velocity.FromUnity(), rotationSpeed, velocity.magnitude, 0f);
+            Token?.Update(TuioTime, 0, _componentId, Translation.Position.FromUnity(), Rotation.Angle, Translation.Velocity.FromUnity(), Rotation.Speed, Translation.Velocity.magnitude, Rotation.Acceleration);
         }
 
         private void OnDestroy()

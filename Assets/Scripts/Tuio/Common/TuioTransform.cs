@@ -7,49 +7,47 @@ namespace TuioSimulator.Tuio.Common
     public abstract class TuioTransform : DebugTuio
     {
         protected RectTransform RectTransform;
-        protected Vector2 LastPosition;
-        protected float LastAngle;
-        protected float Angle => (-RectTransform.localEulerAngles.z + 360f) * Mathf.Deg2Rad;
-        protected Vector2 NormalizedPosition;
+        private float Angle => (-RectTransform.localEulerAngles.z + 360f) * Mathf.Deg2Rad;
 
-        protected RectTransform Parent;
-        protected Vector2 _Position;
+        private RectTransform _parent;
 
-        protected TuioTime Time;
+        protected TuioTime TuioTime;
 
+        protected readonly TuioTranslation Translation = new();
+        protected readonly TuioRotation Rotation = new();
+
+        private Camera _camera;
+
+        private Vector2 _position;
         public Vector2 Position
         {
-            get => _Position;
             set
             {
-                if(RectTransformUtility.ScreenPointToLocalPointInRectangle(Parent, value, Camera.main, out var localPoint))
-                {
-                    _Position = localPoint;
-                    RectTransform.anchoredPosition = localPoint;
-                    var normalizedPosition = Rect.PointToNormalized(Parent.rect, localPoint);
-                    normalizedPosition.y = 1.0f - normalizedPosition.y;
-                    NormalizedPosition = normalizedPosition;
-                }
+                if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, value, _camera, out var localPoint))
+                    return;
+                RectTransform.anchoredPosition = localPoint;
+                var normalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
+                normalizedPosition.y = 1.0f - normalizedPosition.y;
+                _position = normalizedPosition;
             }
         }
 
-        protected abstract void UpdateTuio(Vector2 velocity, float rotationSpeed);
+        protected abstract void UpdateTuio();
 
         protected void Awake()
         {
+            _camera = Camera.main;
             RectTransform = GetComponent<RectTransform>();
-            Parent = transform.parent as RectTransform;
-            Time = TuioTime.GetSystemTime();
+            _parent = transform.parent as RectTransform;
+            TuioTime = TuioTime.GetSystemTime();
         }
 
         protected void Update()
         {
-            Time = TuioTime.GetSystemTime();
-            var velocity = NormalizedPosition - LastPosition;
-            var rotationSpeed = Angle - LastAngle;
-            UpdateTuio(velocity, rotationSpeed);
-            LastPosition = NormalizedPosition;
-            LastAngle = Angle;
+            TuioTime = TuioTime.GetSystemTime();
+            Translation.Update(_position);
+            Rotation.Update(Angle);
+            UpdateTuio();
         }
     }
     
