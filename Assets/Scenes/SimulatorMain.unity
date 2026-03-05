@@ -1706,9 +1706,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 883402c1d22cf674e963cb6a372a209d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tuio11TransmitterPrefab: {fileID: 5935079720670303694, guid: 07d7d2646b10541eb9d18c72097bc6ea, type: 3}
-  _tuio20TransmitterPrefab: {fileID: 9000379640508390148, guid: 008214ea7f3f6ebbcba68bfe3d03f7c5, type: 3}
-  _serverConfig: {fileID: 11400000, guid: c45331f46fe2044ea9bbff705f77a8a3, type: 2}
   _tuioVersion: {fileID: 147573725}
   _connectionType: {fileID: 1482416243}
   _ipSelection: {fileID: 907235942}
@@ -1716,12 +1713,15 @@ MonoBehaviour:
   _sourceNameField: {fileID: 2142423074}
   _playButton: {fileID: 1857939426}
   _tuioSpawner: {fileID: 946677466}
-  _tuio20Spawner: {fileID: 1293618858591405062, guid: 7e94b4308543c4e4185b77c7f04a2c66, type: 3}
-  _tuio11Spawner: {fileID: 1522063138653758791, guid: 2ceac69dfc2cd13418c795bc8c23f752, type: 3}
   _configurationsToDisable:
   - {fileID: 1678688202}
   - {fileID: 2493747363742159815}
   _sxmSettings: {fileID: 2493747363742159815}
+  _serverConfig: {fileID: 11400000, guid: c45331f46fe2044ea9bbff705f77a8a3, type: 2}
+  _tuio11TransmitterPrefab: {fileID: 5935079720670303694, guid: 07d7d2646b10541eb9d18c72097bc6ea, type: 3}
+  _tuio11SpawnerPrefab: {fileID: 1522063138653758791, guid: 2ceac69dfc2cd13418c795bc8c23f752, type: 3}
+  _tuio20TransmitterPrefab: {fileID: 9000379640508390148, guid: 008214ea7f3f6ebbcba68bfe3d03f7c5, type: 3}
+  _tuio20SpawnerPrefab: {fileID: 3215475079891159392, guid: 7e94b4308543c4e4185b77c7f04a2c66, type: 3}
 --- !u!1001 &1100381669
 PrefabInstance:
   m_ObjectHideFlags: 0

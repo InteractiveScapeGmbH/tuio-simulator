@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using TuioNet.Server;
 using TuioSimulator.Input;
+using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
     [RequireComponent(typeof(MouseClicker))]
-    public class MobileSpawner : MonoBehaviour
+    public class MobileSpawner : SpawnerBase
     {
         [SerializeField] private Tuio20Mobile _mobilePrefab;
 
@@ -88,7 +89,7 @@ namespace TuioSimulator.Tuio.Tuio20
             SpawnMobileWithData(position, null);
         }
 
-        public void SetManager(ITuioManager manager)
+        public override void SetManager(ITuioManager manager)
         {
             _manager = manager as Tuio20Manager;
         }

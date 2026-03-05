@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using TuioNet.Server;
 using TuioSimulator.Input;
+using TuioSimulator.Tuio.Common;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
     [RequireComponent(typeof(MouseClicker), typeof(MouseDrager))]
-    public class PointerSpawner : MonoBehaviour
+    public class PointerSpawner : SpawnerBase
     {
         [SerializeField] private Tuio20PointerBehaviour _pointerPrefab;
         private MouseClicker _mouseClicker;
@@ -18,7 +19,7 @@ namespace TuioSimulator.Tuio.Tuio20
         
         private Tuio20Manager _manager;
 
-        public void SetManager(ITuioManager manager)
+        public override void SetManager(ITuioManager manager)
         {
             _manager = manager as Tuio20Manager;
         }

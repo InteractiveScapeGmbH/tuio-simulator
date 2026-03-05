@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 797469961206437068}
   - component: {fileID: 962931224687135918}
   - component: {fileID: 4091801414771975094}
+  - component: {fileID: 3215475079891159392}
   - component: {fileID: 9219466534894981659}
   - component: {fileID: 598484079591087541}
   - component: {fileID: 1293618858591405062}
@@ -83,6 +84,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3215475079891159392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915094414313977378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e12bf74fa384755b7d92576d84e7fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TuioSimulator.Tuio::TuioSimulator.Tuio.Tuio20.Tuio20Spawner
+  _spawner:
+  - {fileID: 2626041206333875632}
+  - {fileID: 7700622653284708762}
+  - {fileID: 1293618858591405062}
 --- !u!114 &9219466534894981659
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,12 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc9c781ad5442c2973e8ea902880d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pointerPrefab: {fileID: 6734194978393847266, guid: e95d4b5f947aa442a9850618ad12eb7e, type: 3}
-  _tokenPrefab: {fileID: 8582143932291696385, guid: d542d6e641f594126b35ce00718fae6e, type: 3}
   _mobilePrefab: {fileID: 7530288636868576005, guid: f7cf24c2dfd7a4b17ae88f97dfd86108, type: 3}
-  _mouseClicker: {fileID: 9219466534894981659}
-  _mouseDrager: {fileID: 8722358061418413892}
-  _currentId: {fileID: 11400000, guid: e8b4054019900a749ad7d72e110d2509, type: 2}
 --- !u!114 &8722358061418413892
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using TMPro;
 using TuioNet.Common;
+using TuioNet.Server;
 using TuioSimulator.Tuio.Common;
 using TuioSimulator.Tuio.Tuio11;
 using TuioSimulator.Tuio.Tuio20;
@@ -13,9 +14,7 @@ namespace TuioSimulator.UI
 {
     public class AppSettings : MonoBehaviour
     {
-        [SerializeField] private Tuio11Transmitter _tuio11TransmitterPrefab;
-        [SerializeField] private Tuio20Transmitter _tuio20TransmitterPrefab;
-        [SerializeField] private ServerConfig _serverConfig;
+        [Header("UI")]
         [SerializeField] private TMP_Dropdown _tuioVersion;
         [SerializeField] private TMP_Dropdown _connectionType;
         [SerializeField] private TMP_Dropdown _ipSelection;
@@ -23,14 +22,23 @@ namespace TuioSimulator.UI
         [SerializeField] private TMP_InputField _sourceNameField;
         [SerializeField] private PlayButton _playButton;
         [SerializeField] private RectTransform _tuioSpawner;
-        [SerializeField] private MobileSpawner mobileSpawner;
-        [SerializeField] private Tuio11Spawner _tuio11Spawner;
         [SerializeField] private CanvasGroup[] _configurationsToDisable;
         [SerializeField] private CanvasGroup _sxmSettings;
+        [Header("Tuio Settings")]
+        [SerializeField] private ServerConfig _serverConfig;
+        [Header("Tuio 1.1")]
+        [SerializeField] private Tuio11Transmitter _tuio11TransmitterPrefab;
+
+        [SerializeField] private Tuio11Spawner _tuio11SpawnerPrefab;
+        [Header("Tuio 2.0")] 
+        [SerializeField] private Tuio20Transmitter _tuio20TransmitterPrefab;
+        [SerializeField] private Tuio20Spawner _tuio20SpawnerPrefab;
 
         private bool _isRunning;
         
-        private Tuio11Spawner _currentTuio11Spawner;
+        private Tuio11Spawner _tuio11Spawner;
+        private Tuio20Spawner _tuio20Spawner;
+        
         private MobileSpawner _currentMobileSpawner;
         private TuioTransmitter _tuioTransmitter;
         
@@ -109,7 +117,7 @@ namespace TuioSimulator.UI
             switch (_serverConfig.TuioVersion)
             {
                 case TuioType.Tuio:
-                    Destroy(_currentTuio11Spawner.gameObject);
+                    Destroy(_tuio11Spawner.gameObject);
                     break;
                 case TuioType.Tuio2:
                     Destroy(_currentMobileSpawner.gameObject);
@@ -148,12 +156,12 @@ namespace TuioSimulator.UI
             switch (tuioType)
             {
                 case TuioType.Tuio:
-                    _currentTuio11Spawner = Instantiate(_tuio11Spawner, _tuioSpawner);
-                    _currentTuio11Spawner.SetManager(_tuioTransmitter.Manager);
+                    _tuio11Spawner = Instantiate(_tuio11SpawnerPrefab, _tuioSpawner);
+                    _tuio11Spawner.SetManager(_tuioTransmitter.Manager);
                     break;
                 case TuioType.Tuio2:
-                    _currentMobileSpawner = Instantiate(mobileSpawner, _tuioSpawner);
-                    _currentMobileSpawner.SetManager(_tuioTransmitter.Manager);
+                    _tuio20Spawner = Instantiate(_tuio20SpawnerPrefab, _tuioSpawner);
+                    _tuio20Spawner.Init(_tuioTransmitter.Manager);
                     break;
             }
             

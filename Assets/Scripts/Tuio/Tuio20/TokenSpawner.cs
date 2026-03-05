@@ -7,7 +7,7 @@ using UnityEngine;
 namespace TuioSimulator.Tuio.Tuio20
 {
     [RequireComponent(typeof(MouseClicker))]
-    public class TokenSpawner : MonoBehaviour
+    public class TokenSpawner : SpawnerBase
     {
         [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
         [SerializeField] private CurrentIdSO _currentId;
@@ -15,7 +15,7 @@ namespace TuioSimulator.Tuio.Tuio20
         private MouseClicker _mouseClicker;
         private Tuio20Manager _manager;
 
-        public void SetManager(ITuioManager manager)
+        public override void SetManager(ITuioManager manager)
         {
             _manager = manager as Tuio20Manager;
         }
