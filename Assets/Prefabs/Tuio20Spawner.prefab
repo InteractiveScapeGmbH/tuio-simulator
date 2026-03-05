@@ -17,6 +17,8 @@ GameObject:
   - component: {fileID: 8722358061418413892}
   - component: {fileID: 2811873814588231796}
   - component: {fileID: 5414152674736974352}
+  - component: {fileID: 7700622653284708762}
+  - component: {fileID: 2626041206333875632}
   m_Layer: 5
   m_Name: Tuio20Spawner
   m_TagString: Untagged
@@ -164,3 +166,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TuioSimulator.Tuio::TuioSimulator.Tuio.Sxm.MqttBehaviour
   _sxmConfig: {fileID: 11400000, guid: 1c888de5e7e6649ca8cca0604457f3b5, type: 2}
+--- !u!114 &7700622653284708762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915094414313977378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2e3c7b612b42019e7321274a1207a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TuioSimulator.Tuio::TuioSimulator.Tuio.Tuio20.PointerSpawner
+  _pointerPrefab: {fileID: 6734194978393847266, guid: e95d4b5f947aa442a9850618ad12eb7e, type: 3}
+--- !u!114 &2626041206333875632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915094414313977378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967963831ec94a5689a3ca8eeed4f652, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TuioSimulator.Tuio::TuioSimulator.Tuio.Tuio20.TokenSpawner
+  _tokenPrefab: {fileID: 8582143932291696385, guid: d542d6e641f594126b35ce00718fae6e, type: 3}
+  _currentId: {fileID: 11400000, guid: e8b4054019900a749ad7d72e110d2509, type: 2}

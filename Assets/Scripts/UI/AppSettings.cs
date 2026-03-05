@@ -23,7 +23,7 @@ namespace TuioSimulator.UI
         [SerializeField] private TMP_InputField _sourceNameField;
         [SerializeField] private PlayButton _playButton;
         [SerializeField] private RectTransform _tuioSpawner;
-        [SerializeField] private Tuio20Spawner _tuio20Spawner;
+        [SerializeField] private MobileSpawner mobileSpawner;
         [SerializeField] private Tuio11Spawner _tuio11Spawner;
         [SerializeField] private CanvasGroup[] _configurationsToDisable;
         [SerializeField] private CanvasGroup _sxmSettings;
@@ -31,7 +31,7 @@ namespace TuioSimulator.UI
         private bool _isRunning;
         
         private Tuio11Spawner _currentTuio11Spawner;
-        private Tuio20Spawner _currentTuio20Spawner;
+        private MobileSpawner _currentMobileSpawner;
         private TuioTransmitter _tuioTransmitter;
         
         public bool IsRunning
@@ -112,7 +112,7 @@ namespace TuioSimulator.UI
                     Destroy(_currentTuio11Spawner.gameObject);
                     break;
                 case TuioType.Tuio2:
-                    Destroy(_currentTuio20Spawner.gameObject);
+                    Destroy(_currentMobileSpawner.gameObject);
                     break;
             }
             _tuioTransmitter.Close();
@@ -152,8 +152,8 @@ namespace TuioSimulator.UI
                     _currentTuio11Spawner.SetManager(_tuioTransmitter.Manager);
                     break;
                 case TuioType.Tuio2:
-                    _currentTuio20Spawner = Instantiate(_tuio20Spawner, _tuioSpawner);
-                    _currentTuio20Spawner.SetManager(_tuioTransmitter.Manager);
+                    _currentMobileSpawner = Instantiate(mobileSpawner, _tuioSpawner);
+                    _currentMobileSpawner.SetManager(_tuioTransmitter.Manager);
                     break;
             }
             
