@@ -39,7 +39,6 @@ namespace TuioSimulator.UI
         private Tuio11Spawner _tuio11Spawner;
         private Tuio20Spawner _tuio20Spawner;
         
-        private MobileSpawner _currentMobileSpawner;
         private TuioTransmitter _tuioTransmitter;
         
         public bool IsRunning
@@ -120,7 +119,7 @@ namespace TuioSimulator.UI
                     Destroy(_tuio11Spawner.gameObject);
                     break;
                 case TuioType.Tuio2:
-                    Destroy(_currentMobileSpawner.gameObject);
+                    Destroy(_tuio20Spawner.gameObject);
                     break;
             }
             _tuioTransmitter.Close();
