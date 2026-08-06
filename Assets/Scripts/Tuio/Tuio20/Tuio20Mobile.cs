@@ -1,5 +1,4 @@
 using System;
-using TuioNet.Common;
 using TuioNet.Server;
 using TuioNet.Tuio20;
 using TuioSimulator.Input;
@@ -10,7 +9,7 @@ using Utils;
 
 namespace TuioSimulator.Tuio.Tuio20
 {
-    public class Tuio20Mobile : DebugTuio
+    public class Tuio20Mobile : TuioTransform
     {
         [SerializeField] private MouseClicker _clicker;
         [SerializeField] private MouseDrager _drager;
@@ -18,54 +17,24 @@ namespace TuioSimulator.Tuio.Tuio20
         private Tuio20Bounds _bounds;
         private Tuio20Symbol _symbol;
         
-        private TuioTime _time;
         private Tuio20Manager _manager;
         
-        private RectTransform _rectTransform;
-        private Vector2 _lastPosition;
-        private float _lastAngle;
         private uint _componentId;
-        private float Angle => -_rectTransform.eulerAngles.z * Mathf.Deg2Rad;
-
         private string _data;
-        private RectTransform _parent;
 
 
         private Vector2 Size
         {
             get
             {
-                var size = _rectTransform.sizeDelta;
+                var size = RectTransform.sizeDelta;
                 size.x /= Screen.width;
                 size.y /= Screen.height;
                 return size;
             }
         }
-        
-        public Vector2 NormalizedPosition { get; private set; }
-
-        private Vector2 _position;
-        public Vector2 Position
-        {
-            get => _position;
-            set
-            {
-                if(RectTransformUtility.ScreenPointToLocalPointInRectangle(_parent, value, Camera.main, out var localPoint))
-                {
-                    _position = localPoint;
-                    _rectTransform.anchoredPosition = localPoint;
-                    var normalizedPosition = Rect.PointToNormalized(_parent.rect, localPoint);
-                    normalizedPosition.y = 1.0f - normalizedPosition.y;
-                    NormalizedPosition = normalizedPosition;
-                }
-            }    
-        }
 
         private float Area => Size.x * Size.y;
-        private void Awake()
-        {
-            _rectTransform = GetComponent<RectTransform>();
-        }
         
         private void OnEnable()
         {
@@ -91,31 +60,24 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public void Init(Tuio20Manager tuioManager, uint componentId, Vector2 startPosition)
         {
-            _parent = transform.parent as RectTransform;
             _manager = tuioManager;
             _componentId = componentId;
-            _time = TuioTime.GetSystemTime();
-            var container = new Tuio20Object(_time, _manager.CurrentSessionId);
+            var container = new Tuio20Object(Time, _manager.CurrentSessionId);
             Position = startPosition;
-            _lastAngle = Angle;
+            LastAngle = Angle;
             _data = Guid.NewGuid().ToString();
-            _symbol = new Tuio20Symbol(_time, container, 0, _componentId, "sxm", _data);
-            _bounds = new Tuio20Bounds(_time, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
+            _symbol = new Tuio20Symbol(Time, container, 0, _componentId, "sxm", _data);
+            _bounds = new Tuio20Bounds(Time, container, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(),
                 Area, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(_symbol);
             _manager.AddEntity(_bounds);
         }
 
-        private void Update()
+        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
         {
-            _time = TuioTime.GetSystemTime();
-            var velocity = NormalizedPosition - _lastPosition;
-            var rotationSpeed = _lastAngle - Angle;
-            _symbol.Update(_time, 0, _componentId, "sxm", _data);
-            _bounds.Update(_time, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
+            _symbol.Update(Time, 0, _componentId, "sxm", _data);
+            _bounds.Update(Time, NormalizedPosition.FromUnity(), Angle, Size.FromUnity(), Area, velocity.FromUnity(),
                 rotationSpeed, velocity.magnitude, 0);
-            _lastPosition = NormalizedPosition;
-            _lastAngle = Angle;
         }
 
         private void OnDestroy()

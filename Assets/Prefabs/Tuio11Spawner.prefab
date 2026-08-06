@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 962931224687135918}
   - component: {fileID: 9219466534894981659}
   - component: {fileID: 598484079591087541}
+  - component: {fileID: 8660747418972251789}
   - component: {fileID: 8351971146157140320}
   m_Layer: 5
   m_Name: Tuio11Spawner
@@ -55,6 +56,7 @@ MonoBehaviour:
   _cursorPrefab: {fileID: 5275917905756838280, guid: a08e26a16fd6a4d4685a206e7872dff8, type: 3}
   _objectPrefab: {fileID: 3526605613493734537, guid: a07e4e963c8734897a770e481aa75ccc, type: 3}
   _mouseClicker: {fileID: 9219466534894981659}
+  _mouseDrager: {fileID: 8660747418972251789}
   _currentId: {fileID: 11400000, guid: e8b4054019900a749ad7d72e110d2509, type: 2}
 --- !u!222 &962931224687135918
 CanvasRenderer:
@@ -90,6 +92,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _background: {fileID: 9219466534894981659}
   _defaultMenu: {fileID: 0}
+--- !u!114 &8660747418972251789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6915094414313977378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7e3445de83c415d80abf569903763d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: TuioSimulator.Input::TuioSimulator.Input.MouseDrager
 --- !u!114 &8351971146157140320
 MonoBehaviour:
   m_ObjectHideFlags: 0
