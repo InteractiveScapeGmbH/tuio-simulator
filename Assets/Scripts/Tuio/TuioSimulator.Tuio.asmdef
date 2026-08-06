@@ -13,7 +13,8 @@
     "precompiledReferences": [
         "TuioNet.dll",
         "websocket-sharp.dll",
-        "TuioNet.Server.dll"
+        "TuioNet.Server.dll",
+        "Microsoft.Extensions.Logging.Abstractions.dll"
     ],
     "autoReferenced": true,
     "defineConstraints": [],

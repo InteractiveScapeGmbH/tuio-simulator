@@ -13,12 +13,11 @@ namespace TuioSimulator.Tuio.Tuio20
         [SerializeField] private Tuio20TokenBehaviour _tokenPrefab;
         [SerializeField] private Tuio20Mobile _mobilePrefab;
         [SerializeField] private MouseClicker _mouseClicker;
+        [SerializeField] private MouseDrager _mouseDrager;
         [SerializeField] private CurrentIdSO _currentId;
         [SerializeField] private Tuio20PointerPreview _pointerPreview;
 
         private Tuio20Manager _manager;
-        private Tuio20PointerBehaviour _pointer;
-
         private readonly Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
         
         private void OnEnable()
@@ -28,6 +27,9 @@ namespace TuioSimulator.Tuio.Tuio20
 
             _mouseClicker.OnLeftDoubleClick += AddToken;
             _mouseClicker.OnRightDoubleClick += AddMobile;
+
+            _mouseDrager.OnMove += MovePointer;
+            
         }
 
         private void OnDisable()
@@ -37,6 +39,13 @@ namespace TuioSimulator.Tuio.Tuio20
 
             _mouseClicker.OnLeftDoubleClick -= AddToken;
             _mouseClicker.OnRightDoubleClick -= AddMobile;
+
+            _mouseDrager.OnMove -= MovePointer;
+        }
+
+        private void MovePointer(PointerEventData eventData)
+        {
+            _activePointers[eventData.pointerId].Position = eventData.position;
         }
 
         private void AddMobile(Vector2 position)
@@ -60,15 +69,11 @@ namespace TuioSimulator.Tuio.Tuio20
         private void AddPointer(PointerEventData pointerEventData)
         {
             var pointer = Instantiate(_pointerPrefab, transform);
-            pointer.Init(_manager, pointerEventData, _pointerPreview.Angle);
+            pointer.Init(_manager, pointerEventData.position, _pointerPreview.Angle);
             _activePointers[pointerEventData.pointerId] = pointer;
             _pointerPreview.gameObject.SetActive(false);
         }
         
-        // private void MovePointer(PointerEventData pointerEventData)
-        // {
-        //     _pointer.Position = pointerEventData.position;
-        // }
 
         private void RemovePointer(PointerEventData pointerEventData)
         {
@@ -80,12 +85,6 @@ namespace TuioSimulator.Tuio.Tuio20
             {
                 _pointerPreview.gameObject.SetActive(true);
             }
-        }
-
-        public void SpawnMobile()
-        {
-            var mobile = Instantiate(_mobilePrefab, transform);
-            mobile.Init(_manager,0, Vector2.zero);
         }
     }
 }

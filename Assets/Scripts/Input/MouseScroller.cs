@@ -24,7 +24,7 @@ namespace TuioSimulator.Input
             }
             var scrollDelta = scroll * scrollMultiplier;
             var modifier = Keyboard.current.leftShiftKey.isPressed ? 0.1f : 1f;
-            _rectTransform.Rotate(Vector3.forward, scrollDelta * modifier);
+            _rectTransform.Rotate(Vector3.back, scrollDelta * modifier);
         }
     }
 }

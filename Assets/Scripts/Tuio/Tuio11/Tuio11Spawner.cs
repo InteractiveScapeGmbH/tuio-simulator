@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using TuioNet.Server;
 using TuioSimulator.Input;
 using TuioSimulator.Tuio.Common;
@@ -12,10 +13,11 @@ namespace TuioSimulator.Tuio.Tuio11
         [SerializeField] private Tuio11CursorBehaviour _cursorPrefab;
         [SerializeField] private Tuio11ObjectBehaviour _objectPrefab;
         [SerializeField] private MouseClicker _mouseClicker;
+        [SerializeField] private MouseDrager _mouseDrager;
         [SerializeField] private CurrentIdSO _currentId;
 
         private Tuio11Manager _manager;
-        private Tuio11CursorBehaviour _cursor;
+        private readonly Dictionary<int, Tuio11CursorBehaviour> _activeCursors = new();
 
         private void OnEnable()
         {
@@ -23,6 +25,8 @@ namespace TuioSimulator.Tuio.Tuio11
             _mouseClicker.OnLeftUp += RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick += AddToken;
+
+            _mouseDrager.OnMove += MovePointer;
         }
         
         private void OnDisable()
@@ -31,6 +35,7 @@ namespace TuioSimulator.Tuio.Tuio11
             _mouseClicker.OnLeftUp -= RemovePointer;
 
             _mouseClicker.OnLeftDoubleClick -= AddToken;
+            _mouseDrager.OnMove -= MovePointer;
         }
         
         public void SetManager(ITuioManager manager)
@@ -40,20 +45,22 @@ namespace TuioSimulator.Tuio.Tuio11
         
         private void AddPointer(PointerEventData pointerEventData)
         {
-            _cursor = Instantiate(_cursorPrefab, transform);
-            _cursor.Init(_manager, pointerEventData.position);
-            _mouseClicker.OnLeftMove += MovePointer;
+            var cursor = Instantiate(_cursorPrefab, transform);
+            cursor.Init(_manager, pointerEventData.position);
+            _activeCursors[pointerEventData.pointerId] = cursor;
         }
         
         private void MovePointer(PointerEventData pointerEventData)
         {
-            _cursor.Position = pointerEventData.position;
+            _activeCursors[pointerEventData.pointerId].Position = pointerEventData.position;
         }
         
         private void RemovePointer(PointerEventData pointerEventData)
         {
-            Destroy(_cursor.gameObject);
-            _mouseClicker.OnLeftMove -= MovePointer;
+            if (_activeCursors.Remove(pointerEventData.pointerId, out var cursorBehaviour))
+            {
+                Destroy(cursorBehaviour.gameObject);
+            }
         }
         
         private void AddToken(Vector2 position)
