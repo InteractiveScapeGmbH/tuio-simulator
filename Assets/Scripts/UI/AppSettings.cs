@@ -85,7 +85,10 @@ namespace TuioSimulator.UI
                 StopSimulator();
             }
             _playButton.UpdateText(IsRunning);
-            _screenCapture.ToggleVisibility(IsRunning);
+            if (_screenCapture.gameObject.activeSelf)
+            {
+                _screenCapture.ToggleVisibility(IsRunning);
+            }
             _background.alpha = IsRunning ? 1 : 0;
         }
 

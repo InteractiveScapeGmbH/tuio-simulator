@@ -8,10 +8,11 @@ namespace TuioSimulator.UI
     [RequireComponent(typeof(CanvasGroup))]
     public class ScreenCapture : MonoBehaviour
     {
-        private const string ObsCam = "OBS Virtual Camera";
+        [SerializeField] private ScreenCaptureSettings _settings;
         private RectTransform _rectTransform;
         private WebCamTexture _camTexture;
         private CanvasGroup _canvasGroup;
+        private RawImage _rawImage;
         
 
         private void Awake()
@@ -22,16 +23,21 @@ namespace TuioSimulator.UI
 
         private void Start()
         {
-            var rawImage = gameObject.AddComponent<RawImage>();
-            
-            var isObsActive = WebCamTexture.devices.Any(device => device.name == ObsCam);
-            if (!isObsActive) return;
-            _camTexture = new WebCamTexture(ObsCam);
-            rawImage.texture = _camTexture;
+            _rawImage = gameObject.AddComponent<RawImage>();
         }
 
         public void ToggleVisibility(bool isRunning)
         {
+            if (_settings.CurrentScreenCaptureSource == null) return;
+            if (!_camTexture)
+            {
+                _camTexture = new WebCamTexture(_settings.CurrentScreenCaptureSource);
+            }
+            else
+            {
+                _camTexture.deviceName = _settings.CurrentScreenCaptureSource;
+            }
+            _rawImage.texture = _camTexture;
             if (isRunning)
             {
                 _camTexture.Play();
