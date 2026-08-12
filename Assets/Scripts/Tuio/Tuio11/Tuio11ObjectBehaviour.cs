@@ -65,15 +65,14 @@ namespace TuioSimulator.Tuio.Tuio11
             _manager = tuioManager;
             _symbolId = symbolId;
             Position = startPosition;
-            LastAngle = Angle;
-            TuioObject = new Tuio11Object(Time, _manager.CurrentSessionId, _symbolId, NormalizedPosition.FromUnity(),
-                Angle, Vector2.zero.FromUnity(), 0f, 0f, 0f);
+            TuioObject = new Tuio11Object(TuioTime, _manager.CurrentSessionId, _symbolId, Translation.Position.FromUnity(),
+                Rotation.Angle, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddObject(TuioObject);
         }
 
-        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
+        protected override void UpdateTuio()
         {
-            TuioObject.Update(Time, NormalizedPosition.FromUnity(), Angle, velocity.FromUnity(), rotationSpeed, velocity.magnitude, 0f);
+            TuioObject.Update(TuioTime, Translation.Position.FromUnity(), Rotation.Angle, Translation.Velocity.FromUnity(), Rotation.Speed, Translation.Speed, 0f);
         }
 
         private void OnDestroy()
@@ -83,7 +82,9 @@ namespace TuioSimulator.Tuio.Tuio11
 
         public override string DebugText()
         {
-            return TuioObject.DebugText;
+            return  $"s_Id: {TuioObject.SessionId}\n" +
+                    $"Angle: {(TuioObject.Angle * 180f / Mathf.PI):f2}\n" +
+                    $"Position: {TuioObject.Position:f2}";
         }
     }
 }

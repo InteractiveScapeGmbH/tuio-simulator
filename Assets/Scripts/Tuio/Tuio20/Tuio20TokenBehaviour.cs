@@ -60,17 +60,16 @@ namespace TuioSimulator.Tuio.Tuio20
         {
             _manager = tuioManager;
             _componentId = componentId;
-            var container = new Tuio20Object(Time, _manager.CurrentSessionId);
+            var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
             Position = startPosition;
-            LastAngle = Angle;
-            Token = new Tuio20Token(Time, container, 0, _componentId, NormalizedPosition.FromUnity(), Angle,
+            Token = new Tuio20Token(TuioTime, container, 0, _componentId, Translation.Position.FromUnity(), Rotation.Angle,
                 Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(Token);
         }
 
-        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
+        protected override void UpdateTuio()
         {
-            Token?.Update(Time, 0, _componentId, NormalizedPosition.FromUnity(), Angle, velocity.FromUnity(), rotationSpeed, velocity.magnitude, 0f);
+            Token?.Update(TuioTime, 0, _componentId, Translation.Position.FromUnity(), Rotation.Angle, Translation.Velocity.FromUnity(), Rotation.Speed, Translation.Acceleration, 0f);
         }
 
         private void OnDestroy()
@@ -80,7 +79,10 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public override string DebugText()
         {
-            return Token?.DebugText;
+            return  $"s_Id: {Token.SessionId}\n" +
+                    $"ID: {Token.ComponentId}\n" +
+                    $"Angle: {(Token.Angle * 180f / Mathf.PI):f2}\n" +
+                    $"Position: {Token.Position:f2}";
         }
     }
 }
