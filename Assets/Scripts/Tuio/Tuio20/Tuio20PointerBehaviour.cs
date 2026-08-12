@@ -15,15 +15,15 @@ namespace TuioSimulator.Tuio.Tuio20
         public void Init(Tuio20Manager tuioManager, Vector2 startPosition)
         {
             _manager = tuioManager;
-            var container = new Tuio20Object(TuioTime, _manager.CurrentSessionId);
+            var container = new Tuio20Object(Time, _manager.CurrentSessionId);
             Position = startPosition;
-            Pointer = new Tuio20Pointer(TuioTime, container, 0, 0, Translation.Position.FromUnity());
+            Pointer = new Tuio20Pointer(Time, container, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, Vector2.zero.FromUnity(), 0f, 0f, 0f);
             _manager.AddEntity(Pointer);
         }
 
-        protected override void UpdateTuio()
+        protected override void UpdateTuio(Vector2 velocity, float rotationSpeed)
         {
-            Pointer.Update(TuioTime, 0, 0, Translation.Position.FromUnity(), Rotation.Angle, 0f, 0f, 0f, Translation.Velocity.FromUnity(), 0f, Translation.Acceleration, 0f);
+            Pointer.Update(Time, 0, 0, NormalizedPosition.FromUnity(), 0f, 0f, 0f, 0f, velocity.FromUnity(), 0f, 0f, 0f);
         }
 
         private void OnDestroy()
@@ -33,8 +33,7 @@ namespace TuioSimulator.Tuio.Tuio20
 
         public override string DebugText()
         {
-            return $"Id: {Pointer.SessionId}\n" +
-                   $"Position: {Pointer.Position:f2}";
+            return Pointer.DebugText;
         }
     }
 }
