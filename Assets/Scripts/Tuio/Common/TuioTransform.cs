@@ -7,7 +7,7 @@ namespace TuioSimulator.Tuio.Common
     public abstract class TuioTransform : DebugTuio
     {
         protected RectTransform RectTransform;
-        private float Angle => (-RectTransform.localEulerAngles.z + 360f) * Mathf.Deg2Rad;
+        private float Angle => (-RectTransform.localEulerAngles.z + 360f) % 360f * Mathf.Deg2Rad;
 
         private RectTransform _parent;
 
