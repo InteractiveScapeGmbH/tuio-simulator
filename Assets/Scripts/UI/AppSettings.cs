@@ -9,6 +9,8 @@ using TuioSimulator.Tuio.Common;
 using TuioSimulator.Tuio.Tuio11;
 using TuioSimulator.Tuio.Tuio20;
 using UnityEngine;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace TuioSimulator.UI
 {
@@ -24,6 +26,10 @@ namespace TuioSimulator.UI
         [SerializeField] private RectTransform _tuioSpawner;
         [SerializeField] private CanvasGroup[] _configurationsToDisable;
         [SerializeField] private CanvasGroup _sxmSettings;
+        [Header("Screen Capture")]
+        [SerializeField] private ScreenCapture _screenCapture;
+        [SerializeField] private Toggle _screenCaptureSelection;
+        [SerializeField] private CanvasGroup _background;
         [Header("Tuio Settings")]
         [SerializeField] private ServerConfig _serverConfig;
         [Header("Tuio 1.1")]
@@ -68,6 +74,7 @@ namespace TuioSimulator.UI
         private void OnEnable()
         {
             _playButton.AddListener(ToggleSimulator);
+            _screenCaptureSelection.onValueChanged.AddListener(SelectBackground);
             _tuioVersion.onValueChanged.AddListener(OnTuioVersionChange);
         }
 
@@ -75,6 +82,12 @@ namespace TuioSimulator.UI
         {
             _playButton.RemoveAllListeners();
             _tuioVersion.onValueChanged.RemoveAllListeners();
+            _screenCaptureSelection.onValueChanged.RemoveAllListeners();
+        }
+
+        private void SelectBackground(bool withScreenCapture)
+        {
+            _screenCapture.gameObject.SetActive(withScreenCapture);
         }
 
         private void ToggleSimulator()
@@ -88,6 +101,11 @@ namespace TuioSimulator.UI
                 StopSimulator();
             }
             _playButton.UpdateText(IsRunning);
+            if (_screenCapture.gameObject.activeSelf)
+            {
+                _screenCapture.ToggleVisibility(IsRunning);
+            }
+            _background.alpha = IsRunning ? 1 : 0;
         }
 
         private void OnTuioVersionChange(int tuioVersion)

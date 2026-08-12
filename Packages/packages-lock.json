@@ -27,7 +27,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.common": {
-      "version": "12.0.1",
+      "version": "12.0.3",
       "depth": 2,
       "source": "registry",
       "dependencies": {
@@ -99,11 +99,11 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.2d.tooling": {
-      "version": "1.0.0",
+      "version": "1.0.3",
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.2d.common": "12.0.1",
+        "com.unity.2d.common": "12.0.3",
         "com.unity.modules.uielements": "1.0.0"
       },
       "url": "https://packages.unity.com"
@@ -157,7 +157,7 @@
         "com.unity.2d.tilemap": "1.0.0",
         "com.unity.2d.tilemap.extras": "6.0.1",
         "com.unity.2d.aseprite": "3.0.1",
-        "com.unity.2d.tooling": "1.0.0"
+        "com.unity.2d.tooling": "1.0.3"
       }
     },
     "com.unity.ide.rider": {
