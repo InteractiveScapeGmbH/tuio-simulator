@@ -15,6 +15,7 @@ namespace TuioSimulator.Tuio.Tuio20
         [SerializeField] private MouseClicker _mouseClicker;
         [SerializeField] private MouseDrager _mouseDrager;
         [SerializeField] private CurrentIdSO _currentId;
+        [SerializeField] private Tuio20PointerPreview _pointerPreview;
 
         private Tuio20Manager _manager;
         private readonly Dictionary<int, Tuio20PointerBehaviour> _activePointers = new();
@@ -68,8 +69,9 @@ namespace TuioSimulator.Tuio.Tuio20
         private void AddPointer(PointerEventData pointerEventData)
         {
             var pointer = Instantiate(_pointerPrefab, transform);
-            pointer.Init(_manager, pointerEventData.position);
+            pointer.Init(_manager, pointerEventData.position, _pointerPreview.Angle);
             _activePointers[pointerEventData.pointerId] = pointer;
+            _pointerPreview.gameObject.SetActive(false);
         }
         
 
@@ -78,6 +80,10 @@ namespace TuioSimulator.Tuio.Tuio20
             if (_activePointers.Remove(pointerEventData.pointerId, out var pointerBehaviour))
             {
                 Destroy(pointerBehaviour.gameObject);
+            }
+            if (_activePointers.Count == 0)
+            {
+                _pointerPreview.gameObject.SetActive(true);
             }
         }
     }
